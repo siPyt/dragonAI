@@ -1,3 +1,78 @@
+/* SifuConsole: Large, modern chat UI */
+.sifu-console.component-full-width {
+	max-width: 900px;
+	margin: 2.5rem auto;
+	padding: 2.5rem 2rem 2rem 2rem;
+	border-radius: 28px;
+	background: rgba(24, 18, 8, 0.82);
+	box-shadow: 0 8px 40px 0 rgba(0,0,0,0.22), 0 2px 10px 0 rgba(202,153,56,0.10);
+	font-size: 1.25rem;
+}
+.sifu-messages {
+	margin: 2.5rem 0 2rem 0;
+	min-height: 320px;
+	max-height: 480px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 2.2rem;
+}
+.sifu-message {
+	padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+	border-radius: 18px;
+	background: rgba(202,153,56,0.08);
+	font-size: 1.18em;
+	line-height: 1.7;
+	box-shadow: 0 2px 12px 0 rgba(202,153,56,0.07);
+}
+.sifu-message.user {
+	background: rgba(67,170,139,0.13);
+	align-self: flex-end;
+}
+.sifu-message.assistant {
+	background: rgba(202,153,56,0.13);
+	align-self: flex-start;
+}
+.sifu-message-header {
+	font-size: 1.1em;
+	font-weight: 600;
+	margin-bottom: 0.5em;
+}
+.console-form {
+	margin-top: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+.console-textarea {
+	width: 100%;
+	min-height: 90px;
+	font-size: 1.25em;
+	padding: 1.2em 1em;
+	border-radius: 14px;
+	border: 1.5px solid var(--dragon-gold);
+	background: rgba(24,18,8,0.92);
+	color: var(--dragon-text);
+	resize: vertical;
+	margin-bottom: 0.5em;
+}
+.console-submit {
+	font-size: 1.18em;
+	padding: 0.8em 2.2em;
+	border-radius: 12px;
+	background: var(--dragon-gold);
+	color: #222;
+	font-weight: 700;
+	border: none;
+	box-shadow: 0 2px 8px 0 rgba(202,153,56,0.13);
+	cursor: pointer;
+	transition: background 0.18s;
+}
+.console-submit:disabled {
+	background: #b8a16a;
+	color: #fff;
+	cursor: not-allowed;
+}
 .dragon-section { margin: 16px 0; }
 .dragon-link { margin-bottom: 8px; display: inline-block; }
 .dragon-table { width: 100%; border-collapse: collapse; }

@@ -9,16 +9,22 @@ const Tab1: React.FC = () => {
   const pillars = [
     {
       title: 'Source-Locked Guidance',
+      icon: '🔒',
+      color: '#ca9938',
       body:
         'The app voice and structure stay grounded in Tao of Jeet Kune Do, Bruce Lee\'s Fighting Method, his recorded memories, and his fitness writings only.'
     },
     {
       title: 'Directness Over Ornament',
+      icon: '⚡',
+      color: '#e63946',
       body:
         'Every section is built around interception, economy, timing, and adaptability rather than movie mythology or invented lore.'
     },
     {
       title: 'Living Practice',
+      icon: '🔥',
+      color: '#43aa8b',
       body:
         'Training, reflection, and daily conduct are treated as one discipline so the method becomes a way of life instead of a themed archive.'
     }
@@ -147,10 +153,12 @@ const Tab1: React.FC = () => {
           {/* Section: Pillars */}
           <section className="pillar-grid">
             {pillars.map((pillar) => (
-              <article key={pillar.title} className="martial-card pillar-card">
-                <p className="section-kicker">Pillar</p>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.body}</p>
+              <article key={pillar.title} className="martial-card pillar-card" style={{ borderLeft: `6px solid ${pillar.color}` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.7em', marginBottom: '0.5em' }}>
+                  <span style={{ fontSize: '2em', color: pillar.color }}>{pillar.icon}</span>
+                  <h3 style={{ margin: 0 }}>{pillar.title}</h3>
+                </div>
+                <p style={{ color: pillar.color, fontWeight: 500 }}>{pillar.body}</p>
               </article>
             ))}
           </section>
