@@ -1,5 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import JkdSymbol from '../components/JkdSymbol';
+import SifuConsole from '../components/SifuConsole';
+import SourceCanon from '../components/SourceCanon';
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
@@ -87,6 +89,23 @@ const Tab1: React.FC = () => {
                   <span>Daily discipline, conditioning, and working mindset.</span>
                 </div>
               </div>
+            </article>
+          </section>
+
+          <SourceCanon />
+
+          <section className="content-grid two-column-grid sifu-grid">
+            <SifuConsole />
+
+            <article className="martial-card readiness-card">
+              <p className="section-kicker">Behavior Rules</p>
+              <h2>What the virtual sifu is allowed to do</h2>
+              <ul className="text-list">
+                <li>Answer only from the approved Bruce Lee source set and say when the source set is insufficient.</li>
+                <li>Prefer direct language, training cues, and practical distinctions over broad philosophy.</li>
+                <li>Refuse fabricated lineage claims, invented quotations, or unverifiable historical detail.</li>
+                <li>Turn vague questions into study direction, drills, or reflection prompts tied to the canon.</li>
+              </ul>
             </article>
           </section>
 

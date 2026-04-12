@@ -1,4 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import SessionLedger from '../components/SessionLedger';
 import './Tab3.css';
 
 const Tab3: React.FC = () => {
@@ -73,6 +74,8 @@ const Tab3: React.FC = () => {
               <p>The journal and session memory should read like training notes: concise, honest, and specific enough to guide the next repetition.</p>
             </article>
           </section>
+
+          <SessionLedger />
         </div>
       </IonContent>
     </IonPage>

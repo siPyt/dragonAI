@@ -1,0 +1,19 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/doctrine",
+      "destination": "/"
+    },
+    {
+      "source": "/training",
+      "destination": "/"
+    },
+    {
+      "source": "/living-the-way",
+      "destination": "/"
+    }
+  ]
+}

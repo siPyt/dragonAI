@@ -135,7 +135,9 @@
 .two-column-grid,
 .pillar-grid,
 .training-grid,
-.living-grid {
+.living-grid,
+.source-canon-grid,
+.sifu-grid {
   display: grid;
   gap: 1rem;
 }
@@ -195,6 +197,183 @@
   background: linear-gradient(180deg, rgba(31, 9, 9, 0.94), rgba(8, 8, 8, 0.95));
 }
 
+.component-full-width {
+  position: relative;
+  z-index: 1;
+}
+
+.source-canon-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.source-focus-list {
+  margin: 1rem 0 0;
+  padding-left: 1rem;
+  color: var(--dragon-muted);
+}
+
+.source-focus-list li + li {
+  margin-top: 0.5rem;
+}
+
+.source-quote {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(202, 153, 56, 0.15);
+  color: var(--dragon-gold-soft);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.sifu-console,
+.session-ledger {
+  display: grid;
+  gap: 1rem;
+}
+
+.sifu-status {
+  color: var(--dragon-gold-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sifu-messages,
+.session-entry-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.sifu-message {
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(202, 153, 56, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sifu-message.user {
+  border-color: rgba(197, 29, 29, 0.32);
+  background: rgba(140, 17, 17, 0.15);
+}
+
+.sifu-message-header,
+.ledger-entry-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+  color: var(--dragon-gold-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sifu-message p,
+.ledger-entry-body p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.sifu-prompt-row,
+.session-field-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.prompt-chip-button,
+.ledger-button,
+.console-submit {
+  border: 1px solid rgba(202, 153, 56, 0.28);
+  border-radius: 999px;
+  background: rgba(140, 17, 17, 0.22);
+  color: var(--dragon-text);
+  padding: 0.8rem 1rem;
+  font: inherit;
+  letter-spacing: 0.05em;
+}
+
+.prompt-chip-button {
+  text-align: left;
+}
+
+.console-form,
+.ledger-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.console-textarea,
+.ledger-input,
+.ledger-textarea {
+  width: 100%;
+  border: 1px solid rgba(202, 153, 56, 0.22);
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--dragon-text);
+  padding: 0.95rem 1rem;
+  font: inherit;
+}
+
+.console-textarea,
+.ledger-textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.console-actions,
+.ledger-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.console-hint,
+.ledger-hint {
+  color: var(--dragon-muted);
+  font-size: 0.92rem;
+}
+
+.console-submit:disabled,
+.ledger-button:disabled {
+  opacity: 0.55;
+}
+
+.ledger-button {
+  border-radius: 18px;
+  justify-self: start;
+}
+
+.ledger-entry {
+  padding: 1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(202, 153, 56, 0.18);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ledger-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.ledger-tag {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(202, 153, 56, 0.14);
+  color: var(--dragon-gold-soft);
+  font-size: 0.8rem;
+}
+
+.empty-state {
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px dashed rgba(202, 153, 56, 0.22);
+  color: var(--dragon-muted);
+}
+
 @media (min-width: 768px) {
   .martial-page {
     padding-inline: clamp(1.5rem, 4vw, 3rem);
@@ -209,7 +388,12 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .sifu-grid,
   .living-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .session-field-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
