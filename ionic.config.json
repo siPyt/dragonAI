@@ -1,0 +1,7 @@
+{
+  "name": "dragonAI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
