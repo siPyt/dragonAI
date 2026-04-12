@@ -51,6 +51,11 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="martial-content">
+        {/* Top JKD Symbol and Title */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2.5rem', marginBottom: '1.5rem' }}>
+          <JkdSymbol />
+          <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '2.5rem', color: '#ca9938', margin: '0.5rem 0 0 0', letterSpacing: '0.06em', textShadow: '0 2px 8px #0008' }}>Jeet Kune Do</h1>
+        </div>
         <IonHeader collapse="condense">
           <IonToolbar className="martial-toolbar">
             <IonTitle size="large">Doctrine</IonTitle>
