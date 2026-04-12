@@ -79,6 +79,7 @@ function getRandomDrill(range: Drill['range']) {
 import { useEffect, useState } from 'react';
 import PromotionTracker from './PromotionTracker';
 import SifuPromotionCriteria from './SifuPromotionCriteria';
+import PromotionChecklist from './PromotionChecklist';
 
 const getCurrentLevel = () => {
   // This should match PromotionTracker logic
@@ -140,6 +141,7 @@ export default function TrainingSessionGenerator({ equipment = ['none'] }: { equ
     <section className="martial-card training-session-generator">
       <h2>Generate Complete Training Session</h2>
       <div className="plan-note">Current Goal: <strong>{currentLevel}</strong></div>
+      <PromotionChecklist currentLevel={currentLevel} />
       <button className="ledger-button" onClick={generateSession}>Generate Session</button>
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
