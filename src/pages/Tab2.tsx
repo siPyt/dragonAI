@@ -43,7 +43,7 @@ const Tab2: React.FC = () => {
             ))}
           </section>
 
-          <TrainingSessionGenerator />
+          <TrainingSessionGenerator equipment={['none']} />
 
           <section className="content-grid two-column-grid">
             <article className="martial-card timeline-card">

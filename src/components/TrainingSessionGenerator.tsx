@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Drill {
   range: 'Kicking' | 'Punching' | 'Trapping' | 'Grappling';
@@ -76,10 +76,14 @@ function getRandomDrill(range: Drill['range']) {
   return options[Math.floor(Math.random() * options.length)];
 }
 
-import { useEffect, useState } from 'react';
+
 import PromotionTracker from './PromotionTracker';
 import SifuPromotionCriteria from './SifuPromotionCriteria';
 import PromotionChecklist from './PromotionChecklist';
+
+interface TrainingSessionGeneratorProps {
+  equipment: string[];
+}
 
 const getCurrentLevel = () => {
   // This should match PromotionTracker logic
@@ -109,7 +113,7 @@ const getCurrentLevel = () => {
   return 'Initiate';
 };
 
-
+const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equipment }) => {
   const [session, setSession] = useState<Drill[]>([]);
   const [currentLevel, setCurrentLevel] = useState<string>(getCurrentLevel());
   const [userInfo, setUserInfo] = useState<{height: string, weight: string, age: string} | null>(null);
@@ -202,4 +206,6 @@ const getCurrentLevel = () => {
       )}
     </section>
   );
-}
+};
+
+export default TrainingSessionGenerator;
