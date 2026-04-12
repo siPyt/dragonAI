@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { elevenlabsTTS } from '../utils/elevenlabsTTS';
 
 const combos = [
   'Jab-Cross',
@@ -22,13 +23,15 @@ export default function LiveTraining() {
   const [currentCombo, setCurrentCombo] = useState('');
   const timerRef = useRef(null as null | number);
 
-  const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utter = new window.SpeechSynthesisUtterance(text);
-      utter.rate = 1.05;
-      utter.pitch = 1.1;
-      window.speechSynthesis.speak(utter);
-    }
+  const speak = async (text: string) => {
+    try {
+      const audioBlob = await elevenlabsTTS(text);
+      if (audioBlob) {
+        const url = URL.createObjectURL(audioBlob);
+        const audio = new Audio(url);
+        audio.play();
+      }
+    } catch {}
   };
 
   const start = () => {
@@ -40,14 +43,13 @@ export default function LiveTraining() {
     setActive(false);
     setCurrentCombo('');
     if (timerRef.current) window.clearTimeout(timerRef.current);
-    window.speechSynthesis.cancel();
   };
 
-  const nextCombo = () => {
+  const nextCombo = async () => {
     if (!active) return;
     const combo = getRandomCombo();
     setCurrentCombo(combo);
-    speak(combo);
+    await speak(combo);
     timerRef.current = window.setTimeout(nextCombo, 2000 + Math.random() * 2000);
   };
 
@@ -56,7 +58,6 @@ export default function LiveTraining() {
     nextCombo();
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
-      window.speechSynthesis.cancel();
     };
     // eslint-disable-next-line
   }, [active]);
