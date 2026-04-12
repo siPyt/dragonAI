@@ -1,14 +1,5 @@
 import SifuAdaptiveGuidance from './SifuAdaptiveGuidance';
-import SifuAdaptiveGuidance from './SifuAdaptiveGuidance';
 import SifuPromotionCriteria from './SifuPromotionCriteria';
-import { useEffect, useState } from 'react';
-import TrainingSessionGenerator from './TrainingSessionGenerator';
-import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
-import CameraPoseFeedback from './CameraPoseFeedback';
-import ProgressTracker from './ProgressTracker';
-import PromotionTracker from './PromotionTracker';
-import FlexibilityAssessment from './FlexibilityAssessment';
-import EquipmentSelector from './EquipmentSelector';
 import { useEffect, useState } from 'react';
 import TrainingSessionGenerator from './TrainingSessionGenerator';
 import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
@@ -100,6 +91,9 @@ export default function DailySifuGuidance() {
       </ol>
       <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
       <a href="/info" className="ledger-button dragon-link">View Advancement Criteria</a>
+      <div className="dragon-section">
+        <SifuCallsShadowBoxing />
+      </div>
       <div className="dragon-section">
         <CameraPoseFeedback />
       </div>
