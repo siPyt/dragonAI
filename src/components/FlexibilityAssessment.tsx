@@ -45,7 +45,7 @@ export default function FlexibilityAssessment() {
       {active && (
         <div className="assessment-instructions">
           <p>{instructions}</p>
-           <video ref={videoRef} autoPlay playsInline width={320} height={240} className="dragon-video" width={320} height={240} />
+           <video ref={videoRef} autoPlay playsInline className="dragon-video" width={320} height={240} />
            <div className="dragon-section">
              <label>Enter your reach (cm): <input type="number" value={inputScore} onChange={e => setInputScore(e.target.value)} className="dragon-input" style={{ width: 60 }} /></label>
            </div>
@@ -55,8 +55,6 @@ export default function FlexibilityAssessment() {
       {score !== null && <div className="assessment-score">Result: {score} cm</div>}
       <p className="plan-note">Track your flexibility over time. Sifu will adapt your plan as you improve.</p>
        <div className="dragon-section">
-        <button onClick={handleSave} className="dragon-btn-mr">Save</button>
-        <button onClick={handleReset} className="dragon-btn-mr">Reset</button>
         <button onClick={measureWithCamera}>Measure with Camera (Soon)</button>
       </div>
     </section>

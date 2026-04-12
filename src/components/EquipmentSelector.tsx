@@ -16,7 +16,12 @@ const equipmentList = [
   { key: 'abWheel', label: 'Ab Wheel' }
 ];
 
-export default function EquipmentSelector({ onChange, value }) {
+interface EquipmentSelectorProps {
+  onChange: (value: string[]) => void;
+  value: string[];
+}
+
+export default function EquipmentSelector({ onChange, value }: EquipmentSelectorProps) {
   return (
     <section className="martial-card equipment-selector">
       <h3>Training Equipment</h3>
@@ -29,7 +34,7 @@ export default function EquipmentSelector({ onChange, value }) {
               checked={value.includes(item.key)}
               onChange={() => {
                 if (value.includes(item.key)) {
-                  onChange(value.filter((k) => k !== item.key));
+                  onChange(value.filter((k: string) => k !== item.key));
                 } else {
                   onChange([...value, item.key]);
                 }

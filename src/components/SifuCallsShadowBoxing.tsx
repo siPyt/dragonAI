@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
-const combos = [
+interface Combo {
+  type: string;
+  call: string;
+  source: string;
+}
+
+const combos: Combo[] = [
   // Direct Attack
   { type: 'Direct Attack', call: 'Lead Straight Punch', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22' },
   { type: 'Direct Attack', call: 'Lead Side Stop Kick', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34' },
@@ -20,38 +26,45 @@ const combos = [
   { type: 'Attack by Combination', call: 'Jab, cross, lead hook, low side kick', source: 'Tao of Jeet Kune Do, p. 71' },
 ];
 
-function getRandomCombo() {
+
+function getRandomCombo(): Combo {
   return combos[Math.floor(Math.random() * combos.length)];
 }
 
+
 export default function SifuCallsShadowBoxing() {
-  const [current, setCurrent] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [current, setCurrent] = useState<Combo | null>(null);
+  const [history, setHistory] = useState<Combo[]>([]);
   const [running, setRunning] = useState(false);
-  const [timer, setTimer] = useState(0);
-  const [responseTimes, setResponseTimes] = useState([]);
-  const timerRef = useRef(null);
-  const callTimeRef = useRef(null);
+  const [timer, setTimer] = useState<number>(0);
+  const [responseTimes, setResponseTimes] = useState<number[]>([]);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const callTimeRef = useRef<number | null>(null);
+
 
   useEffect(() => {
     if (!running) return;
     function nextCall() {
       const combo = getRandomCombo();
       setCurrent(combo);
-      setHistory((h) => [combo, ...h].slice(0, 10));
+      setHistory((h: Combo[]) => [combo, ...h].slice(0, 10));
       callTimeRef.current = Date.now();
       timerRef.current = setTimeout(nextCall, 3000 + Math.random() * 2000);
     }
     nextCall();
-    return () => clearTimeout(timerRef.current);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [running]);
+
 
   function markResponded() {
     if (!callTimeRef.current) return;
     const rt = Date.now() - callTimeRef.current;
-    setResponseTimes((rts) => [rt, ...rts].slice(0, 10));
+    setResponseTimes((rts: number[]) => [rt, ...rts].slice(0, 10));
     callTimeRef.current = null;
   }
+
 
   return (
     <section className="martial-card sifu-calls-shadowboxing">

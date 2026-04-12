@@ -24,14 +24,14 @@ const skills = [
 ];
 
 export default function SkillTracker() {
-  const [ratings, setRatings] = useState(() => {
+  const [ratings, setRatings] = useState<number[]>(() => {
     const stored = localStorage.getItem('skill-ratings');
     return stored ? JSON.parse(stored) : skills.map(() => 0);
   });
 
   const setRating = (idx: number, value: number) => {
-    setRatings((prev) => {
-      const updated = prev.map((r, i) => (i === idx ? value : r));
+    setRatings((prev: number[]) => {
+      const updated = prev.map((r: number, i: number) => (i === idx ? value : r));
       localStorage.setItem('skill-ratings', JSON.stringify(updated));
       return updated;
     });

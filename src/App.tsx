@@ -97,12 +97,6 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-      <ReactionDrill />
-      <SifuProgressVisualization />
-      <SifuReflexLeaderboard />
-      <SifuFlexibilityLeaderboard />
-      <SifuStreakTracker />
-      <LiveTraining />
 );
 
 export default App;

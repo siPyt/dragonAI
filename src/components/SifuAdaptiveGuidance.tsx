@@ -38,7 +38,7 @@ function getAdvice() {
   let weakSkill = '';
   if (ratings.length === skills.length) {
     let min = Math.min(...ratings);
-    let idx = ratings.findIndex((r) => r === min);
+    let idx = ratings.findIndex((r: number) => r === min);
     if (min < 3) weakSkill = skills[idx];
   }
   if (streak < 4) {

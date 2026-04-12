@@ -43,7 +43,7 @@ export default function SifuStreakTracker() {
     <section className="martial-card streak-tracker">
       <h2>Training Streak</h2>
       <div className="dragon-streak-row">
-        {week.map((trained, i) => (
+        {week.map((trained: boolean, i: number) => (
           <div key={i} className={trained ? 'dragon-streak-day dragon-streak-trained' : 'dragon-streak-day dragon-streak-untrained'}>{days[i]}</div>
         ))}
       </div>

@@ -16,7 +16,7 @@ export default function ProgressTracker() {
   }, [attendance]);
 
   function markToday() {
-    setAttendance((prev) => ({ ...prev, [today]: true }));
+    setAttendance((prev: Record<string, boolean>) => ({ ...prev, [today]: true }));
   }
 
   const days = Array.from({ length: 14 }, (_, i) => {

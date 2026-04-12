@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 
+interface PromotionStats {
+  days: number;
+  streak: number;
+}
+
 const levels = [
-  { name: 'Beginner', criteria: (data) => data.days >= 7 && data.streak >= 3 },
-  { name: 'Intermediate', criteria: (data) => data.days >= 30 && data.streak >= 7 },
-  { name: 'Advanced', criteria: (data) => data.days >= 90 && data.streak >= 21 },
-  { name: 'JKD Practitioner', criteria: (data) => data.days >= 180 && data.streak >= 30 },
-  { name: 'JKD Sifu', criteria: (data) => data.days >= 365 && data.streak >= 60 }
+  { name: 'Beginner', criteria: (data: PromotionStats) => data.days >= 7 && data.streak >= 3 },
+  { name: 'Intermediate', criteria: (data: PromotionStats) => data.days >= 30 && data.streak >= 7 },
+  { name: 'Advanced', criteria: (data: PromotionStats) => data.days >= 90 && data.streak >= 21 },
+  { name: 'JKD Practitioner', criteria: (data: PromotionStats) => data.days >= 180 && data.streak >= 30 },
+  { name: 'JKD Sifu', criteria: (data: PromotionStats) => data.days >= 365 && data.streak >= 60 }
 ];
 
 function getAttendance() {
@@ -15,18 +20,18 @@ function getAttendance() {
 
 function getStats() {
   const attendance = getAttendance();
-  const days = Object.keys(attendance).filter((d) => attendance[d]).length;
+  const days = Object.keys(attendance).filter((d: string) => attendance[d]).length;
   let streak = 0;
   let maxStreak = 0;
-  let prev = null;
+  let prev: string | null = null;
   Object.keys(attendance)
     .sort()
-    .forEach((d) => {
+    .forEach((d: string) => {
       if (!attendance[d]) return;
       if (!prev) {
         streak = 1;
       } else {
-        const diff = (new Date(d) - new Date(prev)) / (1000 * 60 * 60 * 24);
+        const diff = (new Date(d).getTime() - new Date(prev).getTime()) / (1000 * 60 * 60 * 24);
         if (diff === 1) streak++;
         else streak = 1;
       }
