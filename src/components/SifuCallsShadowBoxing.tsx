@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { elevenlabsTTS } from '../utils/elevenlabsTTS';
 
 interface Combo {
   type: string;
@@ -44,15 +45,28 @@ export default function SifuCallsShadowBoxing() {
 
   useEffect(() => {
     if (!running) return;
+    let cancelled = false;
+    async function speakCombo(combo: Combo) {
+      try {
+        const audioBlob = await elevenlabsTTS(combo.call);
+        if (audioBlob && !cancelled) {
+          const url = URL.createObjectURL(audioBlob);
+          const audio = new Audio(url);
+          audio.play();
+        }
+      } catch {}
+    }
     function nextCall() {
       const combo = getRandomCombo();
       setCurrent(combo);
       setHistory((h: Combo[]) => [combo, ...h].slice(0, 10));
       callTimeRef.current = Date.now();
+      speakCombo(combo);
       timerRef.current = setTimeout(nextCall, 3000 + Math.random() * 2000);
     }
     nextCall();
     return () => {
+      cancelled = true;
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [running]);
