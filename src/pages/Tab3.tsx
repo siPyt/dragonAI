@@ -4,10 +4,10 @@ import './Tab3.css';
 
 const Tab3: React.FC = () => {
   const rituals = [
-    'Begin with a clear training intention rather than random consumption.',
-    'Keep a brief record of what felt false, forced, or unnecessary.',
-    'Preserve recovery, mobility, and sleep as part of the martial discipline.',
-    'Measure daily life by clarity and control, not by performance theater.'
+    'Begin with a clear training intention.',
+    'Keep a brief record of what worked and what needs improvement.',
+    'Include recovery, mobility, and rest as part of the discipline.',
+    'Focus on clarity and control in daily life.'
   ];
 
   return (
@@ -29,18 +29,18 @@ const Tab3: React.FC = () => {
             </article>
             <article className="journal-card minimal-card">
               <div className="prompt-stack minimal-stack">
-                <div>
-                  <strong>What was wasteful today?</strong>
-                  <span>Remove one habit, one motion, or one thought that added friction.</span>
-                </div>
-                <div>
-                  <strong>Where was timing lost?</strong>
-                  <span>Note whether the issue came from hesitation, tension, or poor preparation.</span>
-                </div>
-                <div>
-                  <strong>What became more direct?</strong>
-                  <span>Capture the one action that felt simpler and truer than before.</span>
-                </div>
+                  <div>
+                    <strong>What could be improved today?</strong>
+                    <span>Identify one habit, motion, or thought to refine.</span>
+                  </div>
+                  <div>
+                    <strong>Where was timing off?</strong>
+                    <span>Note if the issue was hesitation, tension, or preparation.</span>
+                  </div>
+                  <div>
+                    <strong>What felt more direct?</strong>
+                    <span>Capture one action that was simpler or more effective than before.</span>
+                  </div>
               </div>
             </article>
           </section>

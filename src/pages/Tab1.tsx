@@ -11,36 +11,33 @@ const Tab1: React.FC = () => {
       title: 'Source-Locked Guidance',
       icon: '🔒',
       color: '#ca9938',
-      body:
-        'The app voice and structure stay grounded in Tao of Jeet Kune Do, Bruce Lee\'s Fighting Method, his recorded memories, and his fitness writings only.'
+      body: 'The app is grounded in authentic martial arts principles and training methods.'
     },
     {
       title: 'Directness Over Ornament',
       icon: '⚡',
       color: '#e63946',
-      body:
-        'Every section is built around interception, economy, timing, and adaptability rather than movie mythology or invented lore.'
+      body: 'Every section is built around practical training, adaptability, and simplicity.'
     },
     {
       title: 'Living Practice',
       icon: '🔥',
       color: '#43aa8b',
-      body:
-        'Training, reflection, and daily conduct are treated as one discipline so the method becomes a way of life instead of a themed archive.'
+      body: 'Training, reflection, and daily conduct are unified as a way of life.'
     }
   ];
 
   const doctrineItems = [
-    'Simplicity and directness: "It is not daily increase but daily decrease—hack away the unessential." (Tao of Jeet Kune Do, p. 24)',
-    'Personal expression: "Absorb what is useful, reject what is useless, add what is specifically your own." (Bruce Lee’s Fighting Method, Vol. 1, p. 10)',
-    'Disciplined adaptation: "The martial way is not static, but a living process of refinement." (Living the Martial Way, p. 5)',
-    'Physical cultivation: "The body is an instrument of the mind." (The Art of Expressing the Human Body, p. 8)'
+    'Simplicity and directness in training and mindset.',
+    'Personal expression and adaptation within disciplined practice.',
+    'Continuous refinement and learning.',
+    'Physical and mental cultivation as one process.'
   ];
 
   const commandDeck = [
-    'Authenticity lock: All answers are strictly sourced from: Tao of Jeet Kune Do, Bruce Lee’s Fighting Method (all volumes), The Art of Expressing the Human Body, and Living the Martial Way.',
-    'Voice lane: Browser speech input captures commands; spoken replies are played back. (No content outside approved sources.)',
-    'Session memory: Practice ledger stores concise local records of training intent and refinement, inspired by Bruce Lee’s own training notes.'
+    'All answers are based on authentic martial arts sources and training experience.',
+    'Voice input and spoken replies are supported.',
+    'Session memory stores concise records of training and refinement.'
   ];
 
   return (
@@ -51,9 +48,10 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="martial-content">
-        {/* Top JKD Symbol only, no label */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem', marginBottom: '1.5rem' }}>
+        {/* Top JKD Symbol and Jeet Kune Do title */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2.5rem', marginBottom: '1.5rem' }}>
           <JkdSymbol />
+          <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '2.2rem', color: '#ca9938', margin: '0.7rem 0 0 0', letterSpacing: '0.06em', textShadow: '0 2px 8px #0008' }}>Jeet Kune Do</h1>
         </div>
         <IonHeader collapse="condense">
           <IonToolbar className="martial-toolbar">

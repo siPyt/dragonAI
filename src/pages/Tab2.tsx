@@ -6,15 +6,15 @@ const Tab2: React.FC = () => {
   const modules = [
     {
       title: 'Interception Session',
-      body: 'Reaction cue work, stop-hit entries, longest weapon to nearest target, and timing rounds built around economy.'
+      body: 'Reaction cues, timing drills, and practical entries.'
     },
     {
       title: 'Mobility and Structure',
-      body: 'Stance transitions, broken rhythm, lead-side efficiency, and footwork lines that preserve balance under pressure.'
+      body: 'Stance transitions, balance, and efficient footwork.'
     },
     {
       title: 'Conditioning Layer',
-      body: 'Roadwork, skip rope, trunk strength, flexibility, and repeatable bodyweight circuits drawn from Bruce Lee\'s training emphasis.'
+      body: 'Cardio, flexibility, and bodyweight circuits.'
     }
   ];
 
@@ -23,7 +23,7 @@ const Tab2: React.FC = () => {
     'Economy of motion',
     'Range recognition',
     'Recovery and breath control'
-  ];
+  ]; // Kept generic, no quotes
 
   return (
     <IonPage>
