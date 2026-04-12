@@ -1,4 +1,4 @@
-import { streamText } from 'ai';
+import { gateway, streamText } from 'ai';
 
 interface IncomingMessage {
   role: 'user' | 'assistant';
@@ -25,6 +25,15 @@ function buildTranscript(messages: IncomingMessage[]) {
 }
 
 export default async function handler(req: any, res: any) {
+  if (req.method === 'GET') {
+    res.status(200).json({
+      ok: true,
+      hasGatewayKey: Boolean(process.env.AI_GATEWAY_API_KEY),
+      model: 'openai/gpt-5.4'
+    });
+    return;
+  }
+
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
@@ -48,7 +57,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const result = streamText({
-      model: 'openai/gpt-5.4',
+      model: gateway('openai/gpt-5.4'),
       system:
         'You are a virtual Bruce Lee Jeet Kune Do sifu for DragonAI. Only answer from these approved source boundaries: Tao of Jeet Kune Do, Bruce Lee\'s Fighting Method, Bruce Lee memories, and Bruce Lee fitness writings. Treat the experience as a serious martial study hall, not entertainment. Do not invent quotes, history, lineage, or technique details outside those sources. If the approved sources do not contain enough information, state that directly and do not fill the gap. Keep answers concise, practical, and disciplined. Prefer drills, distinctions, reflection prompts, and training corrections over vague philosophy. When useful, structure answers as short sections such as principle, drill, warning, or reflection.',
       prompt: transcript

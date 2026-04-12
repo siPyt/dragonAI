@@ -59,6 +59,15 @@ function createId(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function extractErrorMessage(rawText: string) {
+  try {
+    const parsed = JSON.parse(rawText) as { error?: string };
+    return parsed.error || rawText;
+  } catch {
+    return rawText;
+  }
+}
+
 const SifuConsole: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([initialMessage]);
   const [input, setInput] = useState('');
@@ -73,6 +82,35 @@ const SifuConsole: React.FC = () => {
   const promptButtons = useMemo(() => starterPrompts, []);
 
   useEffect(() => {
+    void (async () => {
+      try {
+        const response = await fetch(apiUrl, { method: 'GET' });
+        if (!response.ok) {
+          setStatusText('Chat endpoint reachable, but health check failed.');
+          return;
+        }
+
+        const payload = (await response.json()) as {
+          ok?: boolean;
+          hasGatewayKey?: boolean;
+        };
+
+        if (!payload.ok) {
+          setStatusText('Chat endpoint did not confirm readiness.');
+          return;
+        }
+
+        if (!payload.hasGatewayKey) {
+          setStatusText('Gateway key missing on the server.');
+          return;
+        }
+
+        setStatusText('Sifu console online.');
+      } catch {
+        setStatusText('Chat endpoint not reachable from this deployment.');
+      }
+    })();
+
     const recognitionApi = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!recognitionApi) {
       return;
@@ -223,7 +261,7 @@ const SifuConsole: React.FC = () => {
 
       if (!response.ok || !response.body) {
         const fallbackError = await response.text();
-        throw new Error(fallbackError || 'The chat endpoint did not return a stream.');
+        throw new Error(extractErrorMessage(fallbackError) || 'The chat endpoint did not return a stream.');
       }
 
       const reader = response.body.getReader();
@@ -259,7 +297,7 @@ const SifuConsole: React.FC = () => {
             ? {
                 ...entry,
                 content:
-                  'The virtual sifu is unavailable right now. Check AI Gateway setup and run a Vercel-compatible API server.\n\nDetails: ' + message
+                  'The virtual sifu is unavailable right now.\n\nDetails: ' + message
               }
             : entry
         )
