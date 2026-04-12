@@ -51,10 +51,9 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="martial-content">
-        {/* Top JKD Symbol and Title */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2.5rem', marginBottom: '1.5rem' }}>
+        {/* Top JKD Symbol only, no label */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem', marginBottom: '1.5rem' }}>
           <JkdSymbol />
-          <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '2.5rem', color: '#ca9938', margin: '0.5rem 0 0 0', letterSpacing: '0.06em', textShadow: '0 2px 8px #0008' }}>Jeet Kune Do</h1>
         </div>
         <IonHeader collapse="condense">
           <IonToolbar className="martial-toolbar">
@@ -63,7 +62,7 @@ const Tab1: React.FC = () => {
         </IonHeader>
         <div className="martial-page doctrine-page">
           <DailySifuGuidance />
-          {/* Hero Section: Brand, Symbol, and Command Deck */}
+          {/* Hero Section: Brand and Command Deck (no symbol, no extra label) */}
           <section className="hero-panel">
             <div className="hero-copy">
               <p className="section-kicker">dragon_ai // Virtual Sifu</p>
@@ -83,13 +82,6 @@ const Tab1: React.FC = () => {
                     <p>{item}</p>
                   </div>
                 ))}
-              </div>
-            </div>
-            <div className="hero-symbol-card">
-              <JkdSymbol />
-              <div className="symbol-plaque">
-                <span>Living The Martial Way</span>
-                <strong>Interception. Economy. Expression.</strong>
               </div>
             </div>
           </section>
