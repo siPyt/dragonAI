@@ -1,4 +1,4 @@
-import { gateway, streamText } from 'ai';
+import { createGateway, streamText } from 'ai';
 
 interface IncomingMessage {
   role: 'user' | 'assistant';
@@ -24,11 +24,17 @@ function buildTranscript(messages: IncomingMessage[]) {
     .join('\n\n');
 }
 
+function getGatewayApiKey() {
+  return process.env.AI_GATEWAY_API_KEY || process.env.DRAGON_AI || process.env.dragon_ai || '';
+}
+
 export default async function handler(req: any, res: any) {
+  const gatewayApiKey = getGatewayApiKey();
+
   if (req.method === 'GET') {
     res.status(200).json({
       ok: true,
-      hasGatewayKey: Boolean(process.env.AI_GATEWAY_API_KEY),
+      hasGatewayKey: Boolean(gatewayApiKey),
       model: 'openai/gpt-5.4'
     });
     return;
@@ -39,9 +45,9 @@ export default async function handler(req: any, res: any) {
     return;
   }
 
-  if (!process.env.AI_GATEWAY_API_KEY) {
+  if (!gatewayApiKey) {
     res.status(500).json({
-      error: 'Missing AI_GATEWAY_API_KEY. Configure it in Vercel or your local environment.'
+      error: 'Missing AI gateway key. Configure AI_GATEWAY_API_KEY, DRAGON_AI, or dragon_ai in Vercel.'
     });
     return;
   }
@@ -56,8 +62,12 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
+    const aiGateway = createGateway({
+      apiKey: gatewayApiKey
+    });
+
     const result = streamText({
-      model: gateway('openai/gpt-5.4'),
+      model: aiGateway('openai/gpt-5.4'),
       system:
         'You are a virtual Bruce Lee Jeet Kune Do sifu for DragonAI. Only answer from these approved source boundaries: Tao of Jeet Kune Do, Bruce Lee\'s Fighting Method, Bruce Lee memories, and Bruce Lee fitness writings. Treat the experience as a serious martial study hall, not entertainment. Do not invent quotes, history, lineage, or technique details outside those sources. If the approved sources do not contain enough information, state that directly and do not fill the gap. Keep answers concise, practical, and disciplined. Prefer drills, distinctions, reflection prompts, and training corrections over vague philosophy. When useful, structure answers as short sections such as principle, drill, warning, or reflection.',
       prompt: transcript
