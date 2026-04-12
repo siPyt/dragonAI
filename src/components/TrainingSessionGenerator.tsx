@@ -132,9 +132,11 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   function handleUserInfoSubmit(e: React.FormEvent) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const height = (form.elements.namedItem('height') as HTMLInputElement).value;
+    const heightFeet = (form.elements.namedItem('heightFeet') as HTMLInputElement).value;
+    const heightInches = (form.elements.namedItem('heightInches') as HTMLInputElement).value;
     const weight = (form.elements.namedItem('weight') as HTMLInputElement).value;
     const age = (form.elements.namedItem('age') as HTMLInputElement).value;
+    const height = `${heightFeet}'${heightInches}\"`;
     const info = { height, weight, age };
     setUserInfo(info);
     window.localStorage.setItem('dragon_ai-user-info', JSON.stringify(info));
@@ -174,10 +176,12 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
         <form className="user-info-form" onSubmit={handleUserInfoSubmit} style={{marginBottom: 16}}>
           <h3>Tell Sifu about you</h3>
           <label>
-            Height (cm): <input name="height" type="number" min="100" max="250" required />
+            Height:
+            <input name="heightFeet" type="number" min="3" max="7" required style={{ width: 50, marginRight: 4 }} placeholder="ft" /> ft
+            <input name="heightInches" type="number" min="0" max="11" required style={{ width: 50, marginLeft: 8, marginRight: 4 }} placeholder="in" /> in
           </label>
           <label>
-            Weight (kg): <input name="weight" type="number" min="30" max="250" required />
+            Weight (lbs): <input name="weight" type="number" min="50" max="500" required />
           </label>
           <label>
             Age: <input name="age" type="number" min="10" max="100" required />
@@ -186,7 +190,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
         </form>
       )}
       {userInfo && (
-        <div className="plan-note">Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}cm, Weight: {userInfo.weight}kg</div>
+        <div className="plan-note">Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
       )}
       <PromotionChecklist currentLevel={currentLevel} />
       <button className="ledger-button" onClick={generateSession} disabled={showUserInfoForm}>Generate Session</button>
