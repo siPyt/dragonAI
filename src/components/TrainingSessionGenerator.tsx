@@ -8,67 +8,25 @@ interface Drill {
   levels: string[]; // Promotion levels this drill helps with
 }
 
+// Five Ways of Attack (JKD)
 const drills: Drill[] = [
-  // Kicking
-  {
-    range: 'Kicking',
-    name: 'Lead Side Stop Kick',
-    description: 'Intercept the opponent’s advance with a lead leg stop kick to the knee or midsection. Focus on timing and minimal telegraphing.',
-    source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34',
-    levels: ['Initiate', 'Year 1: Fighter']
-  },
-  {
-    range: 'Kicking',
-    name: 'Pendulum Side Kick',
-    description: 'Use the pendulum step to close distance and deliver a fast side kick to the opponent’s midsection.',
-    source: 'Tao of Jeet Kune Do, p. 56',
-    levels: ['Initiate', 'Year 1: Fighter']
-  },
-  // Punching
-  {
-    range: 'Punching',
-    name: 'Lead Straight Punch',
-    description: 'From on-guard, fire a non-telegraphed lead straight punch to the opponent’s chin. Recover instantly to guard.',
-    source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22',
-    levels: ['Initiate', 'Year 1: Fighter']
-  },
-  {
-    range: 'Punching',
-    name: 'Jab-Cross-Hook Combo',
-    description: 'Throw a jab, cross, and lead hook in rapid succession, focusing on speed and flow.',
-    source: 'The Art of Expressing the Human Body, p. 88',
-    levels: ['Year 1: Fighter', 'Year 2: Practitioner']
-  },
-  // Trapping
-  {
-    range: 'Trapping',
-    name: 'Pak Sao-Lap Sao Drill',
-    description: 'Use a pak sao (slapping hand) to clear the opponent’s guard, then lap sao (pulling hand) to control and strike.',
-    source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41',
-    levels: ['Year 1: Fighter', 'Year 2: Practitioner']
-  },
-  {
-    range: 'Trapping',
-    name: 'Chi Sao Sensitivity',
-    description: 'Practice rolling hands with a partner, focusing on feeling for openings and immediate counterattack.',
-    source: 'Tao of Jeet Kune Do, p. 102',
-    levels: ['Year 2: Practitioner', 'Year 3: Senior']
-  },
-  // Grappling
-  {
-    range: 'Grappling',
-    name: 'Standing Clinch Escape',
-    description: 'From a clinch, use hip movement and hand fighting to break free and create striking distance.',
-    source: 'Living the Martial Way, p. 112',
-    levels: ['Year 2: Practitioner', 'Year 3: Senior']
-  },
-  {
-    range: 'Grappling',
-    name: 'Sprawl and Counter',
-    description: 'When the opponent shoots for a takedown, sprawl your legs back and counter with a crossface or underhook.',
-    source: 'The Art of Expressing the Human Body, p. 144',
-    levels: ['Year 2: Practitioner', 'Year 3: Senior']
-  }
+  // Direct Attack
+  { range: 'Punching', name: 'Lead Straight Punch', description: 'Direct attack: Fire a non-telegraphed lead straight punch to the chin. Recover instantly to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22', levels: ['Initiate', 'Year 1: Fighter'] },
+  { range: 'Kicking', name: 'Lead Side Stop Kick', description: 'Direct attack: Intercept with a lead leg stop kick to the knee or midsection.', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34', levels: ['Initiate', 'Year 1: Fighter'] },
+  // Attack by Combination
+  { range: 'Punching', name: 'Jab-Cross-Hook Combo', description: 'Attack by combination: Jab, cross, and lead hook in rapid succession.', source: 'The Art of Expressing the Human Body, p. 88', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
+  { range: 'Kicking', name: 'Jab, Cross, Low Side Kick', description: 'Attack by combination: Jab, cross, then low side kick.', source: 'Tao of Jeet Kune Do, p. 71', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  // Progressive Indirect Attack
+  { range: 'Kicking', name: 'Jab, Feint, Low Side Kick', description: 'Progressive indirect attack: Jab, feint, then low side kick.', source: 'Tao of Jeet Kune Do, p. 70', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Punching', name: 'Jab, Cross, Feint, Lead Hook', description: 'Progressive indirect attack: Jab, cross, feint, lead hook.', source: 'The Art of Expressing the Human Body, p. 89', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  // Attack by Drawing
+  { range: 'Punching', name: 'Feint Low, Lead Hook High', description: 'Attack by drawing: Feint low, then lead hook high.', source: 'Tao of Jeet Kune Do, p. 67', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
+  { range: 'Punching', name: 'Step Back, Bait, Intercept Cross', description: 'Attack by drawing: Step back, bait, then intercept with cross.', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 41', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  // Hand Immobilization Attack (minimize trapping)
+  { range: 'Punching', name: 'Pak Sao, Straight Punch', description: 'Hand immobilization: Pak sao, then straight punch (minimal trapping).', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
+  // Grappling (optional, not trapping)
+  { range: 'Grappling', name: 'Standing Clinch Escape', description: 'From a clinch, use hip movement and hand fighting to break free and create striking distance.', source: 'Living the Martial Way, p. 112', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Grappling', name: 'Sprawl and Counter', description: 'When the opponent shoots for a takedown, sprawl your legs back and counter with a crossface or underhook.', source: 'The Art of Expressing the Human Body, p. 144', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
 ];
 
 function getRandomDrill(range: Drill['range']) {
@@ -160,13 +118,25 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function generateSession() {
-    const newSession = [
-      getRandomAvailableDrill('Kicking', currentLevel),
-      getRandomAvailableDrill('Punching', currentLevel),
-      getRandomAvailableDrill('Trapping', currentLevel),
-      getRandomAvailableDrill('Grappling', currentLevel)
-    ];
-    setSession(newSession);
+    // Ensure all five ways of attack are covered, minimize trapping
+    const direct = drills.filter(d => d.description.toLowerCase().includes('direct attack') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const combo = drills.filter(d => d.description.toLowerCase().includes('combination') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const indirect = drills.filter(d => d.description.toLowerCase().includes('indirect') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const drawing = drills.filter(d => d.description.toLowerCase().includes('drawing') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const immobilization = drills.filter(d => d.description.toLowerCase().includes('immobilization') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    // Pick one from each, fallback to any available if empty
+    const pick = (arr: Drill[]) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+    const sessionDrills = [
+      pick(direct),
+      pick(combo),
+      pick(indirect),
+      pick(drawing),
+      pick(immobilization)
+    ].filter(Boolean) as Drill[];
+    // Always add a grappling drill if available
+    const grappling = drills.filter(d => d.range === 'Grappling' && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    if (grappling.length) sessionDrills.push(pick(grappling)!);
+    setSession(sessionDrills);
   }
 
   return (
