@@ -22,8 +22,14 @@ const drills: Drill[] = [
   // Attack by Drawing
   { range: 'Punching', name: 'Feint Low, Lead Hook High', description: 'Attack by drawing: Feint low, then lead hook high.', source: 'Tao of Jeet Kune Do, p. 67', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
   { range: 'Punching', name: 'Step Back, Bait, Intercept Cross', description: 'Attack by drawing: Step back, bait, then intercept with cross.', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 41', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
-  // Hand Immobilization Attack (minimize trapping)
+  // Hand Immobilization Attack (minimize trapping, add pro boxing trapping)
   { range: 'Punching', name: 'Pak Sao, Straight Punch', description: 'Hand immobilization: Pak sao, then straight punch (minimal trapping).', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
+  // Pro boxing trapping/hand control
+  { range: 'Punching', name: 'Parry and Counter', description: 'Boxing trapping: Parry the jab and immediately counter with a cross.', source: 'Pro Boxing Fundamentals', levels: ['Initiate', 'Year 1: Fighter', 'Year 2: Practitioner'] },
+  { range: 'Punching', name: 'Catch and Shoot', description: 'Boxing trapping: Catch the jab with rear hand, return a quick cross.', source: 'Pro Boxing Fundamentals', levels: ['Initiate', 'Year 1: Fighter', 'Year 2: Practitioner'] },
+  { range: 'Punching', name: 'Smother and Uppercut', description: 'Boxing trapping: Smother opponent’s punches, then throw a short uppercut inside.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Grappling', name: 'Clinch and Tie-Up', description: 'Boxing trapping: Enter the clinch to neutralize offense, then pivot out or break.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Punching', name: 'Hand Control and Lead Hook', description: 'Boxing trapping: Control opponent’s lead hand, then throw a lead hook around the guard.', source: 'Pro Boxing Fundamentals', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
   // Grappling (optional, not trapping)
   { range: 'Grappling', name: 'Standing Clinch Escape', description: 'From a clinch, use hip movement and hand fighting to break free and create striking distance.', source: 'Living the Martial Way, p. 112', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
   { range: 'Grappling', name: 'Sprawl and Counter', description: 'When the opponent shoots for a takedown, sprawl your legs back and counter with a crossface or underhook.', source: 'The Art of Expressing the Human Body, p. 144', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
