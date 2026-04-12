@@ -18,3 +18,95 @@
 .dragon-skill-dot-empty { color: #ccc; }
 .dragon-adaptive { background: #f7f7f7; margin-bottom: 16px; padding: 12px; border-radius: 8px; }
 .dragon-adaptive-text { font-style: italic; color: #222; }
+
+/* Sleek glassmorphism card for info tab */
+.martial-card.info-tab, .martial-card.promotion-criteria {
+	background: rgba(24, 18, 8, 0.72);
+	border-radius: 22px;
+	box-shadow: 0 6px 32px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(202,153,56,0.08);
+	backdrop-filter: blur(16px);
+	border: 1.5px solid rgba(202,153,56,0.18);
+	padding: 2.5rem 1.5rem 2rem 1.5rem;
+	margin: 2.5rem auto 2rem auto;
+	max-width: 480px;
+	transition: box-shadow 0.2s;
+}
+.martial-card.info-tab:hover, .martial-card.promotion-criteria:hover {
+	box-shadow: 0 12px 48px 0 rgba(202,153,56,0.18), 0 2px 8px 0 rgba(202,153,56,0.12);
+}
+
+.martial-card.info-tab h2, .martial-card.promotion-criteria h2 {
+	font-size: 2.1rem;
+	font-family: 'Cinzel', serif;
+	color: var(--dragon-gold);
+	margin-bottom: 1.2rem;
+	letter-spacing: 0.04em;
+	text-align: center;
+}
+
+.promotion-criteria-level {
+	display: flex;
+	align-items: center;
+	gap: 0.7em;
+	margin: 2.2rem 0 0.7rem 0;
+}
+.promotion-criteria-level-icon {
+	width: 2.2em;
+	height: 2.2em;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--dragon-gold-soft), var(--dragon-gold));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.3em;
+	color: #222;
+	box-shadow: 0 2px 8px 0 rgba(202,153,56,0.13);
+}
+.promotion-criteria-level h3 {
+	font-size: 1.3rem;
+	font-family: 'Cinzel', serif;
+	color: var(--dragon-gold-soft);
+	margin: 0;
+	letter-spacing: 0.03em;
+}
+
+.promotion-criteria-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 0.7em;
+	margin: 0.5em 0 1.2em 0;
+	padding: 0;
+	list-style: none;
+	justify-content: flex-start;
+}
+.promotion-criteria-badge {
+	background: rgba(202,153,56,0.13);
+	color: var(--dragon-gold);
+	border-radius: 16px;
+	padding: 0.45em 1em;
+	font-size: 1.01em;
+	font-family: 'Barlow Condensed', Arial, sans-serif;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	box-shadow: 0 1px 4px 0 rgba(202,153,56,0.08);
+	transition: background 0.2s;
+}
+.promotion-criteria-badge:hover {
+	background: var(--dragon-gold);
+	color: #222;
+}
+
+.promotion-criteria-source {
+	font-style: italic;
+	color: var(--dragon-muted);
+	font-size: 0.98em;
+	margin-bottom: 1.2em;
+}
+
+.plan-note {
+	color: var(--dragon-muted);
+	font-size: 1.08em;
+	margin-top: 2.2em;
+	text-align: center;
+	letter-spacing: 0.01em;
+}

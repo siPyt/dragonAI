@@ -32,18 +32,28 @@ const criteria = [
 ];
 
 export default function SifuPromotionCriteria() {
+  // Simple icon for each level (could be replaced with SVGs)
+  const icons: Record<string, string> = {
+    Beginner: '🥋',
+    Intermediate: '⚡',
+    Advanced: '🐉',
+    // Add more as needed
+  };
   return (
     <section className="martial-card promotion-criteria">
       <h2>Promotion Criteria (Source-Locked)</h2>
       {criteria.map((c) => (
-        <div key={c.level} style={{ marginBottom: 24 }}>
-          <h3>{c.level}</h3>
-          <ul>
+        <div key={c.level}>
+          <div className="promotion-criteria-level">
+            <span className="promotion-criteria-level-icon">{icons[c.level] || '🥋'}</span>
+            <h3>{c.level}</h3>
+          </div>
+          <ul className="promotion-criteria-list">
             {c.requirements.map((r, i) => (
-              <li key={i}>{r}</li>
+              <li key={i} className="promotion-criteria-badge">{r}</li>
             ))}
           </ul>
-          <p style={{ fontStyle: 'italic', color: '#888' }}>Source: {c.source}</p>
+          <div className="promotion-criteria-source">Source: {c.source}</div>
         </div>
       ))}
       <p className="plan-note">Sifu will only promote you when you meet all criteria, based on real JKD sources.</p>
