@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 type ChatRole = 'assistant' | 'user';
 
@@ -24,6 +24,37 @@ const initialMessage: ChatMessage = {
 
 const apiUrl = import.meta.env.VITE_CHAT_API_URL || '/api/chat';
 
+interface RecognitionEvent {
+  results: ArrayLike<{
+    0: {
+      transcript: string;
+    };
+    isFinal: boolean;
+  }>;
+}
+
+interface RecognitionLike {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onresult: ((event: RecognitionEvent) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+}
+
+interface SpeechRecognitionConstructor {
+  new (): RecognitionLike;
+}
+
+declare global {
+  interface Window {
+    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    SpeechRecognition?: SpeechRecognitionConstructor;
+  }
+}
+
 function createId(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -33,8 +64,120 @@ const SifuConsole: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [statusText, setStatusText] = useState('Ready for disciplined questions.');
+  const [isListening, setIsListening] = useState(false);
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const [autoSpeak, setAutoSpeak] = useState(true);
+  const recognitionRef = useRef<RecognitionLike | null>(null);
+  const lastSpokenMessageId = useRef<string>('');
 
   const promptButtons = useMemo(() => starterPrompts, []);
+
+  useEffect(() => {
+    const recognitionApi = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!recognitionApi) {
+      return;
+    }
+
+    const recognition = new recognitionApi();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+    recognition.onresult = (event: RecognitionEvent) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0].transcript)
+        .join(' ')
+        .trim();
+
+      setInput(transcript);
+    };
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+    recognition.onerror = () => {
+      setIsListening(false);
+      setStatusText('Voice capture interrupted.');
+    };
+
+    recognitionRef.current = recognition;
+    setVoiceSupported(true);
+
+    return () => {
+      recognition.stop();
+      window.speechSynthesis?.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!autoSpeak) {
+      return;
+    }
+
+    const latestAssistantMessage = [...messages]
+      .reverse()
+      .find((message) => message.role === 'assistant' && message.content.trim());
+
+    if (!latestAssistantMessage) {
+      return;
+    }
+
+    if (latestAssistantMessage.id === initialMessage.id) {
+      return;
+    }
+
+    if (latestAssistantMessage.id === lastSpokenMessageId.current) {
+      return;
+    }
+
+    if (!window.speechSynthesis) {
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(latestAssistantMessage.content);
+    utterance.rate = 0.96;
+    utterance.pitch = 0.88;
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+    lastSpokenMessageId.current = latestAssistantMessage.id;
+  }, [autoSpeak, messages]);
+
+  const toggleListening = () => {
+    const recognition = recognitionRef.current;
+    if (!recognition) {
+      setStatusText('Voice commands are not available in this browser.');
+      return;
+    }
+
+    if (isListening) {
+      recognition.stop();
+      setStatusText('Voice capture stopped.');
+      return;
+    }
+
+    recognition.start();
+    setIsListening(true);
+    setStatusText('Listening for your question...');
+  };
+
+  const speakLastAnswer = () => {
+    const latestAssistantMessage = [...messages]
+      .reverse()
+      .find((message) => message.role === 'assistant' && message.content.trim());
+
+    if (!latestAssistantMessage || !window.speechSynthesis) {
+      setStatusText('Speech playback is not available here.');
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(latestAssistantMessage.content);
+    utterance.rate = 0.96;
+    utterance.pitch = 0.88;
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+    lastSpokenMessageId.current = latestAssistantMessage.id;
+    setStatusText('Speaking the latest answer.');
+  };
 
   const runPrompt = async (prompt: string) => {
     if (isLoading) {
@@ -63,6 +206,7 @@ const SifuConsole: React.FC = () => {
     setInput('');
     setIsLoading(true);
     setStatusText('Consulting the virtual sifu...');
+    window.speechSynthesis?.cancel();
 
     try {
       const response = await fetch(apiUrl, {
@@ -133,10 +277,42 @@ const SifuConsole: React.FC = () => {
 
   return (
     <section className="martial-card sifu-console component-full-width">
-      <div>
-        <p className="section-kicker">Virtual Sifu Console</p>
-        <h2>Ask inside the canon</h2>
-        <p className="sifu-status">{statusText}</p>
+      <div className="sifu-console-header">
+        <div>
+          <p className="section-kicker">Virtual Sifu Console</p>
+          <h2>Ask inside the canon</h2>
+          <p className="sifu-status">{statusText}</p>
+        </div>
+        <div className="sifu-control-bank">
+          <button type="button" className="voice-action-button" onClick={toggleListening}>
+            {isListening ? 'Stop Voice' : 'Voice Input'}
+          </button>
+          <button type="button" className="voice-action-button" onClick={speakLastAnswer}>
+            Speak Reply
+          </button>
+          <button
+            type="button"
+            className={`voice-action-button ${autoSpeak ? 'active' : ''}`}
+            onClick={() => setAutoSpeak((current) => !current)}
+          >
+            Auto Voice {autoSpeak ? 'On' : 'Off'}
+          </button>
+        </div>
+      </div>
+
+      <div className="sifu-console-banner">
+        <div>
+          <span className="console-label">Gateway</span>
+          <strong>Vercel AI Gateway</strong>
+        </div>
+        <div>
+          <span className="console-label">Model</span>
+          <strong>openai/gpt-5.4</strong>
+        </div>
+        <div>
+          <span className="console-label">Voice</span>
+          <strong>{voiceSupported ? 'Browser ready' : 'Browser unavailable'}</strong>
+        </div>
       </div>
 
       <div className="sifu-prompt-row">
@@ -169,11 +345,11 @@ const SifuConsole: React.FC = () => {
           className="console-textarea"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask about doctrine, drills, timing, or daily discipline from the approved Bruce Lee source set."
+          placeholder="Ask about doctrine, drills, timing, fitness notes, or daily discipline from the approved Bruce Lee source set."
           disabled={isLoading}
         />
         <div className="console-actions">
-          <span className="console-hint">Defaults to {apiUrl} and expects an AI Gateway-backed stream.</span>
+          <span className="console-hint">Server-side AI Gateway key is used by {apiUrl}. The browser never receives the secret directly.</span>
           <button className="console-submit" type="submit" disabled={isLoading || !input.trim()}>
             {isLoading ? 'Consulting...' : 'Ask The Sifu'}
           </button>

@@ -5,6 +5,7 @@
 .martial-toolbar {
   --background: rgba(10, 10, 10, 0.55);
   --border-color: transparent;
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
 
@@ -24,12 +25,28 @@
 .martial-page::before {
   content: '';
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
   background:
     linear-gradient(125deg, rgba(197, 29, 29, 0.08), transparent 30%),
     radial-gradient(circle at 20% 15%, rgba(202, 153, 56, 0.08), transparent 18%),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 72px);
+}
+
+.martial-page::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 84% 12%, rgba(202, 153, 56, 0.08), transparent 16%),
+    radial-gradient(circle at 14% 84%, rgba(197, 29, 29, 0.1), transparent 22%);
 }
 
 .hero-panel,
@@ -57,7 +74,20 @@
 }
 
 .hero-copy {
-  padding: 1.6rem;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-copy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(197, 29, 29, 0.16), transparent 70%);
+  pointer-events: none;
 }
 
 .hero-copy h1,
@@ -117,18 +147,74 @@
   letter-spacing: 0.05em;
 }
 
+.hero-command-deck {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.35rem;
+}
+
+.command-deck-row {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(202, 153, 56, 0.15);
+}
+
+.command-deck-row span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(202, 153, 56, 0.3);
+  color: var(--dragon-gold-soft);
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.command-deck-row p {
+  margin: 0;
+}
+
 .hero-symbol-card {
   padding: 1.6rem;
   position: relative;
   overflow: hidden;
+  min-height: 100%;
 }
 
 .hero-symbol-card::after {
   content: '';
   position: absolute;
-  inset: auto -20% -30% 25%;
+  right: -20%;
+  bottom: -30%;
+  left: 25%;
   height: 220px;
   background: radial-gradient(circle, rgba(202, 153, 56, 0.22), transparent 65%);
+}
+
+.symbol-plaque {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(202, 153, 56, 0.18);
+  display: grid;
+  gap: 0.2rem;
+}
+
+.symbol-plaque span {
+  color: var(--dragon-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+}
+
+.symbol-plaque strong {
+  color: var(--dragon-gold-soft);
+  font-family: 'Cinzel', Georgia, serif;
 }
 
 .content-grid,
@@ -232,6 +318,67 @@
   gap: 1rem;
 }
 
+.sifu-console {
+  position: relative;
+  overflow: hidden;
+}
+
+.sifu-console::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 153, 56, 0.12), transparent 65%);
+  pointer-events: none;
+}
+
+.sifu-console-header,
+.sifu-control-bank,
+.sifu-console-banner {
+  position: relative;
+  z-index: 1;
+}
+
+.sifu-console-header {
+  display: grid;
+  gap: 1rem;
+}
+
+.sifu-control-bank,
+.sifu-console-banner {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sifu-console-banner {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  padding: 1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(202, 153, 56, 0.16);
+  background: linear-gradient(135deg, rgba(32, 8, 8, 0.9), rgba(10, 10, 10, 0.9));
+}
+
+.sifu-console-banner strong,
+.console-label {
+  display: block;
+}
+
+.console-label {
+  color: var(--dragon-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.sifu-console-banner strong {
+  color: var(--dragon-gold-soft);
+  font-family: 'Cinzel', Georgia, serif;
+}
+
 .sifu-status {
   color: var(--dragon-gold-soft);
   font-size: 0.8rem;
@@ -249,12 +396,12 @@
   padding: 1rem;
   border-radius: 20px;
   border: 1px solid rgba(202, 153, 56, 0.16);
-  background: rgba(255, 255, 255, 0.02);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
 }
 
 .sifu-message.user {
   border-color: rgba(197, 29, 29, 0.32);
-  background: rgba(140, 17, 17, 0.15);
+  background: linear-gradient(180deg, rgba(140, 17, 17, 0.22), rgba(140, 17, 17, 0.08));
 }
 
 .sifu-message-header,
@@ -283,7 +430,8 @@
 
 .prompt-chip-button,
 .ledger-button,
-.console-submit {
+.console-submit,
+.voice-action-button {
   border: 1px solid rgba(202, 153, 56, 0.28);
   border-radius: 999px;
   background: rgba(140, 17, 17, 0.22);
@@ -295,6 +443,15 @@
 
 .prompt-chip-button {
   text-align: left;
+}
+
+.voice-action-button {
+  background: linear-gradient(135deg, rgba(140, 17, 17, 0.34), rgba(44, 12, 12, 0.7));
+}
+
+.voice-action-button.active {
+  border-color: rgba(202, 153, 56, 0.5);
+  box-shadow: 0 0 0 1px rgba(202, 153, 56, 0.22) inset;
 }
 
 .console-form,
@@ -313,6 +470,10 @@
   color: var(--dragon-text);
   padding: 0.95rem 1rem;
   font: inherit;
+}
+
+.console-textarea {
+  min-height: 156px;
 }
 
 .console-textarea,
@@ -336,7 +497,8 @@
 }
 
 .console-submit:disabled,
-.ledger-button:disabled {
+.ledger-button:disabled,
+.voice-action-button:disabled {
   opacity: 0.55;
 }
 
@@ -376,12 +538,23 @@
 
 @media (min-width: 768px) {
   .martial-page {
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    padding-right: clamp(1.5rem, 4vw, 3rem);
     padding-inline: clamp(1.5rem, 4vw, 3rem);
   }
 
   .hero-panel,
   .two-column-grid {
     grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .sifu-console-header {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+
+  .sifu-control-bank {
+    grid-template-columns: repeat(3, auto);
   }
 
   .pillar-grid {

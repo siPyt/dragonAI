@@ -29,6 +29,12 @@ const Tab1: React.FC = () => {
     'Use: a digital sifu companion for study, reflection, conditioning, and session intent.'
   ];
 
+  const commandDeck = [
+    'Authenticity lock: answers stay inside the approved Bruce Lee source set.',
+    'Voice lane: browser speech input captures commands and spoken replies can be played back.',
+    'Session memory: the practice ledger stores concise local records of training intent and refinement.'
+  ];
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -55,9 +61,21 @@ const Tab1: React.FC = () => {
                 <span>Source Bound</span>
                 <span>Modern JKD Emblem</span>
               </div>
+              <div className="hero-command-deck">
+                {commandDeck.map((item, index) => (
+                  <div key={item} className="command-deck-row">
+                    <span>{`0${index + 1}`}</span>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="hero-symbol-card">
               <JkdSymbol />
+              <div className="symbol-plaque">
+                <span>Living The Martial Way</span>
+                <strong>Interception. Economy. Expression.</strong>
+              </div>
             </div>
           </section>
 
