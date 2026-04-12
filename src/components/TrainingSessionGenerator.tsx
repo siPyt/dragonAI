@@ -67,15 +67,28 @@ function getRandomDrill(range: Drill['range']) {
   return options[Math.floor(Math.random() * options.length)];
 }
 
-export default function TrainingSessionGenerator() {
+export default function TrainingSessionGenerator({ equipment = ['none'] }: { equipment?: string[] }) {
   const [session, setSession] = useState<Drill[]>([]);
+
+  // For now, all drills are shadow-friendly. In future, filter by equipment.
+  function isDrillAvailable(drill: Drill) {
+    if (equipment.includes('none')) return true;
+    // Example: if drill requires heavy bag, check for 'heavyBag' in equipment
+    // (Extend this logic as more drills are added)
+    return true;
+  }
+
+  function getRandomAvailableDrill(range: Drill['range']) {
+    const options = drills.filter((d) => d.range === range && isDrillAvailable(d));
+    return options[Math.floor(Math.random() * options.length)];
+  }
 
   function generateSession() {
     const newSession = [
-      getRandomDrill('Kicking'),
-      getRandomDrill('Punching'),
-      getRandomDrill('Trapping'),
-      getRandomDrill('Grappling')
+      getRandomAvailableDrill('Kicking'),
+      getRandomAvailableDrill('Punching'),
+      getRandomAvailableDrill('Trapping'),
+      getRandomAvailableDrill('Grappling')
     ];
     setSession(newSession);
   }

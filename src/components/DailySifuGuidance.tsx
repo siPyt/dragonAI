@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import TrainingSessionGenerator from './TrainingSessionGenerator';
+import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
+import EquipmentSelector from './EquipmentSelector';
 
 interface DailyPlanStep {
   title: string;
@@ -50,6 +52,7 @@ const dailyPlan: DailyPlanStep[] = [
 export default function DailySifuGuidance() {
   const [steps, setSteps] = useState<DailyPlanStep[]>(dailyPlan);
   const [greeting, setGreeting] = useState('');
+  const [equipment, setEquipment] = useState<string[]>(['none']);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -66,6 +69,7 @@ export default function DailySifuGuidance() {
     <section className="martial-card daily-sifu-guidance component-full-width">
       <h2>Virtual Sifu Guidance</h2>
       <p className="sifu-greeting">{greeting}</p>
+      <EquipmentSelector value={equipment} onChange={setEquipment} />
       <ol className="daily-plan-list">
         {steps.map((step, idx) => (
           <li key={step.title} className={step.done ? 'done' : ''}>
@@ -78,7 +82,8 @@ export default function DailySifuGuidance() {
         ))}
       </ol>
       <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
-      <TrainingSessionGenerator />
+      <TrainingSessionGenerator equipment={equipment} />
+      <SifuCallsShadowBoxing />
     </section>
   );
 }
