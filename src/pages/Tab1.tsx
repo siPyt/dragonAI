@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import JkdSymbol from '../components/JkdSymbol';
+import DailySifuGuidance from '../components/DailySifuGuidance';
 import SifuConsole from '../components/SifuConsole';
 import SourceCanon from '../components/SourceCanon';
 import './Tab1.css';
@@ -50,6 +51,7 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <div className="martial-page doctrine-page">
+          <DailySifuGuidance />
           {/* Hero Section: Brand, Symbol, and Command Deck */}
           <section className="hero-panel">
             <div className="hero-copy">
