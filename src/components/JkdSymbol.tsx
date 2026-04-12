@@ -2,7 +2,7 @@ import './JkdSymbol.css';
 
 const JkdSymbol: React.FC = () => {
   return (
-    <div className="jkd-symbol-shell" aria-label="Updated Jeet Kune Do symbol">
+    <div className="jkd-symbol-shell" aria-label="Jeet Kune Do symbol">
       <svg className="jkd-symbol" viewBox="0 0 320 320" role="img" aria-hidden="true">
         <defs>
           <linearGradient id="outerRing" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -40,11 +40,6 @@ const JkdSymbol: React.FC = () => {
         <path d="M259 192c-18 42-49 72-93 90" fill="none" stroke="#ca9938" strokeWidth="5" strokeLinecap="round" />
         <path d="M181 290l-15-8 8-15" fill="none" stroke="#ca9938" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-
-      <div className="jkd-symbol-caption">
-        <span>dragon_ai</span>
-        <strong>Updated JKD Symbol</strong>
-      </div>
     </div>
   );
 };
