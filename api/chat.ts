@@ -25,7 +25,14 @@ function buildTranscript(messages: IncomingMessage[]) {
 }
 
 function getGatewayApiKey() {
-  return process.env.AI_GATEWAY_API_KEY || process.env.DRAGON_AI || process.env.dragon_ai || '';
+  return (
+    process.env.AI_GATEWAY_API_KEY ||
+    process.env.DRAGON_AI ||
+    process.env.dragon_ai ||
+    process.env.DRAGON_KEY ||
+    process.env.dragon_key ||
+    ''
+  );
 }
 
 export default async function handler(req: any, res: any) {
@@ -47,7 +54,7 @@ export default async function handler(req: any, res: any) {
 
   if (!gatewayApiKey) {
     res.status(500).json({
-      error: 'Missing AI gateway key. Configure AI_GATEWAY_API_KEY, DRAGON_AI, or dragon_ai in Vercel.'
+      error: 'Missing AI gateway key. Configure AI_GATEWAY_API_KEY, DRAGON_AI, dragon_ai, DRAGON_KEY, or dragon_key in Vercel.'
     });
     return;
   }
