@@ -84,7 +84,7 @@ const Tab1: React.FC = () => {
             </div>
           </section>
 
-          {/* Section: Foundation and Source Overview */}
+          {/* Section: Foundation Overview (no primary sources) */}
           <section className="doctrine-foundation-section">
             <div className="foundation-col">
               <article className="martial-card manifesto-card">
@@ -95,30 +95,6 @@ const Tab1: React.FC = () => {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </article>
-            </div>
-            <div className="source-col">
-              <article className="martial-card source-card">
-                <p className="section-kicker">Primary Sources</p>
-                <h2>Only the writings that define the method</h2>
-                <div className="source-stack">
-                  <div>
-                    <strong>Tao of Jeet Kune Do</strong>
-                    <span>Philosophy, principles, and technical frame. E.g., "The art of Jeet Kune Do is simply to simplify." (p. 8)</span>
-                  </div>
-                  <div>
-                    <strong>Bruce Lee&apos;s Fighting Method</strong>
-                    <span>Structure, drills, ranges, and application. E.g., "The lead hand is the closest weapon to the target." (Vol. 2, p. 15)</span>
-                  </div>
-                  <div>
-                    <strong>The Art of Expressing the Human Body</strong>
-                    <span>Physical training, conditioning, and body mechanics. E.g., "Endurance and flexibility are as important as strength." (p. 42)</span>
-                  </div>
-                  <div>
-                    <strong>Living the Martial Way</strong>
-                    <span>Martial mindset, discipline, and the way as a living process. E.g., "A martial artist’s way is forged in daily practice." (p. 12)</span>
-                  </div>
-                </div>
               </article>
             </div>
           </section>
