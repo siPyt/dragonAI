@@ -55,7 +55,7 @@ const Tab1: React.FC = () => {
           {/* Hero Section: Brand, Symbol, and Command Deck */}
           <section className="hero-panel">
             <div className="hero-copy">
-              <p className="section-kicker">DragonAI // Virtual Sifu</p>
+              <p className="section-kicker">dragon_ai // Virtual Sifu</p>
               <h1>Jeet Kune Do as a Living Martial Way</h1>
               <p className="hero-text">
                 Disciplined study chamber: source-bound, stripped of noise, designed to keep you inside Bruce Lee&apos;s written method only.

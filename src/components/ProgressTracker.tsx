@@ -6,13 +6,13 @@ function getToday() {
 
 export default function ProgressTracker() {
   const [attendance, setAttendance] = useState(() => {
-    const saved = window.localStorage.getItem('dragonai-attendance');
+    const saved = window.localStorage.getItem('dragon_ai-attendance');
     return saved ? JSON.parse(saved) : {};
   });
   const [today, setToday] = useState(getToday());
 
   useEffect(() => {
-    window.localStorage.setItem('dragonai-attendance', JSON.stringify(attendance));
+    window.localStorage.setItem('dragon_ai-attendance', JSON.stringify(attendance));
   }, [attendance]);
 
   function markToday() {

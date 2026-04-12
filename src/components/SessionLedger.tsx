@@ -8,7 +8,7 @@ interface LedgerEntry {
   refinement: string;
 }
 
-const storageKey = 'dragonai-session-ledger';
+const storageKey = 'dragon_ai-session-ledger';
 
 function buildId() {
   return `ledger-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;

@@ -14,7 +14,7 @@ const levels = [
 ];
 
 function getAttendance() {
-  const saved = window.localStorage.getItem('dragonai-attendance');
+  const saved = window.localStorage.getItem('dragon_ai-attendance');
   return saved ? JSON.parse(saved) : {};
 }
 

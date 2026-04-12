@@ -42,7 +42,7 @@ const JkdSymbol: React.FC = () => {
       </svg>
 
       <div className="jkd-symbol-caption">
-        <span>DragonAI</span>
+        <span>dragon_ai</span>
         <strong>Updated JKD Symbol</strong>
       </div>
     </div>
