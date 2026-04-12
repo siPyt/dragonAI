@@ -109,16 +109,42 @@ const getCurrentLevel = () => {
   return 'Initiate';
 };
 
-export default function TrainingSessionGenerator({ equipment = ['none'] }: { equipment?: string[] }) {
+
   const [session, setSession] = useState<Drill[]>([]);
   const [currentLevel, setCurrentLevel] = useState<string>(getCurrentLevel());
+  const [userInfo, setUserInfo] = useState<{height: string, weight: string, age: string} | null>(null);
+  const [showUserInfoForm, setShowUserInfoForm] = useState(false);
 
   useEffect(() => {
     setCurrentLevel(getCurrentLevel());
+    const saved = window.localStorage.getItem('dragon_ai-user-info');
+    if (saved) {
+      setUserInfo(JSON.parse(saved));
+    } else {
+      setShowUserInfoForm(true);
+    }
   }, []);
+
+  function handleUserInfoSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const height = (form.elements.namedItem('height') as HTMLInputElement).value;
+    const weight = (form.elements.namedItem('weight') as HTMLInputElement).value;
+    const age = (form.elements.namedItem('age') as HTMLInputElement).value;
+    const info = { height, weight, age };
+    setUserInfo(info);
+    window.localStorage.setItem('dragon_ai-user-info', JSON.stringify(info));
+    setShowUserInfoForm(false);
+  }
 
   function isDrillAvailable(drill: Drill) {
     if (equipment.includes('none')) return true;
+    // Example: adapt for user info (e.g., age-based restrictions)
+    if (userInfo) {
+      const ageNum = parseInt(userInfo.age, 10);
+      if (drill.name.toLowerCase().includes('burpee') && ageNum > 55) return false;
+      // Add more logic as needed
+    }
     return true;
   }
 
@@ -140,9 +166,26 @@ export default function TrainingSessionGenerator({ equipment = ['none'] }: { equ
   return (
     <section className="martial-card training-session-generator">
       <h2>Generate Complete Training Session</h2>
-      <div className="plan-note">Current Goal: <strong>{currentLevel}</strong></div>
+      {showUserInfoForm && (
+        <form className="user-info-form" onSubmit={handleUserInfoSubmit} style={{marginBottom: 16}}>
+          <h3>Tell Sifu about you</h3>
+          <label>
+            Height (cm): <input name="height" type="number" min="100" max="250" required />
+          </label>
+          <label>
+            Weight (kg): <input name="weight" type="number" min="30" max="250" required />
+          </label>
+          <label>
+            Age: <input name="age" type="number" min="10" max="100" required />
+          </label>
+          <button className="ledger-button" type="submit">Save</button>
+        </form>
+      )}
+      {userInfo && (
+        <div className="plan-note">Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}cm, Weight: {userInfo.weight}kg</div>
+      )}
       <PromotionChecklist currentLevel={currentLevel} />
-      <button className="ledger-button" onClick={generateSession}>Generate Session</button>
+      <button className="ledger-button" onClick={generateSession} disabled={showUserInfoForm}>Generate Session</button>
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
       </div>
