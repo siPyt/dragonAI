@@ -104,30 +104,6 @@ export default function DailySifuGuidance() {
       <div className="dragon-section">
         <CameraPoseFeedback />
       </div>
-      <div className="dragon-section">
-        <button onClick={() => setShowLeaderboards((v) => !v)} className="ledger-button">
-          {showLeaderboards ? 'Hide Leaderboards' : 'Show Leaderboards'}
-        </button>
-        {showLeaderboards && (
-          <>
-            <SifuReflexLeaderboard />
-            <SifuFlexibilityLeaderboard />
-          </>
-        )}
-      </div>
-      <div className="dragon-section">
-        <button onClick={() => setShowAdvanced((v) => !v)} className="ledger-button">
-          {showAdvanced ? 'Hide Advanced Modules' : 'Show Advanced Modules'}
-        </button>
-        {showAdvanced && (
-          <>
-            <SkillTracker />
-            <ProgressiveChallenge />
-            <FlexibilityAssessment />
-            <ReactionDrill />
-          </>
-        )}
-      </div>
     </section>
   );
 }
