@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
+import TrainingSessionGenerator from '../components/TrainingSessionGenerator';
 
 const Tab2: React.FC = () => {
   const modules = [
@@ -46,6 +47,7 @@ const Tab2: React.FC = () => {
             </p>
           </section>
 
+
           <section className="pillar-grid training-grid">
             {modules.map((module) => (
               <article key={module.title} className="martial-card training-card">
@@ -55,6 +57,8 @@ const Tab2: React.FC = () => {
               </article>
             ))}
           </section>
+
+          <TrainingSessionGenerator />
 
           <section className="content-grid two-column-grid">
             <article className="martial-card timeline-card">
