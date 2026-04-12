@@ -1,13 +1,14 @@
 import SifuAdaptiveGuidance from './SifuAdaptiveGuidance';
-import ProgressiveChallenge from './ProgressiveChallenge';
-import SkillTracker from './SkillTracker';
-import LiveTraining from './LiveTraining';
-import SifuStreakTracker from './SifuStreakTracker';
-import SifuFlexibilityLeaderboard from './SifuFlexibilityLeaderboard';
-import SifuReflexLeaderboard from './SifuReflexLeaderboard';
-import SifuProgressVisualization from './SifuProgressVisualization';
+import SifuAdaptiveGuidance from './SifuAdaptiveGuidance';
 import SifuPromotionCriteria from './SifuPromotionCriteria';
-import ReactionDrill from './ReactionDrill';
+import { useEffect, useState } from 'react';
+import TrainingSessionGenerator from './TrainingSessionGenerator';
+import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
+import CameraPoseFeedback from './CameraPoseFeedback';
+import ProgressTracker from './ProgressTracker';
+import PromotionTracker from './PromotionTracker';
+import FlexibilityAssessment from './FlexibilityAssessment';
+import EquipmentSelector from './EquipmentSelector';
 import { useEffect, useState } from 'react';
 import TrainingSessionGenerator from './TrainingSessionGenerator';
 import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
@@ -67,9 +68,7 @@ export default function DailySifuGuidance() {
   const [steps, setSteps] = useState<DailyPlanStep[]>(dailyPlan);
   const [greeting, setGreeting] = useState('');
   const [equipment, setEquipment] = useState<string[]>(['none']);
-  const [showProgress, setShowProgress] = useState(false);
-  const [showLeaderboards, setShowLeaderboards] = useState(false);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  // Removed unused state for minimal UI
 
   useEffect(() => {
     const hour = new Date().getHours();
