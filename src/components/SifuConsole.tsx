@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { elevenlabsTTS } from '../utils/elevenlabsTTS';
 
 type ChatRole = 'assistant' | 'user';
 
@@ -166,17 +167,21 @@ const SifuConsole: React.FC = () => {
       return;
     }
 
-    if (!window.speechSynthesis) {
-      return;
-    }
-
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(latestAssistantMessage.content);
-    utterance.rate = 0.96;
-    utterance.pitch = 0.88;
-    utterance.lang = 'en-US';
-    window.speechSynthesis.speak(utterance);
-    lastSpokenMessageId.current = latestAssistantMessage.id;
+    let cancelled = false;
+    (async () => {
+      try {
+        const audioBlob = await elevenlabsTTS(latestAssistantMessage.content);
+        if (audioBlob && !cancelled) {
+          const url = URL.createObjectURL(audioBlob);
+          const audio = new Audio(url);
+          audio.play();
+          lastSpokenMessageId.current = latestAssistantMessage.id;
+        }
+      } catch {}
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [autoSpeak, messages]);
 
   const toggleListening = () => {
@@ -197,24 +202,30 @@ const SifuConsole: React.FC = () => {
     setStatusText('Listening for your question...');
   };
 
-  const speakLastAnswer = () => {
+  const speakLastAnswer = async () => {
     const latestAssistantMessage = [...messages]
       .reverse()
       .find((message) => message.role === 'assistant' && message.content.trim());
 
-    if (!latestAssistantMessage || !window.speechSynthesis) {
+    if (!latestAssistantMessage) {
       setStatusText('Speech playback is not available here.');
       return;
     }
 
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(latestAssistantMessage.content);
-    utterance.rate = 0.96;
-    utterance.pitch = 0.88;
-    utterance.lang = 'en-US';
-    window.speechSynthesis.speak(utterance);
-    lastSpokenMessageId.current = latestAssistantMessage.id;
-    setStatusText('Speaking the latest answer.');
+    try {
+      const audioBlob = await elevenlabsTTS(latestAssistantMessage.content);
+      if (audioBlob) {
+        const url = URL.createObjectURL(audioBlob);
+        const audio = new Audio(url);
+        audio.play();
+        lastSpokenMessageId.current = latestAssistantMessage.id;
+        setStatusText('Speaking the latest answer.');
+      } else {
+        setStatusText('Speech playback failed.');
+      }
+    } catch {
+      setStatusText('Speech playback failed.');
+    }
   };
 
   const runPrompt = async (prompt: string) => {
@@ -244,7 +255,7 @@ const SifuConsole: React.FC = () => {
     setInput('');
     setIsLoading(true);
     setStatusText('Consulting the virtual sifu...');
-    window.speechSynthesis?.cancel();
+    // No longer using browser speech synthesis
 
     try {
       const response = await fetch(apiUrl, {

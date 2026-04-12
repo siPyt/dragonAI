@@ -90,7 +90,7 @@ export default function SifuCallsShadowBoxing() {
         <div className="current-call">
           <strong>{current.type}:</strong> {current.call}
           <span className="combo-source">({current.source})</span>
-          <button className="respond-button" onClick={markResponded} style={{ marginLeft: 12 }}>Responded</button>
+          <button className="respond-button" onClick={markResponded}>Responded</button>
         </div>
       )}
       <div className="call-history">
