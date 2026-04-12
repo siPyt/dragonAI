@@ -9,23 +9,31 @@ export default function CameraPoseFeedback() {
   useEffect(() => {
     if (!active) return;
     async function getCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-        setHasCamera(true);
-      } catch (e) {
-        setError('Camera not available or permission denied.');
-      }
-    }
-    getCamera();
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, [active]);
+      // Placeholder for pose analysis logic (TensorFlow.js/MediaPipe integration coming soon)
+      const analyzePose = () => {
+        alert('Pose analysis coming soon! This will use AI to give you feedback on your stance and form.');
+      };
+
+      return (
+        <div className="camera-pose-feedback">
+          <h3>Camera Feedback (Coming Soon)</h3>
+          <p>
+            This feature will use your camera to analyze your stance and form. For now, use the camera preview to check your posture.
+          </p>
+          <video ref={videoRef} autoPlay playsInline width="320" height="240" style={{ border: '1px solid #ccc', borderRadius: 8 }} />
+          <div style={{ marginTop: 8 }}>
+            <button onClick={startCamera} disabled={cameraActive}>
+              {cameraActive ? 'Camera On' : 'Start Camera'}
+            </button>
+            <button onClick={stopCamera} disabled={!cameraActive} style={{ marginLeft: 8 }}>
+              Stop Camera
+            </button>
+            <button onClick={analyzePose} disabled={!cameraActive} style={{ marginLeft: 8 }}>
+              Analyze Pose
+            </button>
+          </div>
+        </div>
+      );
 
   return (
     <section className="martial-card camera-pose-feedback">

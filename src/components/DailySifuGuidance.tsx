@@ -1,9 +1,16 @@
+import SifuStreakTracker from './SifuStreakTracker';
+import SifuFlexibilityLeaderboard from './SifuFlexibilityLeaderboard';
+import SifuReflexLeaderboard from './SifuReflexLeaderboard';
+import SifuProgressVisualization from './SifuProgressVisualization';
+import SifuPromotionCriteria from './SifuPromotionCriteria';
+import ReactionDrill from './ReactionDrill';
 import { useEffect, useState } from 'react';
 import TrainingSessionGenerator from './TrainingSessionGenerator';
 import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
 import CameraPoseFeedback from './CameraPoseFeedback';
 import ProgressTracker from './ProgressTracker';
 import PromotionTracker from './PromotionTracker';
+import FlexibilityAssessment from './FlexibilityAssessment';
 import EquipmentSelector from './EquipmentSelector';
 
 interface DailyPlanStep {
@@ -90,6 +97,13 @@ export default function DailySifuGuidance() {
       <CameraPoseFeedback />
       <ProgressTracker />
       <PromotionTracker />
+      <FlexibilityAssessment />
+      <ReactionDrill />
+      <SifuPromotionCriteria />
+      <SifuProgressVisualization />
+      <SifuReflexLeaderboard />
+      <SifuFlexibilityLeaderboard />
+      <SifuStreakTracker />
     </section>
   );
 }

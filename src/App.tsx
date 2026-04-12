@@ -1,3 +1,8 @@
+import SifuStreakTracker from './components/SifuStreakTracker';
+import SifuFlexibilityLeaderboard from './components/SifuFlexibilityLeaderboard';
+import SifuReflexLeaderboard from './components/SifuReflexLeaderboard';
+import SifuProgressVisualization from './components/SifuProgressVisualization';
+import SifuPromotionCriteria from './components/SifuPromotionCriteria';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -44,6 +49,8 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import FlexibilityAssessment from './components/FlexibilityAssessment';
+import ReactionDrill from './components/ReactionDrill';
 
 setupIonicReact();
 
@@ -82,6 +89,12 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
+      <ReactionDrill />
+      <SifuPromotionCriteria />
+      <SifuProgressVisualization />
+      <SifuReflexLeaderboard />
+      <SifuFlexibilityLeaderboard />
+      <SifuStreakTracker />
 );
 
 export default App;
