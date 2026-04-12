@@ -1,0 +1,20 @@
+.dragon-section { margin: 16px 0; }
+.dragon-link { margin-bottom: 8px; display: inline-block; }
+.dragon-table { width: 100%; border-collapse: collapse; }
+.dragon-table th, .dragon-table td { padding: 4px 8px; }
+.dragon-table-best { background: #d4f3ef; }
+.dragon-table-best-value { font-weight: bold; color: #43aa8b; }
+.dragon-combo { color: #e63946; }
+.dragon-score { font-weight: bold; color: #43aa8b; }
+.dragon-streak-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.dragon-streak-day { width: 32px; height: 32px; border-radius: 16px; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; }
+.dragon-streak-trained { background: #43aa8b; }
+.dragon-streak-untrained { background: #e63946; }
+.dragon-btn-mb { margin-bottom: 8px; }
+.dragon-btn-mr { margin-right: 8px; }
+.dragon-video { border-radius: 8px; background: #222; }
+.dragon-skill-dot { cursor: pointer; font-size: 20px; margin-right: 2px; }
+.dragon-skill-dot-filled { color: #43aa8b; }
+.dragon-skill-dot-empty { color: #ccc; }
+.dragon-adaptive { background: #f7f7f7; margin-bottom: 16px; padding: 12px; border-radius: 8px; }
+.dragon-adaptive-text { font-style: italic; color: #222; }

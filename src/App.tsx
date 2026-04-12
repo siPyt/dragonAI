@@ -1,8 +1,9 @@
+import LiveTraining from './components/LiveTraining';
 import SifuStreakTracker from './components/SifuStreakTracker';
 import SifuFlexibilityLeaderboard from './components/SifuFlexibilityLeaderboard';
 import SifuReflexLeaderboard from './components/SifuReflexLeaderboard';
 import SifuProgressVisualization from './components/SifuProgressVisualization';
-import SifuPromotionCriteria from './components/SifuPromotionCriteria';
+import InfoTab from './components/InfoTab';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -68,6 +69,9 @@ const App: React.FC = () => (
           <Route exact path="/living-the-way">
             <Tab3 />
           </Route>
+          <Route exact path="/info">
+            <InfoTab />
+          </Route>
           <Route exact path="/">
             <Redirect to="/doctrine" />
           </Route>
@@ -85,16 +89,20 @@ const App: React.FC = () => (
             <IonIcon aria-hidden="true" icon={journal} />
             <IonLabel>Living The Way</IonLabel>
           </IonTabButton>
+          <IonTabButton tab="info" href="/info">
+            <IonIcon aria-hidden="true" icon={journal} />
+            <IonLabel>Info</IonLabel>
+          </IonTabButton>
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
   </IonApp>
       <ReactionDrill />
-      <SifuPromotionCriteria />
       <SifuProgressVisualization />
       <SifuReflexLeaderboard />
       <SifuFlexibilityLeaderboard />
       <SifuStreakTracker />
+      <LiveTraining />
 );
 
 export default App;

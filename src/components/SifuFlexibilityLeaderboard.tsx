@@ -1,32 +1,38 @@
-import React from 'react';
-
-// Example: In a real app, this would be dynamic, based on user data/localStorage
-const leaderboard = [
-  { date: '2024-06-01', score: '22 cm' },
-  { date: '2024-06-02', score: '23 cm' },
-  { date: '2024-06-03', score: '24 cm' },
-  { date: '2024-06-04', score: '25 cm' },
-  { date: '2024-06-05', score: '26 cm' },
-];
+import React, { useState, useEffect } from 'react';
 
 export default function SifuFlexibilityLeaderboard() {
+  const [best, setBest] = useState(() => {
+    const stored = localStorage.getItem('flexibility-best');
+    return stored ? JSON.parse(stored) : { date: '', score: 0 };
+  });
+
+  // Listen for new best from FlexibilityAssessment (if implemented)
+  useEffect(() => {
+    const handler = (e: any) => {
+      if (e.detail && e.detail.score > best.score) {
+        setBest(e.detail);
+        localStorage.setItem('flexibility-best', JSON.stringify(e.detail));
+      }
+    };
+    window.addEventListener('new-best-flexibility', handler);
+    return () => window.removeEventListener('new-best-flexibility', handler);
+  }, [best]);
+
   return (
     <section className="martial-card flexibility-leaderboard">
       <h2>Flexibility Leaderboard</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table className="dragon-table">
         <thead>
           <tr>
             <th>Date</th>
-            <th>Best Score</th>
+            <th>Best Score (cm)</th>
           </tr>
         </thead>
         <tbody>
-          {leaderboard.map((entry, i) => (
-            <tr key={i} style={{ background: i === leaderboard.length - 1 ? '#d4f3ef' : 'inherit' }}>
-              <td>{entry.date}</td>
-              <td style={{ fontWeight: i === leaderboard.length - 1 ? 'bold' : 'normal', color: i === leaderboard.length - 1 ? '#43aa8b' : '#222' }}>{entry.score}</td>
-            </tr>
-          ))}
+          <tr className="dragon-table-best">
+            <td>{best.date}</td>
+            <td className="dragon-table-best-value">{best.score}</td>
+          </tr>
         </tbody>
       </table>
       <p className="plan-note">Try to beat your best flexibility score! Sifu is watching.</p>

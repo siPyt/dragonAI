@@ -1,3 +1,7 @@
+import SifuAdaptiveGuidance from './SifuAdaptiveGuidance';
+import ProgressiveChallenge from './ProgressiveChallenge';
+import SkillTracker from './SkillTracker';
+import LiveTraining from './LiveTraining';
 import SifuStreakTracker from './SifuStreakTracker';
 import SifuFlexibilityLeaderboard from './SifuFlexibilityLeaderboard';
 import SifuReflexLeaderboard from './SifuReflexLeaderboard';
@@ -63,6 +67,9 @@ export default function DailySifuGuidance() {
   const [steps, setSteps] = useState<DailyPlanStep[]>(dailyPlan);
   const [greeting, setGreeting] = useState('');
   const [equipment, setEquipment] = useState<string[]>(['none']);
+  const [showProgress, setShowProgress] = useState(false);
+  const [showLeaderboards, setShowLeaderboards] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -77,6 +84,7 @@ export default function DailySifuGuidance() {
 
   return (
     <section className="martial-card daily-sifu-guidance component-full-width">
+      <SifuAdaptiveGuidance />
       <h2>Virtual Sifu Guidance</h2>
       <p className="sifu-greeting">{greeting}</p>
       <EquipmentSelector value={equipment} onChange={setEquipment} />
@@ -92,18 +100,50 @@ export default function DailySifuGuidance() {
         ))}
       </ol>
       <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
-      <TrainingSessionGenerator equipment={equipment} />
-      <SifuCallsShadowBoxing />
-      <CameraPoseFeedback />
-      <ProgressTracker />
-      <PromotionTracker />
-      <FlexibilityAssessment />
-      <ReactionDrill />
-      <SifuPromotionCriteria />
-      <SifuProgressVisualization />
-      <SifuReflexLeaderboard />
-      <SifuFlexibilityLeaderboard />
-      <SifuStreakTracker />
+      <a href="/info" className="ledger-button dragon-link">View Advancement Criteria</a>
+      <div className="dragon-section">
+        <TrainingSessionGenerator equipment={equipment} />
+        <LiveTraining />
+        <SifuCallsShadowBoxing />
+        <CameraPoseFeedback />
+      </div>
+      <div className="dragon-section">
+        <button onClick={() => setShowProgress((v) => !v)} className="ledger-button">
+          {showProgress ? 'Hide Progress & Streaks' : 'Show Progress & Streaks'}
+        </button>
+        {showProgress && (
+          <>
+            <ProgressTracker />
+            <SifuStreakTracker />
+            <PromotionTracker />
+            <SifuProgressVisualization />
+          </>
+        )}
+      </div>
+      <div className="dragon-section">
+        <button onClick={() => setShowLeaderboards((v) => !v)} className="ledger-button">
+          {showLeaderboards ? 'Hide Leaderboards' : 'Show Leaderboards'}
+        </button>
+        {showLeaderboards && (
+          <>
+            <SifuReflexLeaderboard />
+            <SifuFlexibilityLeaderboard />
+          </>
+        )}
+      </div>
+      <div className="dragon-section">
+        <button onClick={() => setShowAdvanced((v) => !v)} className="ledger-button">
+          {showAdvanced ? 'Hide Advanced Modules' : 'Show Advanced Modules'}
+        </button>
+        {showAdvanced && (
+          <>
+            <SkillTracker />
+            <ProgressiveChallenge />
+            <FlexibilityAssessment />
+            <ReactionDrill />
+          </>
+        )}
+      </div>
     </section>
   );
 }

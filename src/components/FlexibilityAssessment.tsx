@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 
 // Placeholder for future pose detection integration
 export default function FlexibilityAssessment() {
-  const [score, setScore] = useState(null);
+  const [score, setScore] = useState<number|null>(null);
+  const [inputScore, setInputScore] = useState('');
+  const [best, setBest] = useState(() => {
+    const stored = localStorage.getItem('flexibility-best');
+    return stored ? JSON.parse(stored) : { date: '', score: 0 };
+  });
   const [active, setActive] = useState(false);
   const [instructions, setInstructions] = useState('');
   const videoRef = useRef(null);
@@ -18,7 +23,16 @@ export default function FlexibilityAssessment() {
   }, [active]);
 
   function markComplete() {
-    setScore('Recorded (manual for now)');
+    const val = parseInt(inputScore);
+    if (!isNaN(val)) {
+      setScore(val);
+      if (val > best.score) {
+        const newBest = { date: new Date().toISOString().slice(0,10), score: val };
+        setBest(newBest);
+        localStorage.setItem('flexibility-best', JSON.stringify(newBest));
+        window.dispatchEvent(new CustomEvent('new-best-flexibility', { detail: newBest }));
+      }
+    }
     setActive(false);
   }
 
@@ -31,15 +45,18 @@ export default function FlexibilityAssessment() {
       {active && (
         <div className="assessment-instructions">
           <p>{instructions}</p>
-          <video ref={videoRef} autoPlay playsInline width={320} height={240} style={{ borderRadius: 8, background: '#222' }} />
-          <button className="ledger-button" onClick={markComplete}>Mark Complete</button>
+           <video ref={videoRef} autoPlay playsInline width={320} height={240} className="dragon-video" width={320} height={240} />
+           <div className="dragon-section">
+             <label>Enter your reach (cm): <input type="number" value={inputScore} onChange={e => setInputScore(e.target.value)} className="dragon-input" style={{ width: 60 }} /></label>
+           </div>
+           <button className="ledger-button" onClick={markComplete}>Mark Complete</button>
         </div>
       )}
-      {score && <div className="assessment-score">Result: {score}</div>}
+      {score !== null && <div className="assessment-score">Result: {score} cm</div>}
       <p className="plan-note">Track your flexibility over time. Sifu will adapt your plan as you improve.</p>
-      <div style={{ marginTop: 16 }}>
-        <button onClick={handleSave} style={{ marginRight: 8 }}>Save</button>
-        <button onClick={handleReset} style={{ marginRight: 8 }}>Reset</button>
+       <div className="dragon-section">
+        <button onClick={handleSave} className="dragon-btn-mr">Save</button>
+        <button onClick={handleReset} className="dragon-btn-mr">Reset</button>
         <button onClick={measureWithCamera}>Measure with Camera (Soon)</button>
       </div>
     </section>
