@@ -2,45 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 
 const combos = [
   // Direct Attack
-  {
-    type: 'Direct Attack',
-    call: 'Lead Straight Punch',
-    source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22'
-  },
-  {
-    type: 'Direct Attack',
-    call: 'Lead Side Stop Kick',
-    source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34'
-  },
+  { type: 'Direct Attack', call: 'Lead Straight Punch', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22' },
+  { type: 'Direct Attack', call: 'Lead Side Stop Kick', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34' },
+  { type: 'Direct Attack', call: 'Rear Cross', source: 'The Art of Expressing the Human Body, p. 88' },
+  { type: 'Direct Attack', call: 'Pendulum Side Kick', source: 'Tao of Jeet Kune Do, p. 56' },
   // Attack by Drawing
-  {
-    type: 'Attack by Drawing',
-    call: 'Feint low, then lead hook high',
-    source: 'Tao of Jeet Kune Do, p. 67'
-  },
-  {
-    type: 'Attack by Drawing',
-    call: 'Step back, bait, then intercept with cross',
-    source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 41'
-  },
+  { type: 'Attack by Drawing', call: 'Feint low, then lead hook high', source: 'Tao of Jeet Kune Do, p. 67' },
+  { type: 'Attack by Drawing', call: 'Step back, bait, then intercept with cross', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 41' },
   // Progressive Indirect Attack
-  {
-    type: 'Progressive Indirect Attack',
-    call: 'Jab, feint, then low side kick',
-    source: 'Tao of Jeet Kune Do, p. 70'
-  },
+  { type: 'Progressive Indirect Attack', call: 'Jab, feint, then low side kick', source: 'Tao of Jeet Kune Do, p. 70' },
+  { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint, lead hook', source: 'The Art of Expressing the Human Body, p. 89' },
   // Hand Immobilization Attack
-  {
-    type: 'Hand Immobilization Attack',
-    call: 'Pak sao, then straight punch',
-    source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41'
-  },
+  { type: 'Hand Immobilization Attack', call: 'Pak sao, then straight punch', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41' },
+  { type: 'Hand Immobilization Attack', call: 'Lap sao, backfist', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 42' },
   // Attack by Combination
-  {
-    type: 'Attack by Combination',
-    call: 'Jab, cross, lead hook, rear uppercut',
-    source: 'The Art of Expressing the Human Body, p. 88'
-  }
+  { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear uppercut', source: 'The Art of Expressing the Human Body, p. 88' },
+  { type: 'Attack by Combination', call: 'Jab, cross, lead hook, low side kick', source: 'Tao of Jeet Kune Do, p. 71' },
 ];
 
 function getRandomCombo() {
@@ -51,7 +28,10 @@ export default function SifuCallsShadowBoxing() {
   const [current, setCurrent] = useState(null);
   const [history, setHistory] = useState([]);
   const [running, setRunning] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const [responseTimes, setResponseTimes] = useState([]);
   const timerRef = useRef(null);
+  const callTimeRef = useRef(null);
 
   useEffect(() => {
     if (!running) return;
@@ -59,11 +39,19 @@ export default function SifuCallsShadowBoxing() {
       const combo = getRandomCombo();
       setCurrent(combo);
       setHistory((h) => [combo, ...h].slice(0, 10));
+      callTimeRef.current = Date.now();
       timerRef.current = setTimeout(nextCall, 3000 + Math.random() * 2000);
     }
     nextCall();
     return () => clearTimeout(timerRef.current);
   }, [running]);
+
+  function markResponded() {
+    if (!callTimeRef.current) return;
+    const rt = Date.now() - callTimeRef.current;
+    setResponseTimes((rts) => [rt, ...rts].slice(0, 10));
+    callTimeRef.current = null;
+  }
 
   return (
     <section className="martial-card sifu-calls-shadowboxing">
@@ -75,6 +63,7 @@ export default function SifuCallsShadowBoxing() {
         <div className="current-call">
           <strong>{current.type}:</strong> {current.call}
           <span className="combo-source">({current.source})</span>
+          <button className="respond-button" onClick={markResponded} style={{ marginLeft: 12 }}>Responded</button>
         </div>
       )}
       <div className="call-history">
@@ -84,6 +73,14 @@ export default function SifuCallsShadowBoxing() {
             <li key={i}>
               <strong>{c.type}:</strong> {c.call} <span className="combo-source">({c.source})</span>
             </li>
+          ))}
+        </ul>
+      </div>
+      <div className="response-times">
+        <h4>Recent Response Times (ms)</h4>
+        <ul>
+          {responseTimes.map((rt, i) => (
+            <li key={i}>{rt}</li>
           ))}
         </ul>
       </div>

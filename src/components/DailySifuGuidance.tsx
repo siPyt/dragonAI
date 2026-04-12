@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import TrainingSessionGenerator from './TrainingSessionGenerator';
 import SifuCallsShadowBoxing from './SifuCallsShadowBoxing';
+import CameraPoseFeedback from './CameraPoseFeedback';
+import ProgressTracker from './ProgressTracker';
+import PromotionTracker from './PromotionTracker';
 import EquipmentSelector from './EquipmentSelector';
 
 interface DailyPlanStep {
@@ -84,6 +87,9 @@ export default function DailySifuGuidance() {
       <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
       <TrainingSessionGenerator equipment={equipment} />
       <SifuCallsShadowBoxing />
+      <CameraPoseFeedback />
+      <ProgressTracker />
+      <PromotionTracker />
     </section>
   );
 }
