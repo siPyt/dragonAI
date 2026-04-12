@@ -28,31 +28,16 @@ const Tab2: React.FC = () => {
   return (
     <IonPage>
       <IonHeader translucent>
-        <IonToolbar className="martial-toolbar">
+        <IonToolbar className="martial-toolbar minimal-toolbar">
           <IonTitle>Training</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen className="martial-content">
-        <IonHeader collapse="condense">
-          <IonToolbar className="martial-toolbar">
-            <IonTitle size="large">Training</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <div className="martial-page training-page">
-          <section className="section-heading-block">
-            <p className="section-kicker">Practice Floor</p>
-            <h1>Training is organized around direct function, not collection.</h1>
-            <p>
-              The layout treats technique, conditioning, and timing as one integrated session so the user sees Jeet Kune Do as a method under pressure, not a catalog of isolated moves.
-            </p>
-          </section>
-
-
-          <section className="pillar-grid training-grid">
+      <IonContent fullscreen className="martial-content minimal-content">
+        <div className="martial-page training-page minimal-page">
+          <section className="training-grid minimal-grid">
             {modules.map((module) => (
-              <article key={module.title} className="martial-card training-card">
-                <p className="section-kicker">Module</p>
-                <h2>{module.title}</h2>
+              <article key={module.title} className="training-card minimal-card">
+                <h3>{module.title}</h3>
                 <p>{module.body}</p>
               </article>
             ))}

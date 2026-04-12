@@ -13,39 +13,22 @@ const Tab3: React.FC = () => {
   return (
     <IonPage>
       <IonHeader translucent>
-        <IonToolbar className="martial-toolbar">
+        <IonToolbar className="martial-toolbar minimal-toolbar">
           <IonTitle>Living The Way</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen className="martial-content">
-        <IonHeader collapse="condense">
-          <IonToolbar className="martial-toolbar">
-            <IonTitle size="large">Living The Way</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <div className="martial-page living-page">
-          <section className="section-heading-block">
-            <p className="section-kicker">Daily Discipline</p>
-            <h1>Make the philosophy visible in how the day is lived.</h1>
-            <p>
-              This section shifts the tone from technique to conduct: reflection prompts, fitness discipline, and stripped-down routines that keep the martial way present beyond formal sessions.
-            </p>
-          </section>
-
-          <section className="content-grid two-column-grid">
-            <article className="martial-card ritual-card">
-              <p className="section-kicker">Rituals</p>
-              <h2>Daily anchors</h2>
-              <ul className="text-list">
+      <IonContent fullscreen className="martial-content minimal-content">
+        <div className="martial-page living-page minimal-page">
+          <section className="minimal-grid">
+            <article className="ritual-card minimal-card">
+              <ul className="text-list minimal-list">
                 {rituals.map((ritual) => (
                   <li key={ritual}>{ritual}</li>
                 ))}
               </ul>
             </article>
-
-            <article className="martial-card journal-card">
-              <p className="section-kicker">Journal Prompts</p>
-              <div className="prompt-stack">
+            <article className="journal-card minimal-card">
+              <div className="prompt-stack minimal-stack">
                 <div>
                   <strong>What was wasteful today?</strong>
                   <span>Remove one habit, one motion, or one thought that added friction.</span>
