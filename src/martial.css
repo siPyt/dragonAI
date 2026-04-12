@@ -1,0 +1,47 @@
+/* Pass 1: Modernized layout and sectioning for doctrine page and source canon */
+
+.doctrine-foundation-section {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.foundation-col, .source-col {
+  flex: 1 1 0;
+}
+
+.sifu-section {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.sifu-console-col, .sifu-rules-col {
+  flex: 1 1 0;
+}
+
+.source-canon-section {
+  margin-bottom: 2.5rem;
+}
+.source-canon-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.source-canon-card {
+  flex: 1 1 250px;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.pillar-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+.pillar-card {
+  flex: 1 1 250px;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+/* Add more as needed for visual clarity in pass 1 */

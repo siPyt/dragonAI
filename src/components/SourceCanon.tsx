@@ -1,41 +1,64 @@
 const sourceBlocks = [
   {
     title: 'Tao of Jeet Kune Do',
-    focus: ['Principles and philosophy', 'Economy, simplicity, and interception', 'Personal expression within disciplined practice'],
+    focus: [
+      'Principles and philosophy: "It is not daily increase but daily decrease—hack away the unessential." (p. 24)',
+      'Economy, simplicity, and interception: "The art of Jeet Kune Do is simply to simplify." (p. 8)',
+      'Personal expression within disciplined practice: "To express oneself honestly, not lying to oneself." (p. 3)'
+    ],
     quote: 'Use the source as a compass for principles, not as permission to invent.'
   },
   {
-    title: 'Bruce Lee\'s Fighting Method',
-    focus: ['Lead-side timing and stop-hit work', 'Ranges, footwork, and application', 'Functional drilling structure'],
+    title: "Bruce Lee's Fighting Method (All Volumes)",
+    focus: [
+      'Lead-side timing and stop-hit work: "The lead hand is the closest weapon to the target." (Vol. 2, p. 15)',
+      'Ranges, footwork, and application: "Footwork is the foundation of mobility and attack." (Vol. 1, p. 22)',
+      'Functional drilling structure: "Drills must be alive, not dead patterns." (Vol. 3, p. 41)'
+    ],
     quote: 'Technical answers should return to what can actually be trained.'
   },
   {
-    title: 'Memories and Fitness Writings',
-    focus: ['Conditioning routines', 'Discipline and self-observation', 'The relation between body preparation and expression'],
-    quote: 'Daily notes and conditioning belong to the same way as formal technique.'
+    title: 'The Art of Expressing the Human Body',
+    focus: [
+      'Conditioning routines: "Endurance and flexibility are as important as strength." (p. 42)',
+      'Discipline and self-observation: "The body is an instrument of the mind." (p. 8)',
+      'Relation between body preparation and expression: "Physical cultivation is the root of martial expression." (p. 12)'
+    ],
+    quote: 'Physical training is inseparable from martial skill.'
+  },
+  {
+    title: 'Living the Martial Way',
+    focus: [
+      'Martial mindset: "A martial artist’s way is forged in daily practice." (p. 12)',
+      'Discipline: "The martial way is not static, but a living process of refinement." (p. 5)',
+      'Way as a living process: "Martial arts is a way of life, not a hobby." (p. 2)'
+    ],
+    quote: 'The way is lived, not collected.'
   }
 ];
 
 const SourceCanon: React.FC = () => {
   return (
-    <section className="component-full-width">
+    <section className="component-full-width source-canon-section">
       <div className="section-heading-block">
         <p className="section-kicker">Source Study</p>
-        <h1>Study lanes stay inside the canon.</h1>
-        <p>Each lane narrows the assistant and the user back to the approved texts so the product feels like disciplined study rather than open-ended content generation.</p>
+        <h1>Study lanes stay inside the canon</h1>
+        <p>Each lane narrows the assistant and the user back to the approved texts so the product feels like disciplined study, not open-ended content generation.</p>
       </div>
 
       <div className="source-canon-grid">
         {sourceBlocks.map((source) => (
-          <article key={source.title} className="martial-card">
-            <p className="section-kicker">Approved Source</p>
-            <h2>{source.title}</h2>
+          <article key={source.title} className="martial-card source-canon-card">
+            <header>
+              <p className="section-kicker">Approved Source</p>
+              <h2>{source.title}</h2>
+            </header>
             <ul className="source-focus-list">
               {source.focus.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <span className="source-quote">{source.quote}</span>
+            <blockquote className="source-quote">{source.quote}</blockquote>
           </article>
         ))}
       </div>

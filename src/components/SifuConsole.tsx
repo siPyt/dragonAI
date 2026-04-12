@@ -19,7 +19,7 @@ const initialMessage: ChatMessage = {
   id: 'assistant-intro',
   role: 'assistant',
   content:
-    'Ask from the approved source set only. If the source set is not enough, this console will say so directly rather than filling gaps.'
+    'Ask only about topics covered in: Tao of Jeet Kune Do, Bruce Lee’s Fighting Method (all volumes), The Art of Expressing the Human Body, and Living the Martial Way. If your question is not covered, the virtual sifu will say so directly and will not invent or speculate.'
 };
 
 const apiUrl = import.meta.env.VITE_CHAT_API_URL || '/api/chat';
@@ -383,7 +383,7 @@ const SifuConsole: React.FC = () => {
           className="console-textarea"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask about doctrine, drills, timing, fitness notes, or daily discipline from the approved Bruce Lee source set."
+          placeholder="Ask about doctrine, drills, timing, fitness, or discipline—answers will only use: Tao of Jeet Kune Do, Bruce Lee’s Fighting Method, The Art of Expressing the Human Body, and Living the Martial Way. If not covered, the sifu will say so."
           disabled={isLoading}
         />
         <div className="console-actions">

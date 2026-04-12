@@ -2,12 +2,17 @@
   display: grid;
   gap: 1rem;
   justify-items: center;
+  padding: 0.5rem 0 1.5rem 0;
 }
 
 .jkd-symbol {
   width: min(100%, 280px);
   height: auto;
-  filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.55));
+  filter:
+    drop-shadow(0 22px 45px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 18px var(--dragon-gold-soft));
+  background: transparent;
+  border-radius: 50%;
 }
 
 .jkd-symbol-caption {
@@ -16,15 +21,19 @@
   justify-items: center;
   text-transform: uppercase;
   letter-spacing: 0.22em;
+  filter: drop-shadow(0 1px 2px #0008);
 }
 
 .jkd-symbol-caption span {
   color: var(--dragon-muted);
   font-size: 0.7rem;
+  letter-spacing: 0.18em;
 }
 
 .jkd-symbol-caption strong {
   font-family: 'Cinzel', Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   color: var(--dragon-gold-soft);
+  letter-spacing: 0.22em;
+  text-shadow: 0 1px 8px #ca9938cc, 0 0px 2px #000a;
 }
