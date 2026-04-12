@@ -102,23 +102,7 @@ export default function DailySifuGuidance() {
       <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
       <a href="/info" className="ledger-button dragon-link">View Advancement Criteria</a>
       <div className="dragon-section">
-        <TrainingSessionGenerator equipment={equipment} />
-        <LiveTraining />
-        <SifuCallsShadowBoxing />
         <CameraPoseFeedback />
-      </div>
-      <div className="dragon-section">
-        <button onClick={() => setShowProgress((v) => !v)} className="ledger-button">
-          {showProgress ? 'Hide Progress & Streaks' : 'Show Progress & Streaks'}
-        </button>
-        {showProgress && (
-          <>
-            <ProgressTracker />
-            <SifuStreakTracker />
-            <PromotionTracker />
-            <SifuProgressVisualization />
-          </>
-        )}
       </div>
       <div className="dragon-section">
         <button onClick={() => setShowLeaderboards((v) => !v)} className="ledger-button">
