@@ -75,25 +75,6 @@ export default function DailySifuGuidance() {
   return (
     <section className="martial-card daily-sifu-guidance component-full-width">
       <SifuAdaptiveGuidance />
-      <h2>Virtual Sifu Guidance</h2>
-      <p className="sifu-greeting">{greeting}</p>
-      <EquipmentSelector value={equipment} onChange={setEquipment} />
-      <ol className="daily-plan-list">
-        {steps.map((step, idx) => (
-          <li key={step.title} className={step.done ? 'done' : ''}>
-            <label>
-              <input type="checkbox" checked={step.done} onChange={() => markDone(idx)} />
-              <strong>{step.title}:</strong> {step.description}
-              {step.source && <span className="plan-source"> ({step.source})</span>}
-            </label>
-          </li>
-        ))}
-      </ol>
-      <p className="plan-note">You can follow this plan or choose your own focus from the Training tab.</p>
-      <a href="/info" className="ledger-button dragon-link">View Advancement Criteria</a>
-      <div className="dragon-section">
-        <SifuCallsShadowBoxing />
-      </div>
       <div className="dragon-section">
         <CameraPoseFeedback />
       </div>

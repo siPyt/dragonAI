@@ -77,6 +77,23 @@ const combos: Combo[] = [
 ];
 
 
+
+function splitComboMoves(combo: Combo): string[] {
+  // Split by comma, 'then', or 'and' for multi-move combos
+  // e.g. "Jab, cross, lead hook" => ["Jab", "cross", "lead hook"]
+  // e.g. "Jab, cross, then lead hook" => ["Jab", "cross", "lead hook"]
+  // e.g. "Jab and cross" => ["Jab", "cross"]
+  let moves = combo.call
+    .replace(/then/gi, ',')
+    .replace(/ and /gi, ',')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+  // If nothing split, just return the call
+  if (moves.length === 0) return [combo.call];
+  return moves;
+}
+
 function getRandomCombo(): Combo {
   return combos[Math.floor(Math.random() * combos.length)];
 }
@@ -85,11 +102,13 @@ function getRandomCombo(): Combo {
 
 export default function SifuCallsShadowBoxing() {
   const [current, setCurrent] = useState<Combo | null>(null);
+  const [currentMoveIdx, setCurrentMoveIdx] = useState<number>(0);
+  const [currentMoves, setCurrentMoves] = useState<string[]>([]);
   const [history, setHistory] = useState<Combo[]>([]);
   const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState<number>(0);
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
-  const [pace, setPace] = useState<number>(7); // seconds between calls, default slow for newbies
+  const [pace, setPace] = useState<number>(7); // seconds between moves
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const callTimeRef = useRef<number | null>(null);
 
@@ -97,9 +116,10 @@ export default function SifuCallsShadowBoxing() {
   useEffect(() => {
     if (!running) return;
     let cancelled = false;
-    async function speakCombo(combo: Combo) {
+
+    async function speakMove(move: string) {
       try {
-        const audioBlob = await elevenlabsTTS(combo.call);
+        const audioBlob = await elevenlabsTTS(move);
         if (audioBlob && !cancelled) {
           const url = URL.createObjectURL(audioBlob);
           const audio = new Audio(url);
@@ -107,16 +127,35 @@ export default function SifuCallsShadowBoxing() {
         }
       } catch {}
     }
-    function nextCall() {
+
+    function startCombo() {
       const combo = getRandomCombo();
       setCurrent(combo);
       setHistory((h: Combo[]) => [combo, ...h].slice(0, 10));
+      const moves = splitComboMoves(combo);
+      setCurrentMoves(moves);
+      setCurrentMoveIdx(0);
       callTimeRef.current = Date.now();
-      speakCombo(combo);
-      // Pace: user adjustable, 3s (fast) to 15s (slow)
-      timerRef.current = setTimeout(nextCall, pace * 1000);
+      speakMove(moves[0]);
+      if (moves.length > 1) {
+        timerRef.current = setTimeout(() => nextMove(moves, 1), pace * 1000);
+      } else {
+        timerRef.current = setTimeout(startCombo, pace * 1000);
+      }
     }
-    nextCall();
+
+    function nextMove(moves: string[], idx: number) {
+      if (cancelled) return;
+      setCurrentMoveIdx(idx);
+      speakMove(moves[idx]);
+      if (idx < moves.length - 1) {
+        timerRef.current = setTimeout(() => nextMove(moves, idx + 1), pace * 1000);
+      } else {
+        timerRef.current = setTimeout(startCombo, pace * 1000);
+      }
+    }
+
+    startCombo();
     return () => {
       cancelled = true;
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -157,6 +196,23 @@ export default function SifuCallsShadowBoxing() {
         <div className="current-call">
           <strong>{current.type}:</strong> {current.call}
           <span className="combo-source">({current.source})</span>
+          <div style={{marginTop: 8}}>
+            {currentMoves.length > 1 ? (
+              <>
+                {currentMoves.map((move, idx) => (
+                  <span key={idx} style={{
+                    fontWeight: idx === currentMoveIdx ? 'bold' : undefined,
+                    color: idx === currentMoveIdx ? '#0070f3' : undefined,
+                    marginRight: 12
+                  }}>
+                    {move}
+                  </span>
+                ))}
+              </>
+            ) : (
+              <span style={{fontWeight: 'bold'}}>{currentMoves[0]}</span>
+            )}
+          </div>
           <button className="respond-button" onClick={markResponded}>Responded</button>
         </div>
       )}
@@ -178,7 +234,7 @@ export default function SifuCallsShadowBoxing() {
           ))}
         </ul>
       </div>
-      <p className="plan-note">Sifu will call out real JKD combos. Adjust the pace to learn or drill. React as fast as you can, with correct form. (Camera feedback coming soon.)</p>
+      <p className="plan-note">Sifu will call out each move in a combo at your chosen pace. Adjust the slider to slow down or speed up the time between moves. (Camera feedback coming soon.)</p>
     </section>
   );
 }
