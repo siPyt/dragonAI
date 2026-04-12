@@ -22,6 +22,16 @@ const combos: Combo[] = [
   // Hand Immobilization Attack
   { type: 'Hand Immobilization Attack', call: 'Pak sao, then straight punch', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 41' },
   { type: 'Hand Immobilization Attack', call: 'Lap sao, backfist', source: 'Bruce Lee’s Fighting Method, Vol. 3, p. 42' },
+  // Pro Boxing Trapping Combos
+  { type: 'Boxing Trapping', call: 'Parry the jab, counter with cross', source: 'Pro Boxing Fundamentals' },
+  { type: 'Boxing Trapping', call: 'Catch the jab, return a quick cross', source: 'Pro Boxing Fundamentals' },
+  { type: 'Boxing Trapping', call: 'Smother opponent’s punches, throw a short uppercut', source: 'Pro Boxing Fundamentals' },
+  { type: 'Boxing Trapping', call: 'Clinch to neutralize, then pivot out', source: 'Pro Boxing Fundamentals' },
+  { type: 'Boxing Trapping', call: 'Control lead hand, throw a lead hook', source: 'Pro Boxing Fundamentals' },
+  { type: 'Boxing Trapping', call: 'Double parry, return cross', source: 'Pro Boxing Advanced' },
+  { type: 'Boxing Trapping', call: 'Shoulder bump, then lead hook', source: 'Pro Boxing Advanced' },
+  { type: 'Boxing Trapping', call: 'Frame with forearm, pivot and counter', source: 'Pro Boxing Advanced' },
+  { type: 'Boxing Trapping', call: 'Tie up wrist, throw uppercut', source: 'Pro Boxing Advanced' },
   // Attack by Combination
   { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear uppercut', source: 'The Art of Expressing the Human Body, p. 88' },
   { type: 'Attack by Combination', call: 'Jab, cross, lead hook, low side kick', source: 'Tao of Jeet Kune Do, p. 71' },

@@ -30,6 +30,11 @@ const drills: Drill[] = [
   { range: 'Punching', name: 'Smother and Uppercut', description: 'Boxing trapping: Smother opponent’s punches, then throw a short uppercut inside.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
   { range: 'Grappling', name: 'Clinch and Tie-Up', description: 'Boxing trapping: Enter the clinch to neutralize offense, then pivot out or break.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
   { range: 'Punching', name: 'Hand Control and Lead Hook', description: 'Boxing trapping: Control opponent’s lead hand, then throw a lead hook around the guard.', source: 'Pro Boxing Fundamentals', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  // More pro boxing trapping drills
+  { range: 'Punching', name: 'Double Parry, Cross', description: 'Boxing trapping: Double parry opponent’s jab and cross, then return your own cross.', source: 'Pro Boxing Advanced', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Punching', name: 'Shoulder Bump and Hook', description: 'Boxing trapping: Use a shoulder bump to create space, then throw a lead hook.', source: 'Pro Boxing Advanced', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Punching', name: 'Frame and Pivot', description: 'Boxing trapping: Frame with forearm on opponent, pivot out and counter.', source: 'Pro Boxing Advanced', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Grappling', name: 'Wrist Tie and Uppercut', description: 'Boxing trapping: Tie up opponent’s wrist in close, then throw an uppercut.', source: 'Pro Boxing Advanced', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
   // Grappling (optional, not trapping)
   { range: 'Grappling', name: 'Standing Clinch Escape', description: 'From a clinch, use hip movement and hand fighting to break free and create striking distance.', source: 'Living the Martial Way, p. 112', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
   { range: 'Grappling', name: 'Sprawl and Counter', description: 'When the opponent shoots for a takedown, sprawl your legs back and counter with a crossface or underhook.', source: 'The Art of Expressing the Human Body, p. 144', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
@@ -124,12 +129,13 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function generateSession() {
-    // Ensure all five ways of attack are covered, minimize trapping
+    // Ensure all five ways of attack are covered, and always include at least one pro boxing trapping drill
     const direct = drills.filter(d => d.description.toLowerCase().includes('direct attack') && isDrillAvailable(d) && d.levels.includes(currentLevel));
     const combo = drills.filter(d => d.description.toLowerCase().includes('combination') && isDrillAvailable(d) && d.levels.includes(currentLevel));
     const indirect = drills.filter(d => d.description.toLowerCase().includes('indirect') && isDrillAvailable(d) && d.levels.includes(currentLevel));
     const drawing = drills.filter(d => d.description.toLowerCase().includes('drawing') && isDrillAvailable(d) && d.levels.includes(currentLevel));
     const immobilization = drills.filter(d => d.description.toLowerCase().includes('immobilization') && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const boxingTrapping = drills.filter(d => d.description.toLowerCase().includes('boxing trapping') && isDrillAvailable(d) && d.levels.includes(currentLevel));
     // Pick one from each, fallback to any available if empty
     const pick = (arr: Drill[]) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
     const sessionDrills = [
@@ -137,7 +143,8 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       pick(combo),
       pick(indirect),
       pick(drawing),
-      pick(immobilization)
+      pick(immobilization),
+      pick(boxingTrapping)
     ].filter(Boolean) as Drill[];
     // Always add a grappling drill if available
     const grappling = drills.filter(d => d.range === 'Grappling' && isDrillAvailable(d) && d.levels.includes(currentLevel));
