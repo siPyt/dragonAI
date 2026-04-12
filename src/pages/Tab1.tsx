@@ -11,7 +11,7 @@ const Tab1: React.FC = () => {
       title: 'Source-Locked Guidance',
       icon: '🔒',
       color: '#ca9938',
-      body: 'The app is grounded in authentic martial arts principles and training methods.'
+      body: 'The app is grounded in authentic martial arts principles and training methods from reputable sources.'
     },
     {
       title: 'Directness Over Ornament',
@@ -35,7 +35,7 @@ const Tab1: React.FC = () => {
   ];
 
   const commandDeck = [
-    'All answers are based on authentic martial arts sources and training experience.',
+    'All answers are based on authentic martial arts knowledge and training experience.',
     'Voice input and spoken replies are supported.',
     'Session memory stores concise records of training and refinement.'
   ];
@@ -60,13 +60,13 @@ const Tab1: React.FC = () => {
         </IonHeader>
         <div className="martial-page doctrine-page">
           <DailySifuGuidance />
-          {/* Hero Section: Brand and Command Deck (no symbol, no extra label) */}
+          {/* Hero Section: Brand and Command Deck (no explicit book names) */}
           <section className="hero-panel">
             <div className="hero-copy">
               <p className="section-kicker">dragon_ai // Virtual Sifu</p>
               <h1>Jeet Kune Do as a Living Martial Way</h1>
               <p className="hero-text">
-                Disciplined study chamber: source-bound, stripped of noise, designed to keep you inside Bruce Lee&apos;s written method only.
+                Disciplined study chamber: source-bound, stripped of noise, designed to keep you inside authentic martial arts principles only.
               </p>
               <div className="hero-badges" aria-label="Design principles">
                 <span>Black / Red / Gold</span>
