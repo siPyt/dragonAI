@@ -1,0 +1,30 @@
+.jkd-symbol-shell {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.jkd-symbol {
+  width: min(100%, 280px);
+  height: auto;
+  filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.55));
+}
+
+.jkd-symbol-caption {
+  display: grid;
+  gap: 0.18rem;
+  justify-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+.jkd-symbol-caption span {
+  color: var(--dragon-muted);
+  font-size: 0.7rem;
+}
+
+.jkd-symbol-caption strong {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--dragon-gold-soft);
+}

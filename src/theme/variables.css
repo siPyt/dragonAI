@@ -1,2 +1,76 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Cinzel:wght@400;600;700&display=swap');
+
+:root {
+	--ion-font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+	--dragon-bg: #050505;
+	--dragon-surface: rgba(18, 18, 18, 0.88);
+	--dragon-surface-strong: rgba(10, 10, 10, 0.96);
+	--dragon-border: rgba(202, 153, 56, 0.38);
+	--dragon-red: #8c1111;
+	--dragon-red-bright: #c51d1d;
+	--dragon-gold: #ca9938;
+	--dragon-gold-soft: #f1d08a;
+	--dragon-text: #f6edd8;
+	--dragon-muted: #c8baa2;
+
+	--ion-background-color: var(--dragon-bg);
+	--ion-background-color-rgb: 5, 5, 5;
+	--ion-text-color: var(--dragon-text);
+	--ion-text-color-rgb: 246, 237, 216;
+
+	--ion-color-primary: #b61a1a;
+	--ion-color-primary-rgb: 182, 26, 26;
+	--ion-color-primary-contrast: #f8eed4;
+	--ion-color-primary-contrast-rgb: 248, 238, 212;
+	--ion-color-primary-shade: #a01717;
+	--ion-color-primary-tint: #be3131;
+
+	--ion-color-secondary: #ca9938;
+	--ion-color-secondary-rgb: 202, 153, 56;
+	--ion-color-secondary-contrast: #130d03;
+	--ion-color-secondary-contrast-rgb: 19, 13, 3;
+	--ion-color-secondary-shade: #b28831;
+	--ion-color-secondary-tint: #d1a34c;
+
+	--ion-color-tertiary: #351010;
+	--ion-color-tertiary-rgb: 53, 16, 16;
+	--ion-color-tertiary-contrast: #f6edd8;
+	--ion-color-tertiary-contrast-rgb: 246, 237, 216;
+	--ion-color-tertiary-shade: #2f0e0e;
+	--ion-color-tertiary-tint: #492828;
+
+	--ion-toolbar-background: rgba(8, 8, 8, 0.78);
+	--ion-toolbar-color: var(--dragon-text);
+	--ion-tab-bar-background: rgba(6, 6, 6, 0.92);
+	--ion-tab-bar-color: var(--dragon-muted);
+	--ion-tab-bar-color-selected: var(--dragon-gold-soft);
+	--ion-border-color: rgba(202, 153, 56, 0.24);
+}
+
+body {
+	background:
+		radial-gradient(circle at top, rgba(197, 29, 29, 0.18), transparent 30%),
+		radial-gradient(circle at bottom right, rgba(202, 153, 56, 0.16), transparent 22%),
+		linear-gradient(180deg, #140909 0%, #050505 48%, #080808 100%);
+	color: var(--dragon-text);
+}
+
+ion-app {
+	background: transparent;
+}
+
+.dragon-tab-bar {
+	border-top: 1px solid rgba(202, 153, 56, 0.2);
+	backdrop-filter: blur(20px);
+}
+
+.dragon-tab-bar ion-tab-button {
+	--color: var(--dragon-muted);
+	--color-selected: var(--dragon-gold-soft);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.dragon-tab-bar ion-icon {
+	font-size: 1.2rem;
+}
