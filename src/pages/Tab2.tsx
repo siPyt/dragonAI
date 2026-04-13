@@ -2,6 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './Tab2.css';
 
 import TrainingSessionGenerator from '../components/TrainingSessionGenerator';
+import ProgressiveChallenge from '../components/ProgressiveChallenge';
 import { useState } from 'react';
 
 const Tab2: React.FC = () => {
