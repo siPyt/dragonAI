@@ -201,7 +201,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       {userInfo && (
         <div className="plan-note">Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
       )}
-      <PromotionChecklist currentLevel={currentLevel} />
+      {/* PromotionChecklist removed for minimal UI */}
       <button className="ledger-button" onClick={generateSession} disabled={showUserInfoForm}>Generate Session</button>
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
