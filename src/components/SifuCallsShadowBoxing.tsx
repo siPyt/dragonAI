@@ -10,6 +10,13 @@ interface Combo {
 
 // 100 authentic combos per attack type, leveled, with source citations
 const combos: Combo[] = [
+    // Muay Thai Clinch (Trapping) - for Year 2: Practitioner and above
+    ...[
+      { type: 'Trapping (Clinch)', call: 'Double Collar Tie (Muay Thai Clinch)', source: 'Muay Thai, JKD integration' },
+      { type: 'Trapping (Clinch)', call: 'Knee strike from clinch', source: 'Muay Thai, JKD integration' },
+      { type: 'Trapping (Clinch)', call: 'Elbow from clinch', source: 'Muay Thai, JKD integration' },
+      { type: 'Trapping (Clinch)', call: 'Clinch off-balance and dump', source: 'Muay Thai, JKD integration' },
+    ],
   // Direct Attack (Initiate to Sifu)
   ...[
     // Initiate (simple, fundamental)
