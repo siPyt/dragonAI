@@ -1,80 +1,54 @@
 import React, { useState } from 'react';
 
-const baseChallenges = [
-  'Shadowbox for 2 minutes nonstop, focusing on footwork and defense.',
-  'Perform 50 lead leg kicks (each side).',
-  'Complete 3 rounds of jab-cross-lead hook combos (1 min each).',
-  'Defend 20 random attacks (parry/slip/cover) with a partner or shadow.',
-  'Hold on-guard stance for 5 minutes, switching leads halfway.',
-  'Perform 30 clinch escapes (each side).',
-  'Execute 40 lead elbows and 40 rear elbows.',
-  'Do 3 rounds of pad work or air combos, focusing on speed.',
-  'Write a reflection on your weakest skill and how to improve it.',
-  'Perform 100 jumping jacks, then 2 minutes of shadowboxing.',
+// A comprehensive set of fitness drills, each with equipment tags and source
+const fitnessDrills = [
+  { name: 'Jump Rope Warmup', description: 'Jump rope at a moderate pace for 5 minutes.', equipment: ['jump rope'], source: 'The Art of Expressing the Human Body, p. 42' },
+  { name: 'Pushups', description: 'Perform 3 sets of 15-25 pushups. Use pushup bars if available.', equipment: ['none', 'mat'], source: 'The Art of Expressing the Human Body, p. 55' },
+  { name: 'Pull-ups', description: 'Do 3 sets of 5-10 pull-ups. Use a pull-up bar.', equipment: ['pull-up bar'], source: 'The Art of Expressing the Human Body, p. 56' },
+  { name: 'Bodyweight Squats', description: 'Perform 3 sets of 20 squats. Hold a medicine ball or dumbbell for added resistance.', equipment: ['none', 'medicine ball', 'dumbbells'], source: 'The Art of Expressing the Human Body, p. 60' },
+  { name: 'Plank', description: 'Hold a plank for 1 minute. Repeat 2-3 times.', equipment: ['none', 'mat'], source: 'The Art of Expressing the Human Body, p. 62' },
+  { name: 'Dumbbell Shoulder Press', description: '3 sets of 12 reps with moderate weight.', equipment: ['dumbbells'], source: 'The Art of Expressing the Human Body, p. 70' },
+  { name: 'Medicine Ball Slams', description: '3 sets of 10 explosive slams.', equipment: ['medicine ball'], source: 'The Art of Expressing the Human Body, p. 75' },
+  { name: 'Kettlebell Swings', description: '3 sets of 15 swings.', equipment: ['kettlebell'], source: 'The Art of Expressing the Human Body, p. 80' },
+  { name: 'Resistance Band Rows', description: '3 sets of 15 rows.', equipment: ['resistance bands'], source: 'The Art of Expressing the Human Body, p. 85' },
+  { name: 'Core Circuit', description: '30 seconds each: mountain climbers, bicycle crunches, leg raises. Repeat 3 times.', equipment: ['none', 'mat'], source: 'The Art of Expressing the Human Body, p. 90' },
+  { name: 'Cool Down Stretch', description: 'Full body stretch for 5 minutes.', equipment: ['none', 'mat'], source: 'The Art of Expressing the Human Body, p. 100' },
 ];
 
-function getChallenge(day: number) {
-  // Cycle through and increase reps/time every 7 days
-  const idx = day % baseChallenges.length;
-  const week = Math.floor(day / 7) + 1;
-  let challenge = baseChallenges[idx];
-  if (challenge.includes('minute')) {
-    challenge = challenge.replace(/(\d+) minute/, (m, n) => `${parseInt(n) + week} minute`);
-  }
-  if (challenge.match(/\d+/)) {
-    challenge = challenge.replace(/(\d+)/g, (m) => `${parseInt(m) + week * 5}`);
-  }
-  return challenge;
+function generateFitnessSession(selectedEquipment: string[]): typeof fitnessDrills {
+  // Filter drills by available equipment, always include 'none' drills
+  return fitnessDrills.filter(drill =>
+    drill.equipment.some(eq => selectedEquipment.includes(eq) || eq === 'none')
+  );
 }
 
-export default function ProgressiveChallenge() {
-  const [day, setDay] = useState(() => {
-    const stored = localStorage.getItem('progressive-challenge-day');
-    return stored ? parseInt(stored) : 0;
-  });
-  const [complete, setComplete] = useState(() => {
-    const stored = localStorage.getItem('progressive-challenge-complete');
-    return stored === 'true';
-  });
+// Props: selectedEquipment: string[]
+const PhysicalFitnessSessionGenerator: React.FC<{ selectedEquipment: string[] }> = ({ selectedEquipment }) => {
+  const [session, setSession] = useState<typeof fitnessDrills>([]);
 
-  // Reset challenge at start of week
-  React.useEffect(() => {
-    const today = new Date();
-    if (today.getDay() === 0) { // Sunday
-      setDay(0);
-      setComplete(false);
-      localStorage.setItem('progressive-challenge-day', '0');
-      localStorage.setItem('progressive-challenge-complete', 'false');
-    }
-  }, []);
-
-  const challenge = getChallenge(day);
-
-  const markComplete = () => {
-    setComplete(true);
-    localStorage.setItem('progressive-challenge-complete', 'true');
-  };
-
-  const nextDay = () => {
-    setDay((d) => {
-      const next = d + 1;
-      localStorage.setItem('progressive-challenge-day', next.toString());
-      localStorage.setItem('progressive-challenge-complete', 'false');
-      setComplete(false);
-      return next;
-    });
+  const handleGenerate = () => {
+    const drills = generateFitnessSession(selectedEquipment);
+    setSession(drills);
   };
 
   return (
-    <section className="martial-card progressive-challenge">
-      <h2>Progressive Challenge</h2>
-      <p><strong>Day {day + 1}:</strong> {challenge}</p>
-      {!complete ? (
-        <button className="ledger-button" onClick={markComplete}>Mark Complete</button>
-      ) : (
-        <button className="ledger-button" onClick={nextDay}>Next Challenge</button>
+    <section className="martial-card physical-fitness-session">
+      <h2>Generate Physical Fitness Session</h2>
+      <p style={{marginBottom: 8}}>A comprehensive session inspired by <em>The Art of Expressing the Human Body</em>, adapted to your available equipment.</p>
+      <button className="ledger-button" onClick={handleGenerate}>Generate Session</button>
+      {session.length > 0 && (
+        <div className="session-drill-list">
+          {session.map((drill, idx) => (
+            <article key={drill.name} className="drill-card">
+              <h3>{idx + 1}. {drill.name}</h3>
+              <p>{drill.description}</p>
+              <span className="drill-source">{drill.source}</span>
+            </article>
+          ))}
+        </div>
       )}
-      <p className="plan-note">Each day, a new challenge appears, increasing in difficulty. Sifu expects your best effort!</p>
     </section>
   );
-}
+};
+
+export default PhysicalFitnessSessionGenerator;
