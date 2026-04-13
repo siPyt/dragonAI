@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import './TrainingSessionGenerator.css';
+import DrillBreakdown from './DrillBreakdown';
 
 interface Drill {
   range: 'Kicking' | 'Punching' | 'Trapping' | 'Grappling';
@@ -11,6 +13,34 @@ interface Drill {
 
 // 100 authentic drills per attack type, leveled, with source citations
 // Add equipment field to relevant drills
+
+// Authentic step-by-step breakdowns for select drills (template, expand as needed)
+// To add more, use Bruce Lee's original books for each move's breakdown.
+const drillBreakdowns: Record<string, string[]> = {
+  'Lead Side Stop Kick': [
+    'Assume on-guard stance, weight slightly on rear leg.',
+    'Lift lead knee, chambering the leg.',
+    'Extend heel toward opponent’s knee or midsection.',
+    'Snap the kick out, making contact with the heel.',
+    'Retract leg instantly and return to guard.',
+    'Keep hands up throughout for protection.'
+  ],
+  'Lead Straight Punch': [
+    'Start from on-guard stance, relaxed shoulders.',
+    'Without telegraphing, drive lead fist straight toward target.',
+    'Rotate fist so palm faces down at full extension.',
+    'Snap punch out and instantly retract to guard.',
+    'Exhale sharply as you punch.'
+  ],
+  'Pendulum Side Kick': [
+    'Begin in fighting stance.',
+    'Push off rear foot, swinging lead foot forward in a pendulum motion.',
+    'Chamber lead knee, then extend leg in a side kick.',
+    'Strike with heel, aiming for opponent’s midsection.',
+    'Retract leg and return to stance.'
+  ],
+  // Add more as needed
+};
 const drills: Drill[] = [
   // Direct Attack (Initiate to Sifu)
   // Initiate (simple, fundamental)
@@ -112,6 +142,7 @@ const getCurrentLevelAndStreak = () => {
 
 const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equipment }) => {
   const [session, setSession] = useState<Drill[]>([]);
+  const [breakdownDrill, setBreakdownDrill] = useState<Drill | null>(null);
   const [{ level: currentLevel, days: attendanceDays, maxStreak }, setLevelState] = useState(getCurrentLevelAndStreak());
   const [userInfo, setUserInfo] = useState<{height: string, weight: string, age: string} | null>(null);
   const [showUserInfoForm, setShowUserInfoForm] = useState(false);
@@ -206,12 +237,12 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
     <section className="martial-card training-session-generator">
       <h2>Generate Complete Training Session</h2>
       {showUserInfoForm && (
-        <form className="user-info-form" onSubmit={handleUserInfoSubmit} style={{marginBottom: 16}}>
+        <form className="user-info-form" onSubmit={handleUserInfoSubmit}>
           <h3>Tell Sifu about you</h3>
           <label>
             Height:
-            <input name="heightFeet" type="number" min="3" max="7" required style={{ width: 50, marginRight: 4 }} placeholder="ft" /> ft
-            <input name="heightInches" type="number" min="0" max="11" required style={{ width: 50, marginLeft: 8, marginRight: 4 }} placeholder="in" /> in
+            <input name="heightFeet" type="number" min="3" max="7" required placeholder="ft" /> ft
+            <input name="heightInches" type="number" min="0" max="11" required placeholder="in" /> in
           </label>
           <label>
             Weight (lbs): <input name="weight" type="number" min="50" max="500" required />
@@ -227,15 +258,13 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
           <div>Current Level: <strong>{currentLevel}</strong> | Attendance Days: {attendanceDays} | Max Streak: {maxStreak}</div>
           <div>Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
           <button
-            className="ledger-button"
-            style={{ marginLeft: 12, fontSize: 12, padding: '2px 8px' }}
+            className="ledger-button update-info"
             onClick={() => setShowUserInfoForm(true)}
           >
             Update Info
           </button>
           <button
-            className="ledger-button"
-            style={{ marginLeft: 12, fontSize: 12, padding: '2px 8px', background: '#eee', color: '#333' }}
+            className="ledger-button simulate-level"
             onClick={simulateLevelUp}
           >
             Simulate Level Up
@@ -249,17 +278,27 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       {session.length > 0 ? (
         <div className="session-drill-list">
           {session.map((drill, idx) => (
-            <article key={drill.name} className="drill-card">
+            <article key={drill.name} className="drill-card" onClick={() => setBreakdownDrill(drill)}>
               <h3>{idx + 1}. {drill.range} Range: {drill.name}</h3>
               <p>{drill.description}</p>
               <span className="drill-source">{drill.source}</span>
+              <div className="drill-breakdown-link">View Step-by-Step</div>
             </article>
           ))}
         </div>
       ) : (
-        <div style={{marginTop: 16, color: '#c00', fontWeight: 500}}>
+        <div className="no-drills-message">
           No drills available for your current level and equipment selection.
         </div>
+      )}
+
+      {breakdownDrill && (
+        <DrillBreakdown
+          name={breakdownDrill.name}
+          breakdown={drillBreakdowns[breakdownDrill.name] || ['Step-by-step breakdown coming soon.']}
+          source={breakdownDrill.source}
+          onClose={() => setBreakdownDrill(null)}
+        />
       )}
     </section>
   );

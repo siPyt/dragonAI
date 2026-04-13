@@ -1,0 +1,56 @@
+.user-info-form {
+  margin-bottom: 16px;
+}
+.user-info-form input[name="heightFeet"],
+.user-info-form input[name="heightInches"] {
+  width: 50px;
+}
+.user-info-form input[name="heightFeet"] {
+  margin-right: 4px;
+}
+.user-info-form input[name="heightInches"] {
+  margin-left: 8px;
+  margin-right: 4px;
+}
+.ledger-button {
+  margin-left: 0;
+  font-size: 14px;
+  padding: 6px 16px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ledger-button:hover {
+  background: #444;
+}
+.ledger-button.update-info {
+  margin-left: 12px;
+  font-size: 12px;
+  padding: 2px 8px;
+  background: #222;
+  color: #fff;
+}
+.ledger-button.simulate-level {
+  margin-left: 12px;
+  font-size: 12px;
+  padding: 2px 8px;
+  background: #eee;
+  color: #333;
+}
+.session-drill-list .drill-card {
+  cursor: pointer;
+}
+.drill-breakdown-link {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.no-drills-message {
+  margin-top: 16px;
+  color: #c00;
+  font-weight: 500;
+}
