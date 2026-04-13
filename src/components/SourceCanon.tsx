@@ -38,32 +38,7 @@ const sourceBlocks = [
 ];
 
 const SourceCanon: React.FC = () => {
-  return (
-    <section className="component-full-width source-canon-section">
-      <div className="section-heading-block">
-        <p className="section-kicker">Source Study</p>
-        <h1>Study lanes stay inside the canon</h1>
-        <p>Each lane narrows the assistant and the user back to the approved texts so the product feels like disciplined study, not open-ended content generation.</p>
-      </div>
-
-      <div className="source-canon-grid">
-        {sourceBlocks.map((source) => (
-          <article key={source.title} className="martial-card source-canon-card">
-            <header>
-              <p className="section-kicker">Approved Source</p>
-              <h2>{source.title}</h2>
-            </header>
-            <ul className="source-focus-list">
-              {source.focus.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <blockquote className="source-quote">{source.quote}</blockquote>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
+  return null;
 };
 
 export default SourceCanon;

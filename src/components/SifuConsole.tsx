@@ -326,58 +326,6 @@ const SifuConsole: React.FC = () => {
 
   return (
     <section className="martial-card sifu-console component-full-width">
-      <div className="sifu-console-header">
-        <div>
-          <p className="section-kicker">Virtual Sifu Console</p>
-          <h2>Ask inside the canon</h2>
-          <p className="sifu-status">{statusText}</p>
-        </div>
-        <div className="sifu-control-bank">
-          <button type="button" className="voice-action-button" onClick={toggleListening}>
-            {isListening ? 'Stop Voice' : 'Voice Input'}
-          </button>
-          <button type="button" className="voice-action-button" onClick={speakLastAnswer}>
-            Speak Reply
-          </button>
-          <button
-            type="button"
-            className={`voice-action-button ${autoSpeak ? 'active' : ''}`}
-            onClick={() => setAutoSpeak((current) => !current)}
-          >
-            Auto Voice {autoSpeak ? 'On' : 'Off'}
-          </button>
-        </div>
-      </div>
-
-      <div className="sifu-console-banner">
-        <div>
-          <span className="console-label">Gateway</span>
-          <strong>Vercel AI Gateway</strong>
-        </div>
-        <div>
-          <span className="console-label">Model</span>
-          <strong>openai/gpt-5.4</strong>
-        </div>
-        <div>
-          <span className="console-label">Voice</span>
-          <strong>{voiceSupported ? 'Browser ready' : 'Browser unavailable'}</strong>
-        </div>
-      </div>
-
-      <div className="sifu-prompt-row">
-        {promptButtons.map((prompt) => (
-          <button
-            key={prompt}
-            type="button"
-            className="prompt-chip-button"
-            onClick={() => void runPrompt(prompt)}
-            disabled={isLoading}
-          >
-            {prompt}
-          </button>
-        ))}
-      </div>
-
       <div className="sifu-messages" aria-live="polite">
         {messages.map((message) => (
           <article key={message.id} className={`sifu-message ${message.role}`}>
@@ -394,17 +342,17 @@ const SifuConsole: React.FC = () => {
           className="console-textarea"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask about doctrine, drills, timing, fitness, or discipline—answers will only use: Tao of Jeet Kune Do, Bruce Lee’s Fighting Method, The Art of Expressing the Human Body, and Living the Martial Way. If not covered, the sifu will say so."
+          placeholder="Ask your question."
           disabled={isLoading}
         />
         <div className="console-actions">
-          <span className="console-hint">Server-side AI Gateway key is used by {apiUrl}. The browser never receives the secret directly.</span>
           <button className="console-submit" type="submit" disabled={isLoading || !input.trim()}>
             {isLoading ? 'Consulting...' : 'Ask The Sifu'}
           </button>
         </div>
       </form>
     </section>
+  );
   );
 };
 
