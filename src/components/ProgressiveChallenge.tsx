@@ -49,12 +49,46 @@ function getCurrentLevel(): string {
   }
 }
 
+
+// Categorize drills for session structure
+const fitnessCategories = {
+  warmup: ['Jump Rope Warmup'],
+  upper: ['Pushups', 'Pull-ups', 'Dumbbell Shoulder Press', 'Resistance Band Rows'],
+  lower: ['Bodyweight Squats', 'Kettlebell Swings'],
+  core: ['Plank', 'Core Circuit'],
+  power: ['Medicine Ball Slams'],
+  cooldown: ['Cool Down Stretch']
+};
+
 function generateFitnessSession(selectedEquipment: string[]): typeof fitnessDrills {
   const level = getCurrentLevel();
-  return fitnessDrills.filter(drill =>
-    drill.equipment.some(eq => selectedEquipment.includes(eq) || eq === 'none') &&
-    drill.levels.includes(level)
-  );
+  // Helper to filter by equipment and level
+  const filter = (names: string[]) =>
+    fitnessDrills.filter(drill =>
+      names.includes(drill.name) &&
+      drill.equipment.some(eq => selectedEquipment.includes(eq) || eq === 'none') &&
+      drill.levels.includes(level)
+    );
+
+  // Always try to include one from each category
+  const pick = (arr: typeof fitnessDrills) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+  const session: typeof fitnessDrills = [];
+  const warmup = pick(filter(fitnessCategories.warmup));
+  if (warmup) session.push(warmup);
+  const upper = pick(filter(fitnessCategories.upper));
+  if (upper) session.push(upper);
+  const lower = pick(filter(fitnessCategories.lower));
+  if (lower) session.push(lower);
+  const core = pick(filter(fitnessCategories.core));
+  if (core) session.push(core);
+  // Optionally add power if available
+  const power = pick(filter(fitnessCategories.power));
+  if (power) session.push(power);
+  const cooldown = pick(filter(fitnessCategories.cooldown));
+  if (cooldown) session.push(cooldown);
+  // Remove duplicates (by name)
+  const unique = session.filter((d, idx, arr) => arr.findIndex(dd => dd.name === d.name) === idx);
+  return unique;
 }
 
 // Props: selectedEquipment: string[]
