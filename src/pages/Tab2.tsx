@@ -63,13 +63,13 @@ const Tab2: React.FC = () => {
   return (
     <IonPage>
       <IonHeader translucent>
-          <WeaponTrainer />
         <IonToolbar className="martial-toolbar minimal-toolbar">
           <IonTitle>Training</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="martial-content minimal-content">
         <div className="martial-page training-page minimal-page">
+          <WeaponTrainer />
           <section className="training-grid minimal-grid">
             {modules.map((module) => (
               <article key={module.title} className="training-card minimal-card">
