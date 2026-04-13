@@ -102,22 +102,10 @@ const Tab1: React.FC = () => {
           {/* Section: Source Canon (detailed breakdown) */}
           <SourceCanon />
 
-          {/* Section: Virtual Sifu and Rules */}
+          {/* Section: Virtual Sifu */}
           <section className="sifu-section">
             <div className="sifu-console-col">
               <SifuConsole />
-            </div>
-            <div className="sifu-rules-col">
-              <article className="martial-card readiness-card">
-                <p className="section-kicker">Behavior Rules</p>
-                <h2>What the virtual sifu is allowed to do</h2>
-                <ul className="text-list">
-                  <li>Answer only from the approved Bruce Lee source set and say when the source set is insufficient.</li>
-                  <li>Prefer direct language, training cues, and practical distinctions over broad philosophy.</li>
-                  <li>Refuse fabricated lineage claims, invented quotations, or unverifiable historical detail.</li>
-                  <li>Turn vague questions into study direction, drills, or reflection prompts tied to the canon.</li>
-                </ul>
-              </article>
             </div>
           </section>
 
