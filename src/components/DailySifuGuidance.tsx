@@ -78,6 +78,9 @@ export default function DailySifuGuidance() {
       <div className="dragon-section">
         <CameraPoseFeedback />
       </div>
+      <div className="dragon-section">
+        <SifuCallsShadowBoxing />
+      </div>
     </section>
   );
 }
