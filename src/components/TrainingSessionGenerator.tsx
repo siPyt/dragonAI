@@ -71,59 +71,6 @@ const drillBreakdowns: Record<string, string[]> = {
     'Pivot on the ball of the rear foot for power.',
     'Retract hand quickly and return to guard.'
   ],
-  'Lead Jab to Body': [
-    'Bend knees and lower your level.',
-    'Extend lead arm in a straight line to opponent’s body, using a vertical fist.',
-    'Retract instantly and return to guard, keeping head protected.'
-  ],
-  'Lead Hook to Head': [
-    'From guard, rotate lead hip and shoulder.',
-    'Swing lead arm in a horizontal arc, elbow bent at 90°, palm facing you.',
-    'Pivot lead foot and snap the hook to opponent’s head.',
-    'Return to guard.'
-  ],
-  'Rear Overhand': [
-    'From guard, drop rear shoulder and bend knees slightly.',
-    'Swing rear fist in a looping arc over the top, aiming for the head.',
-    'Rotate hips and pivot rear foot for power.',
-    'Retract and return to guard.'
-  ],
-  'Lead Long Jab': [
-    'Step forward with lead foot, fully extending lead arm.',
-    'Use a vertical fist and keep rear hand up for defense.',
-    'Snap jab and return to stance.'
-  ],
-  'Step-in Cross': [
-    'Step forward with lead foot as you throw rear cross.',
-    'Rotate hips and shoulders, pivoting rear foot.',
-    'Retract and return to guard.'
-  ],
-  'Lead Uppercut': [
-    'Bend knees, drop lead hand slightly.',
-    'Drive fist upward in a tight arc, palm facing you.',
-    'Rotate lead hip and shoulder for power.',
-    'Return to guard.'
-  ],
-  'Feint Low, Lead Hook High': [
-    'From guard, dip level as if attacking low.',
-    'Quickly shift weight and throw lead hook to head, using a tight arc.',
-    'Return to guard.'
-  ],
-  'Step Back, Bait, Intercept Cross': [
-    'Step back to bait opponent’s attack.',
-    'As they advance, rotate rear hip and throw a sharp rear cross.',
-    'Return to guard.'
-  ],
-  'Slip and Bait, Lead Uppercut': [
-    'Slip head offline to bait attack.',
-    'As opponent commits, drive lead uppercut to chin, using a vertical fist.',
-    'Return to stance.'
-  ],
-  'Draw with Low Guard, Rear Hook': [
-    'Drop hands to bait attack.',
-    'As opponent attacks, swing rear hook to head, rotating hips.',
-    'Return to guard.'
-  ],
   'Feint Jab, Rear Cross': [
     'Feint with lead jab, using a quick shoulder twitch.',
     'Immediately throw rear cross, pivoting rear foot.',
@@ -361,12 +308,19 @@ const getCurrentLevelAndStreak = () => {
   return { level, days, maxStreak };
 };
 
+
+const leadHandOptions = [
+  { value: 'right', label: 'Right Hand Forward (Southpaw)' },
+  { value: 'left', label: 'Left Hand Forward (Orthodox)' }
+];
+
 const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equipment }) => {
   const [session, setSession] = useState<Drill[]>([]);
   const [breakdownDrill, setBreakdownDrill] = useState<Drill | null>(null);
   const [{ level: currentLevel, days: attendanceDays, maxStreak }, setLevelState] = useState(getCurrentLevelAndStreak());
   const [userInfo, setUserInfo] = useState<{height: string, weight: string, age: string} | null>(null);
   const [showUserInfoForm, setShowUserInfoForm] = useState(false);
+  const [leadHand, setLeadHand] = useState<string>(() => window.localStorage.getItem('dragon_ai-lead-hand') || 'right');
 
   useEffect(() => {
     setLevelState(getCurrentLevelAndStreak());
@@ -478,6 +432,22 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
         <div className="plan-note">
           <div>Current Level: <strong>{currentLevel}</strong> | Attendance Days: {attendanceDays} | Max Streak: {maxStreak}</div>
           <div>Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
+          <div style={{ marginTop: 8 }}>
+            <label htmlFor="lead-hand-select"><strong>Lead Hand:</strong> </label>
+            <select
+              id="lead-hand-select"
+              value={leadHand}
+              onChange={e => {
+                setLeadHand(e.target.value);
+                window.localStorage.setItem('dragon_ai-lead-hand', e.target.value);
+              }}
+              style={{ marginLeft: 8 }}
+            >
+              {leadHandOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
           <button
             className="ledger-button update-info"
             onClick={() => setShowUserInfoForm(true)}
@@ -498,14 +468,21 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       {/* Debug output removed for production UI */}
       {session.length > 0 ? (
         <div className="session-drill-list">
-          {session.map((drill, idx) => (
-            <article key={drill.name} className="drill-card" onClick={() => setBreakdownDrill(drill)}>
-              <h3>{idx + 1}. {drill.range} Range: {drill.name}</h3>
-              <p>{drill.description}</p>
-              <span className="drill-source">{drill.source}</span>
-              <div className="drill-breakdown-link">View Step-by-Step</div>
-            </article>
-          ))}
+          {session.map((drill, idx) => {
+            // Adapt explanations for lead hand
+            const lead = leadHand === 'right' ? 'right' : 'left';
+            const rear = leadHand === 'right' ? 'left' : 'right';
+            let name = drill.name.replace(/Lead /gi, `Lead (${lead}) `).replace(/Rear /gi, `Rear (${rear}) `);
+            let desc = drill.description.replace(/lead/gi, `lead (${lead})`).replace(/rear/gi, `rear (${rear})`);
+            return (
+              <article key={drill.name} className="drill-card" onClick={() => setBreakdownDrill(drill)}>
+                <h3>{idx + 1}. {drill.range} Range: {name}</h3>
+                <p>{desc}</p>
+                <span className="drill-source">{drill.source}</span>
+                <div className="drill-breakdown-link">View Step-by-Step</div>
+              </article>
+            );
+          })}
         </div>
       ) : (
         <div className="no-drills-message">
