@@ -163,14 +163,13 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function generateSession() {
-    // Ensure all five ways of attack are covered, and always include at least one pro boxing trapping drill
-    const direct = drills.filter(d => d.description.toLowerCase().includes('direct attack') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    const combo = drills.filter(d => d.description.toLowerCase().includes('combination') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    const indirect = drills.filter(d => d.description.toLowerCase().includes('indirect') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    const drawing = drills.filter(d => d.description.toLowerCase().includes('drawing') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    const immobilization = drills.filter(d => d.description.toLowerCase().includes('immobilization') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    const boxingTrapping = drills.filter(d => d.description.toLowerCase().includes('boxing trapping') && isDrillAvailable(d) && d.levels.includes(currentLevel));
-    // Pick one from each, fallback to any available if empty
+    // Always generate a session from all drills, regardless of level or attendance
+    const direct = drills.filter(d => d.description.toLowerCase().includes('direct attack') && isDrillAvailable(d));
+    const combo = drills.filter(d => d.description.toLowerCase().includes('combination') && isDrillAvailable(d));
+    const indirect = drills.filter(d => d.description.toLowerCase().includes('indirect') && isDrillAvailable(d));
+    const drawing = drills.filter(d => d.description.toLowerCase().includes('drawing') && isDrillAvailable(d));
+    const immobilization = drills.filter(d => d.description.toLowerCase().includes('immobilization') && isDrillAvailable(d));
+    const boxingTrapping = drills.filter(d => d.description.toLowerCase().includes('boxing trapping') && isDrillAvailable(d));
     const pick = (arr: Drill[]) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
     const sessionDrills = [
       pick(direct),
@@ -181,7 +180,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       pick(boxingTrapping)
     ].filter(Boolean) as Drill[];
     // Always add a grappling drill if available
-    const grappling = drills.filter(d => d.range === 'Grappling' && isDrillAvailable(d) && d.levels.includes(currentLevel));
+    const grappling = drills.filter(d => d.range === 'Grappling' && isDrillAvailable(d));
     if (grappling.length) sessionDrills.push(pick(grappling)!);
     setSession(sessionDrills);
   }
