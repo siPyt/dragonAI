@@ -3,6 +3,7 @@ import './Tab2.css';
 
 import TrainingSessionGenerator from '../components/TrainingSessionGenerator';
 import PhysicalFitnessSessionGenerator from '../components/ProgressiveChallenge';
+import WeaponTrainer from '../components/WeaponTrainer';
 import { useState } from 'react';
 
 const Tab2: React.FC = () => {
@@ -62,6 +63,7 @@ const Tab2: React.FC = () => {
   return (
     <IonPage>
       <IonHeader translucent>
+          <WeaponTrainer />
         <IonToolbar className="martial-toolbar minimal-toolbar">
           <IonTitle>Training</IonTitle>
         </IonToolbar>
