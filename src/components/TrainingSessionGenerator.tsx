@@ -80,8 +80,7 @@ interface TrainingSessionGeneratorProps {
   equipment: string[];
 }
 
-const getCurrentLevel = () => {
-  // This should match PromotionTracker logic
+const getCurrentLevelAndStreak = () => {
   const attendance = JSON.parse(window.localStorage.getItem('dragon_ai-attendance') || '{}');
   const days = Object.keys(attendance).filter((d) => attendance[d]).length;
   let streak = 0;
@@ -101,21 +100,22 @@ const getCurrentLevel = () => {
       if (streak > maxStreak) maxStreak = streak;
       prev = d;
     });
-  if (days >= 1350 && maxStreak >= 60) return 'Year 4+: Sifu';
-  if (days >= 1000 && maxStreak >= 45) return 'Year 3: Senior';
-  if (days >= 650 && maxStreak >= 30) return 'Year 2: Practitioner';
-  if (days >= 365 && maxStreak >= 15) return 'Year 1: Fighter';
-  return 'Initiate';
+  let level = 'Initiate';
+  if (days >= 1350 && maxStreak >= 60) level = 'Year 4+: Sifu';
+  else if (days >= 1000 && maxStreak >= 45) level = 'Year 3: Senior';
+  else if (days >= 650 && maxStreak >= 30) level = 'Year 2: Practitioner';
+  else if (days >= 365 && maxStreak >= 15) level = 'Year 1: Fighter';
+  return { level, days, maxStreak };
 };
 
 const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equipment }) => {
   const [session, setSession] = useState<Drill[]>([]);
-  const [currentLevel, setCurrentLevel] = useState<string>(getCurrentLevel());
+  const [{ level: currentLevel, days: attendanceDays, maxStreak }, setLevelState] = useState(getCurrentLevelAndStreak());
   const [userInfo, setUserInfo] = useState<{height: string, weight: string, age: string} | null>(null);
   const [showUserInfoForm, setShowUserInfoForm] = useState(false);
 
   useEffect(() => {
-    setCurrentLevel(getCurrentLevel());
+    setLevelState(getCurrentLevelAndStreak());
     const saved = window.localStorage.getItem('dragon_ai-user-info');
     if (saved) {
       setUserInfo(JSON.parse(saved));
@@ -123,6 +123,16 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       setShowUserInfoForm(true);
     }
   }, []);
+
+  // For demo/testing: allow user to simulate level up
+  function simulateLevelUp() {
+    // Add a day to attendance for today
+    const today = new Date().toISOString().slice(0, 10);
+    const attendance = JSON.parse(window.localStorage.getItem('dragon_ai-attendance') || '{}');
+    attendance[today] = true;
+    window.localStorage.setItem('dragon_ai-attendance', JSON.stringify(attendance));
+    setLevelState(getCurrentLevelAndStreak());
+  }
 
   function handleUserInfoSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -198,13 +208,21 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       )}
       {userInfo && (
         <div className="plan-note">
-          Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs
+          <div>Current Level: <strong>{currentLevel}</strong> | Attendance Days: {attendanceDays} | Max Streak: {maxStreak}</div>
+          <div>Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
           <button
             className="ledger-button"
             style={{ marginLeft: 12, fontSize: 12, padding: '2px 8px' }}
             onClick={() => setShowUserInfoForm(true)}
           >
             Update Info
+          </button>
+          <button
+            className="ledger-button"
+            style={{ marginLeft: 12, fontSize: 12, padding: '2px 8px', background: '#eee', color: '#333' }}
+            onClick={simulateLevelUp}
+          >
+            Simulate Level Up
           </button>
         </div>
       )}
