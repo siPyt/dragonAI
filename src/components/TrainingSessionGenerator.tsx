@@ -240,11 +240,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
       </div>
-      <div style={{marginTop: 16, color: '#c00', fontWeight: 500}}>
-        <pre style={{fontSize: 12, background: '#f9f9f9', color: '#333', padding: 8, border: '1px solid #eee', marginBottom: 8}}>
-          Session debug: {JSON.stringify(session, null, 2)}
-        </pre>
-      </div>
+      {/* Debug output removed for production UI */}
       {session.length > 0 ? (
         <div className="session-drill-list">
           {session.map((drill, idx) => (
