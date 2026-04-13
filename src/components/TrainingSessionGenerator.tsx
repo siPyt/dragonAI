@@ -139,16 +139,10 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function isDrillAvailable(drill: Drill) {
-    // If 'none' is selected and it's the only equipment, allow all drills
-    if (equipment.length === 1 && equipment[0] === 'none') return true;
-    // If any other equipment is selected, allow all drills (no equipment-specific filtering yet)
-    // (Add equipment-specific logic here if/when drills have equipment requirements)
-    if (equipment.length > 0) return true;
-    // Example: adapt for user info (e.g., age-based restrictions)
+    // Always allow all drills regardless of equipment selection
     if (userInfo) {
       const ageNum = parseInt(userInfo.age, 10);
       if (drill.name.toLowerCase().includes('burpee') && ageNum > 55) return false;
-      // Add more logic as needed
     }
     return true;
   }
