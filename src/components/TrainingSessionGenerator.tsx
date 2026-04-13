@@ -139,7 +139,11 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function isDrillAvailable(drill: Drill) {
-    if (equipment.includes('none')) return true;
+    // If 'none' is selected and it's the only equipment, allow all drills
+    if (equipment.length === 1 && equipment[0] === 'none') return true;
+    // If any other equipment is selected, allow all drills (no equipment-specific filtering yet)
+    // (Add equipment-specific logic here if/when drills have equipment requirements)
+    if (equipment.length > 0) return true;
     // Example: adapt for user info (e.g., age-based restrictions)
     if (userInfo) {
       const ageNum = parseInt(userInfo.age, 10);
@@ -215,7 +219,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
       </div>
-      {session.length > 0 && (
+      {session.length > 0 ? (
         <div className="session-drill-list">
           {session.map((drill, idx) => (
             <article key={drill.name} className="drill-card">
@@ -224,6 +228,10 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
               <span className="drill-source">{drill.source}</span>
             </article>
           ))}
+        </div>
+      ) : (
+        <div style={{marginTop: 16, color: '#c00', fontWeight: 500}}>
+          No drills available for your current level and equipment selection.
         </div>
       )}
     </section>
