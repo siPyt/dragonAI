@@ -34,7 +34,7 @@ export default function InfoTab() {
       const days = Object.keys(attendance).filter((d) => attendance[d]).length;
       let streak = 0;
       let maxStreak = 0;
-      let prev = null;
+      let prev: string | null = null;
       Object.keys(attendance)
         .sort()
         .forEach((d) => {
