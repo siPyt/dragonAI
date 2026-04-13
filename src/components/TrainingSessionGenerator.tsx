@@ -199,10 +199,19 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
         </form>
       )}
       {userInfo && (
-        <div className="plan-note">Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs</div>
+        <div className="plan-note">
+          Current Goal: <strong>{currentLevel}</strong> | Age: {userInfo.age}, Height: {userInfo.height}, Weight: {userInfo.weight} lbs
+          <button
+            className="ledger-button"
+            style={{ marginLeft: 12, fontSize: 12, padding: '2px 8px' }}
+            onClick={() => setShowUserInfoForm(true)}
+          >
+            Update Info
+          </button>
+        </div>
       )}
       {/* PromotionChecklist removed for minimal UI */}
-      <button className="ledger-button" onClick={generateSession} disabled={showUserInfoForm}>Generate Session</button>
+      <button className="ledger-button" onClick={generateSession} disabled={!userInfo}>Generate Session</button>
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
       </div>
