@@ -6,20 +6,22 @@ interface Drill {
   description: string;
   source: string;
   levels: string[]; // Promotion levels this drill helps with
+  equipment?: string[]; // Equipment required or recommended for this drill
 }
 
 // 100 authentic drills per attack type, leveled, with source citations
+// Add equipment field to relevant drills
 const drills: Drill[] = [
   // Direct Attack (Initiate to Sifu)
   // Initiate (simple, fundamental)
-  { range: 'Punching', name: 'Lead Straight Punch', description: 'Direct attack: Fire a non-telegraphed lead straight punch to the chin. Recover instantly to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22', levels: ['Initiate', 'Year 1: Fighter'] },
+  { range: 'Punching', name: 'Lead Straight Punch', description: 'Direct attack: Fire a non-telegraphed lead straight punch to the chin. Recover instantly to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22', levels: ['Initiate', 'Year 1: Fighter'], equipment: ['none', 'double-end bag', 'focus mitts'] },
   { range: 'Kicking', name: 'Lead Side Stop Kick', description: 'Direct attack: Intercept with a lead leg stop kick to the knee or midsection.', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34', levels: ['Initiate', 'Year 1: Fighter'] },
-  { range: 'Punching', name: 'Rear Cross', description: 'Direct attack: Throw a rear cross with full rotation, recover to guard.', source: 'The Art of Expressing the Human Body, p. 88', levels: ['Initiate', 'Year 1: Fighter'] },
+  { range: 'Punching', name: 'Rear Cross', description: 'Direct attack: Throw a rear cross with full rotation, recover to guard.', source: 'The Art of Expressing the Human Body, p. 88', levels: ['Initiate', 'Year 1: Fighter'], equipment: ['none', 'heavy bag', 'double-end bag', 'focus mitts'] },
   { range: 'Kicking', name: 'Pendulum Side Kick', description: 'Direct attack: Use a pendulum step to deliver a fast side kick.', source: 'Tao of Jeet Kune Do, p. 56', levels: ['Initiate', 'Year 1: Fighter'] },
-  { range: 'Punching', name: 'Lead Jab to Body', description: 'Direct attack: Jab to the body, recover to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 24', levels: ['Initiate', 'Year 1: Fighter'] },
-  { range: 'Punching', name: 'Lead Hook to Head', description: 'Direct attack: Lead hook to the head, pivot out.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 25', levels: ['Initiate', 'Year 1: Fighter'] },
-  { range: 'Punching', name: 'Rear Overhand', description: 'Direct attack: Throw a rear overhand punch, recover to guard.', source: 'Pro Boxing Advanced', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
-  { range: 'Punching', name: 'Lead Long Jab', description: 'Direct attack: Use a long jab to keep distance.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
+  { range: 'Punching', name: 'Lead Jab to Body', description: 'Direct attack: Jab to the body, recover to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 24', levels: ['Initiate', 'Year 1: Fighter'], equipment: ['none', 'double-end bag', 'focus mitts'] },
+  { range: 'Punching', name: 'Lead Hook to Head', description: 'Direct attack: Lead hook to the head, pivot out.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 25', levels: ['Initiate', 'Year 1: Fighter'], equipment: ['none', 'double-end bag', 'focus mitts'] },
+  { range: 'Punching', name: 'Rear Overhand', description: 'Direct attack: Throw a rear overhand punch, recover to guard.', source: 'Pro Boxing Advanced', levels: ['Year 1: Fighter', 'Year 2: Practitioner'], equipment: ['none', 'heavy bag', 'double-end bag', 'focus mitts'] },
+  { range: 'Punching', name: 'Lead Long Jab', description: 'Direct attack: Use a long jab to keep distance.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner'], equipment: ['none', 'double-end bag', 'focus mitts'] },
   { range: 'Punching', name: 'Step-in Cross', description: 'Direct attack: Step in with a cross, cover distance.', source: 'Pro Boxing Fundamentals', levels: ['Year 1: Fighter', 'Year 2: Practitioner'] },
   { range: 'Punching', name: 'Lead Uppercut', description: 'Direct attack: Lead uppercut from close range.', source: 'Pro Boxing Advanced', levels: ['Year 2: Practitioner', 'Year 3: Senior'] },
   // ...90 more, increasing in complexity and level, all with authentic sources
@@ -149,7 +151,12 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
   }
 
   function isDrillAvailable(drill: Drill) {
-    // Always allow all drills regardless of equipment selection
+    // Equipment filter: if user selected equipment, prefer drills that match
+    if (equipment && equipment.length && !equipment.includes('none')) {
+      if (!drill.equipment || !drill.equipment.some(eq => equipment.includes(eq))) {
+        return false;
+      }
+    }
     if (userInfo) {
       const ageNum = parseInt(userInfo.age, 10);
       if (drill.name.toLowerCase().includes('burpee') && ageNum > 55) return false;
