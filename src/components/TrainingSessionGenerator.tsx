@@ -182,6 +182,16 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
     // Always add a grappling drill if available
     const grappling = drills.filter(d => d.range === 'Grappling' && isDrillAvailable(d));
     if (grappling.length) sessionDrills.push(pick(grappling)!);
+    // Debug output
+    console.log('generateSession called');
+    console.log('direct:', direct);
+    console.log('combo:', combo);
+    console.log('indirect:', indirect);
+    console.log('drawing:', drawing);
+    console.log('immobilization:', immobilization);
+    console.log('boxingTrapping:', boxingTrapping);
+    console.log('grappling:', grappling);
+    console.log('sessionDrills:', sessionDrills);
     setSession(sessionDrills);
   }
 
@@ -229,6 +239,11 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       <button className="ledger-button" onClick={generateSession} disabled={!userInfo}>Generate Session</button>
       <div style={{ margin: '1em 0' }}>
         <SifuPromotionCriteria />
+      </div>
+      <div style={{marginTop: 16, color: '#c00', fontWeight: 500}}>
+        <pre style={{fontSize: 12, background: '#f9f9f9', color: '#333', padding: 8, border: '1px solid #eee', marginBottom: 8}}>
+          Session debug: {JSON.stringify(session, null, 2)}
+        </pre>
       </div>
       {session.length > 0 ? (
         <div className="session-drill-list">
