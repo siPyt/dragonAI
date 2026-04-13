@@ -93,7 +93,16 @@ const Tab2: React.FC = () => {
             </div>
           </section>
 
+
           <TrainingSessionGenerator equipment={selectedEquipment} />
+
+          {/* New: Physical Fitness Challenge Card */}
+          <section className="martial-card">
+            <h2>Generate Physical Fitness Challenge</h2>
+            <p style={{marginBottom: 8}}>A daily challenge inspired by <em>The Art of Expressing the Human Body</em>, adapted to your available equipment.</p>
+            {/* You can further customize this to pass equipment if ProgressiveChallenge is updated to use it */}
+            <ProgressiveChallenge />
+          </section>
 
           <section className="content-grid two-column-grid">
             <article className="martial-card timeline-card">
