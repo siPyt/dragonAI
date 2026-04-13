@@ -14,226 +14,255 @@ interface Drill {
 // 100 authentic drills per attack type, leveled, with source citations
 // Add equipment field to relevant drills
 
-// Authentic step-by-step breakdowns for all drills in the session generator
-// All breakdowns are based on Bruce Lee's books and cited boxing fundamentals
+// Authentic step-by-step breakdowns for all drills, using Bruce Lee's terminology and instructional details
 const drillBreakdowns: Record<string, string[]> = {
+  // Muay Thai Clinch Drills
+  'Double Collar Tie (Muay Thai Clinch)': [
+    'Approach opponent with a tight guard, hands high.',
+    'Swim both hands inside opponent’s arms and place your palms on the back of their head.',
+    'Pull their head down while keeping your elbows tight and close together.',
+    'Keep your hips in, posture upright, and control their posture.',
+    'Use this position to set up knee strikes or off-balance your opponent.',
+    'When: Use when you are close and want to control the opponent’s posture or set up clinch attacks.'
+  ],
+  'Knee Strike from Clinch': [
+    'From double collar tie, pull opponent’s head down to break their posture.',
+    'Drive your hips forward and thrust your knee upward into their midsection or ribs.',
+    'Alternate knees for multiple strikes, keeping your grip tight.',
+    'Return to stance or transition to another clinch attack.',
+    'When: Use when you have secured the clinch and want to deliver powerful, close-range strikes.'
+  ],
+  'Elbow from Clinch': [
+    'From single or double collar tie, create a slight angle by pulling opponent’s head to one side.',
+    'Release one hand and quickly deliver a horizontal or upward elbow to the opponent’s head or jaw.',
+    'Re-secure the clinch or follow up with knees.',
+    'When: Use when opponent is defending knees or you want to surprise with a short-range strike.'
+  ],
+  'Clinch Off-Balance and Dump': [
+    'From double collar tie, step your foot outside opponent’s stance.',
+    'Pull their head sharply to one side while pushing their body the opposite way.',
+    'Use your hips and arms to off-balance and dump them to the ground.',
+    'Maintain control and follow up as needed.',
+    'When: Use when opponent resists your clinch or tries to posture up.'
+  ],
   'Lead Side Stop Kick': [
-    'Assume on-guard stance, weight slightly on rear leg.',
-    'Lift lead knee, chambering the leg.',
-    'Extend heel toward opponent’s knee or midsection.',
-    'Snap the kick out, making contact with the heel.',
-    'Retract leg instantly and return to guard.',
-    'Keep hands up throughout for protection.'
+    'Stand in on-guard stance, weight on rear leg.',
+    'Lift lead knee, keeping body upright.',
+    'Extend lead leg in a straight line, striking with the heel to opponent’s knee or midsection.',
+    'Retract leg instantly and return to on-guard stance.',
+    'Maintain non-telegraphic movement and keep both hands up.'
   ],
   'Lead Straight Punch': [
-    'Start from on-guard stance, relaxed shoulders.',
-    'Without telegraphing, drive lead fist straight toward target.',
-    'Rotate fist so palm faces down at full extension.',
-    'Snap punch out and instantly retract to guard.',
+    'From on-guard, keep shoulders relaxed and chin tucked.',
+    'Fire the lead hand directly toward the target using a vertical fist (palm facing inward).',
+    'Do not telegraph—initiate with a slight forward body lean.',
+    'Snap the punch out and instantly retract to guard.',
     'Exhale sharply as you punch.'
   ],
   'Pendulum Side Kick': [
-    'Begin in fighting stance.',
+    'Begin in fighting stance, weight on rear leg.',
     'Push off rear foot, swinging lead foot forward in a pendulum motion.',
-    'Chamber lead knee, then extend leg in a side kick.',
-    'Strike with heel, aiming for opponent’s midsection.',
-    'Retract leg and return to stance.'
+    'Chamber the knee, then extend leg in a side kick, striking with the heel.',
+    'Retract leg and return to stance, maintaining balance.'
   ],
   'Rear Cross': [
-    'From guard, rotate rear shoulder and hip forward.',
-    'Drive rear fist straight toward target, pivoting rear foot.',
-    'Keep lead hand up for defense.',
-    'Snap punch and return to guard.'
+    'From guard, rotate rear hip and shoulder forward.',
+    'Drive rear fist straight toward target, using a vertical or slightly turned fist.',
+    'Pivot on the ball of the rear foot for power.',
+    'Retract hand quickly and return to guard.'
   ],
   'Lead Jab to Body': [
-    'Bend knees slightly, lower level.',
-    'Extend lead arm in a straight line to opponent’s body.',
-    'Retract instantly and return to guard.'
+    'Bend knees and lower your level.',
+    'Extend lead arm in a straight line to opponent’s body, using a vertical fist.',
+    'Retract instantly and return to guard, keeping head protected.'
   ],
   'Lead Hook to Head': [
     'From guard, rotate lead hip and shoulder.',
-    'Swing lead arm in a horizontal arc to opponent’s head.',
-    'Keep elbow bent, palm facing you.',
-    'Pivot lead foot, then return to guard.'
+    'Swing lead arm in a horizontal arc, elbow bent at 90°, palm facing you.',
+    'Pivot lead foot and snap the hook to opponent’s head.',
+    'Return to guard.'
   ],
   'Rear Overhand': [
-    'From guard, drop rear shoulder slightly.',
-    'Swing rear fist in an arc over the top toward target.',
-    'Rotate hips and pivot rear foot.',
-    'Snap punch and return to guard.'
+    'From guard, drop rear shoulder and bend knees slightly.',
+    'Swing rear fist in a looping arc over the top, aiming for the head.',
+    'Rotate hips and pivot rear foot for power.',
+    'Retract and return to guard.'
   ],
   'Lead Long Jab': [
-    'Extend lead arm fully, stepping forward with lead foot.',
-    'Keep rear hand up for defense.',
+    'Step forward with lead foot, fully extending lead arm.',
+    'Use a vertical fist and keep rear hand up for defense.',
     'Snap jab and return to stance.'
   ],
   'Step-in Cross': [
     'Step forward with lead foot as you throw rear cross.',
-    'Rotate hips and shoulders for power.',
+    'Rotate hips and shoulders, pivoting rear foot.',
     'Retract and return to guard.'
   ],
   'Lead Uppercut': [
     'Bend knees, drop lead hand slightly.',
-    'Drive fist upward in a tight arc to opponent’s chin.',
-    'Rotate lead hip and shoulder.',
+    'Drive fist upward in a tight arc, palm facing you.',
+    'Rotate lead hip and shoulder for power.',
     'Return to guard.'
   ],
   'Feint Low, Lead Hook High': [
     'From guard, dip level as if attacking low.',
-    'Quickly shift weight and throw lead hook to head.',
-    'Recover to guard.'
+    'Quickly shift weight and throw lead hook to head, using a tight arc.',
+    'Return to guard.'
   ],
   'Step Back, Bait, Intercept Cross': [
     'Step back to bait opponent’s attack.',
-    'As they advance, throw a sharp rear cross.',
-    'Recover to guard.'
+    'As they advance, rotate rear hip and throw a sharp rear cross.',
+    'Return to guard.'
   ],
   'Slip and Bait, Lead Uppercut': [
     'Slip head offline to bait attack.',
-    'As opponent commits, drive lead uppercut to chin.',
+    'As opponent commits, drive lead uppercut to chin, using a vertical fist.',
     'Return to stance.'
   ],
   'Draw with Low Guard, Rear Hook': [
     'Drop hands to bait attack.',
-    'As opponent attacks, swing rear hook to head.',
-    'Recover to guard.'
+    'As opponent attacks, swing rear hook to head, rotating hips.',
+    'Return to guard.'
   ],
   'Feint Jab, Rear Cross': [
-    'Feint with lead jab to draw reaction.',
-    'Immediately throw rear cross to target.',
+    'Feint with lead jab, using a quick shoulder twitch.',
+    'Immediately throw rear cross, pivoting rear foot.',
     'Return to guard.'
   ],
   'Step Out, Bait, Lead Hook to Body': [
     'Step out to create angle and bait attack.',
-    'Throw lead hook to opponent’s body.',
+    'Throw lead hook to opponent’s body, using a tight arc.',
     'Return to stance.'
   ],
   'Drop Hands, Double Jab': [
     'Drop hands to bait attack.',
-    'Pop two quick jabs as opponent advances.',
+    'Pop two quick jabs as opponent advances, using vertical fist.',
     'Return to guard.'
   ],
   'Shoulder Roll, Counter Uppercut': [
-    'Roll shoulder to slip punch.',
-    'Immediately counter with rear uppercut.',
+    'Roll shoulder to slip punch, keeping chin tucked.',
+    'Immediately counter with rear uppercut, driving fist upward.',
     'Return to stance.'
   ],
   'Jab, Feint, Low Side Kick': [
-    'Jab with lead hand to draw guard.',
-    'Feint with upper body.',
-    'Deliver low side kick to opponent’s leg.',
+    'Jab with lead hand, using a vertical fist.',
+    'Feint with upper body, then deliver low side kick to opponent’s lead leg.',
     'Return to stance.'
   ],
   'Jab, Cross, Feint, Lead Hook': [
-    'Throw jab, then cross.',
-    'Feint with upper body.',
-    'Throw lead hook to head.',
+    'Throw jab, then cross, both with vertical fists.',
+    'Feint with upper body, then throw lead hook to head.',
     'Return to guard.'
   ],
   'Jab, Feint, Rear Uppercut': [
-    'Jab to draw guard.',
-    'Feint, then throw rear uppercut to chin.',
+    'Jab to draw guard, using a vertical fist.',
+    'Feint, then throw rear uppercut to chin, palm facing you.',
     'Return to stance.'
   ],
   'Jab, Cross, Feint, Rear Hook': [
-    'Jab, then cross.',
-    'Feint, then throw rear hook to head.',
+    'Jab, then cross, both with vertical fists.',
+    'Feint, then throw rear hook to head, rotating hips.',
     'Return to guard.'
   ],
   'Jab, Feint, Lead Hook to Body': [
-    'Jab, feint, then throw lead hook to body.',
+    'Jab, feint, then throw lead hook to body, using a tight arc.',
     'Return to stance.'
   ],
   'Jab, Cross, Feint, Lead Uppercut': [
-    'Jab, cross, feint, then throw lead uppercut.',
+    'Jab, cross, feint, then throw lead uppercut, palm facing you.',
     'Return to guard.'
   ],
   'Jab, Feint, Step-in Cross': [
-    'Jab, feint, then step in with rear cross.',
+    'Jab, feint, then step in with rear cross, pivoting rear foot.',
     'Return to stance.'
   ],
   'Jab, Cross, Feint, Rear Overhand': [
-    'Jab, cross, feint, then throw rear overhand.',
+    'Jab, cross, feint, then throw rear overhand, looping over the top.',
     'Return to guard.'
   ],
   'Pak Sao, Straight Punch': [
-    'From guard, use lead hand to parry (pak sao) opponent’s lead hand.',
-    'Immediately fire straight punch with rear hand.',
+    'From guard, use lead hand to parry (pak sao) opponent’s lead hand, palm outward.',
+    'Immediately fire straight punch with rear hand, using a vertical fist.',
     'Return to stance.'
   ],
   'Lap Sao, Backfist': [
     'From guard, grab (lap sao) opponent’s wrist with lead hand.',
-    'Pull and simultaneously strike with backfist.',
+    'Pull and simultaneously strike with backfist, using a snapping motion.',
     'Return to guard.'
   ],
   'Parry and Grab, Lead Hook': [
-    'Parry opponent’s punch with rear hand.',
-    'Grab wrist and throw lead hook to head.',
+    'Parry opponent’s punch with rear hand, palm outward.',
+    'Grab wrist and throw lead hook to head, pivoting lead foot.',
     'Return to stance.'
   ],
   'Hand Trap, Rear Uppercut': [
-    'Trap opponent’s hand with lead hand.',
-    'Throw rear uppercut to chin.',
+    'Trap opponent’s hand with lead hand, pressing it down.',
+    'Throw rear uppercut to chin, palm facing you.',
     'Return to guard.'
   ],
   'Wrist Control, Lead Shovel Hook': [
     'Control opponent’s wrist with lead hand.',
-    'Throw lead shovel hook to body.',
+    'Throw lead shovel hook to body, palm facing up.',
     'Return to stance.'
   ],
   'Parry, Frame, Cross': [
-    'Parry punch with lead hand.',
-    'Frame with forearm, then throw rear cross.',
+    'Parry punch with lead hand, palm outward.',
+    'Frame with forearm, then throw rear cross, pivoting rear foot.',
     'Return to guard.'
   ],
   'Hand Pin, Lead Hook to Body': [
-    'Pin opponent’s hand with lead hand.',
-    'Throw lead hook to body.',
+    'Pin opponent’s hand with lead hand, pressing it to their body.',
+    'Throw lead hook to body, using a tight arc.',
     'Return to stance.'
   ],
   'Jab-Cross-Hook Combo': [
-    'Throw jab, then cross, then lead hook in rapid succession.',
+    'Throw jab (vertical fist), then cross (vertical or slightly turned fist), then lead hook (elbow bent, palm facing you) in rapid succession.',
     'Keep hands up and recover to guard.'
   ],
   'Jab, Cross, Low Side Kick': [
-    'Throw jab, then cross.',
-    'Immediately deliver low side kick with lead leg.',
+    'Throw jab (vertical fist), then cross.',
+    'Immediately deliver low side kick with lead leg, striking with the heel.',
     'Return to stance.'
   ],
   'Jab, Cross, Lead Uppercut, Rear Cross': [
-    'Throw jab, cross, lead uppercut, then rear cross in sequence.',
+    'Throw jab, cross, lead uppercut (palm facing you), then rear cross in sequence.',
     'Recover to guard.'
   ],
   'Jab, Cross, Lead Hook, Lead Uppercut': [
-    'Throw jab, cross, lead hook, then lead uppercut.',
+    'Throw jab, cross, lead hook (elbow bent, palm facing you), then lead uppercut (palm facing you).',
     'Return to stance.'
   ],
   'Jab, Cross, Rear Uppercut, Lead Hook': [
-    'Throw jab, cross, rear uppercut, then lead hook.',
+    'Throw jab, cross, rear uppercut (palm facing you), then lead hook.',
     'Recover to guard.'
   ],
   'Jab, Lead Hook, Cross, Rear Hook': [
-    'Throw jab, lead hook, cross, then rear hook.',
+    'Throw jab, lead hook (elbow bent), cross, then rear hook (rotating hips).',
     'Return to stance.'
   ],
   'Jab, Cross, Jab, Cross': [
-    'Throw jab, cross, jab, cross in sequence.',
+    'Throw jab, cross, jab, cross in sequence, all with vertical fists.',
     'Recover to guard.'
   ],
   'Jab, Cross, Lead Hook to Body, Rear Hook to Head': [
-    'Throw jab, cross, lead hook to body, then rear hook to head.',
+    'Throw jab, cross, lead hook to body (tight arc), then rear hook to head (rotating hips).',
     'Return to stance.'
   ],
   'Jab, Cross, Rear Hook, Lead Uppercut': [
-    'Throw jab, cross, rear hook, then lead uppercut.',
+    'Throw jab, cross, rear hook (rotating hips), then lead uppercut (palm facing you).',
     'Recover to guard.'
   ],
   'Jab, Cross, Slip, Rear Cross': [
-    'Throw jab, cross, slip head offline, then throw rear cross.',
+    'Throw jab, cross, slip head offline, then throw rear cross (pivoting rear foot).',
     'Return to stance.'
   ],
 };
 const drills: Drill[] = [
+  // Muay Thai Clinch (Trapping)
+  { range: 'Trapping', name: 'Double Collar Tie (Muay Thai Clinch)', description: 'Secure both hands behind opponent’s head to control posture and set up clinch attacks.', source: 'Muay Thai, JKD integration', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Trapping', name: 'Knee Strike from Clinch', description: 'Deliver powerful knee strikes from the clinch position.', source: 'Muay Thai, JKD integration', levels: ['Year 1: Fighter', 'Year 2: Practitioner', 'Year 3: Senior'] },
+  { range: 'Trapping', name: 'Elbow from Clinch', description: 'Use elbows from the clinch to attack the head or jaw.', source: 'Muay Thai, JKD integration', levels: ['Year 2: Practitioner', 'Year 3: Senior', 'Year 4+: Sifu'] },
+  { range: 'Trapping', name: 'Clinch Off-Balance and Dump', description: 'Off-balance and dump opponent from the clinch using posture and leverage.', source: 'Muay Thai, JKD integration', levels: ['Year 2: Practitioner', 'Year 3: Senior', 'Year 4+: Sifu'] },
   // Direct Attack (Initiate to Sifu)
   // Initiate (simple, fundamental)
   { range: 'Punching', name: 'Lead Straight Punch', description: 'Direct attack: Fire a non-telegraphed lead straight punch to the chin. Recover instantly to guard.', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22', levels: ['Initiate', 'Year 1: Fighter'], equipment: ['none', 'double-end bag', 'focus mitts'] },
