@@ -182,7 +182,7 @@ export default function SifuCallsShadowBoxing() {
         <input
           id="pace-slider"
           type="range"
-          min={3}
+          min={1}
           max={15}
           value={pace}
           onChange={e => setPace(Number(e.target.value))}
