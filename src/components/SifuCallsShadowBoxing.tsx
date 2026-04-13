@@ -10,50 +10,54 @@ interface Combo {
 
 // 100 authentic combos per attack type, leveled, with source citations
 const combos: Combo[] = [
-    // Muay Thai Clinch (Trapping) - for Year 2: Practitioner and above
+    // Trapping range: Boxing and Muay Thai clinch only (no JKD trapping)
     ...[
-      { type: 'Trapping (Clinch)', call: 'Double Collar Tie (Muay Thai Clinch)', source: 'Muay Thai, JKD integration' },
-      { type: 'Trapping (Clinch)', call: 'Knee strike from clinch', source: 'Muay Thai, JKD integration' },
-      { type: 'Trapping (Clinch)', call: 'Elbow from clinch', source: 'Muay Thai, JKD integration' },
-      { type: 'Trapping (Clinch)', call: 'Clinch off-balance and dump', source: 'Muay Thai, JKD integration' },
+      { type: 'Trapping (Clinch)', call: 'Double Collar Tie (Muay Thai Clinch)', source: 'Muay Thai' },
+      { type: 'Trapping (Clinch)', call: 'Knee strike from clinch', source: 'Muay Thai' },
+      { type: 'Trapping (Clinch)', call: 'Elbow from clinch', source: 'Muay Thai' },
+      { type: 'Trapping (Clinch)', call: 'Clinch off-balance and dump', source: 'Muay Thai' },
+      { type: 'Trapping (Boxing)', call: 'Shoulder bump, lead uppercut (right hand forward)', source: 'Boxing' },
+      { type: 'Trapping (Boxing)', call: 'Tie up, break, rear hook (right hand forward)', source: 'Boxing' },
+      { type: 'Trapping (Boxing)', call: 'Inside clinch, short cross (right hand forward)', source: 'Boxing' },
+      { type: 'Trapping (Boxing)', call: 'Frame with forearm, lead hook (right hand forward)', source: 'Boxing' },
     ],
   // Direct Attack (Initiate to Sifu)
   ...[
     // Initiate (simple, fundamental)
-    { type: 'Direct Attack', call: 'Lead Straight Punch', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 22' },
-    { type: 'Direct Attack', call: 'Lead Side Stop Kick', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 34' },
-    { type: 'Direct Attack', call: 'Rear Cross', source: 'The Art of Expressing the Human Body, p. 88' },
-    { type: 'Direct Attack', call: 'Pendulum Side Kick', source: 'Tao of Jeet Kune Do, p. 56' },
-    { type: 'Direct Attack', call: 'Lead Jab to Body', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 24' },
-    { type: 'Direct Attack', call: 'Lead Hook to Head', source: 'Bruce Lee’s Fighting Method, Vol. 1, p. 25' },
-    { type: 'Direct Attack', call: 'Rear Overhand', source: 'Pro Boxing Advanced' },
-    { type: 'Direct Attack', call: 'Lead Long Jab', source: 'Pro Boxing Fundamentals' },
-    { type: 'Direct Attack', call: 'Step-in Cross', source: 'Pro Boxing Fundamentals' },
-    { type: 'Direct Attack', call: 'Lead Uppercut', source: 'Pro Boxing Advanced' },
+    { type: 'Direct Attack', call: 'Lead Straight Punch (right hand forward)', source: 'Bruce Lee’s Fighting Method' },
+    { type: 'Direct Attack', call: 'Lead Side Stop Kick', source: 'Bruce Lee’s Fighting Method' },
+    { type: 'Direct Attack', call: 'Rear Cross (from JKD stance)', source: 'The Art of Expressing the Human Body' },
+    { type: 'Direct Attack', call: 'Pendulum Side Kick', source: 'Tao of Jeet Kune Do' },
+    { type: 'Direct Attack', call: 'Lead Jab to Body (vertical fist, right hand forward)', source: 'Bruce Lee’s Fighting Method' },
+    { type: 'Direct Attack', call: 'Lead Hook to Head (right hand forward)', source: 'Bruce Lee’s Fighting Method' },
+    { type: 'Direct Attack', call: 'Rear Overhand (from JKD stance)', source: 'Boxing adapted for JKD' },
+    { type: 'Direct Attack', call: 'Lead Long Jab (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Direct Attack', call: 'Step-in Cross (from JKD stance)', source: 'Boxing adapted for JKD' },
+    { type: 'Direct Attack', call: 'Lead Uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
     // ...90 more, increasing in complexity and level, all with authentic sources
   ],
   // Attack by Drawing (Initiate to Sifu)
   ...[
-    { type: 'Attack by Drawing', call: 'Feint low, then lead hook high', source: 'Tao of Jeet Kune Do, p. 67' },
-    { type: 'Attack by Drawing', call: 'Step back, bait, then intercept with cross', source: 'Bruce Lee’s Fighting Method, Vol. 2, p. 41' },
-    { type: 'Attack by Drawing', call: 'Slip and bait, then lead uppercut', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Drawing', call: 'Draw with low guard, counter with rear hook', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Drawing', call: 'Feint jab, then rear cross', source: 'Pro Boxing Fundamentals' },
-    { type: 'Attack by Drawing', call: 'Step out, bait, then lead hook to body', source: 'Pro Boxing Fundamentals' },
-    { type: 'Attack by Drawing', call: 'Drop hands, bait, then double jab', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Drawing', call: 'Shoulder roll, bait, then counter uppercut', source: 'Pro Boxing Advanced' },
+    { type: 'Attack by Drawing', call: 'Feint low (right hand), then lead hook high', source: 'Tao of Jeet Kune Do' },
+    { type: 'Attack by Drawing', call: 'Step back, bait, then intercept with cross (right hand forward)', source: 'Bruce Lee’s Fighting Method' },
+    { type: 'Attack by Drawing', call: 'Slip and bait, then lead uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Drawing', call: 'Draw with low guard, counter with rear hook (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Drawing', call: 'Feint cross (right hand), lead hook', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Drawing', call: 'Step out, bait, then lead hook to body (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Drawing', call: 'Drop hands, bait, then double jab (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Drawing', call: 'Shoulder roll, bait, then counter uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
     // ...92 more, leveled, authentic
   ],
   // Progressive Indirect Attack (Initiate to Sifu)
   ...[
-    { type: 'Progressive Indirect Attack', call: 'Jab, feint, then low side kick', source: 'Tao of Jeet Kune Do, p. 70' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint, lead hook', source: 'The Art of Expressing the Human Body, p. 89' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, feint, rear uppercut', source: 'Pro Boxing Fundamentals' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint, rear hook', source: 'Pro Boxing Advanced' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, feint, lead hook to body', source: 'Pro Boxing Fundamentals' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint, lead uppercut', source: 'Pro Boxing Advanced' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, feint, step-in cross', source: 'Pro Boxing Fundamentals' },
-    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint, rear overhand', source: 'Pro Boxing Advanced' },
+    { type: 'Progressive Indirect Attack', call: 'Jab (right hand forward), feint cross, then low side kick', source: 'Tao of Jeet Kune Do' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, cross (right hand forward), feint lead hook', source: 'The Art of Expressing the Human Body' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, feint cross, rear uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint rear hook (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, feint cross, lead hook to body (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint lead uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, feint cross, step-in cross (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Progressive Indirect Attack', call: 'Jab, cross, feint rear overhand (right hand forward)', source: 'Boxing adapted for JKD' },
     // ...92 more, leveled, authentic
   ],
   // Hand Immobilization Attack (Initiate to Sifu)
@@ -69,16 +73,16 @@ const combos: Combo[] = [
   ],
   // Attack by Combination (Initiate to Sifu)
   ...[
-    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear uppercut', source: 'The Art of Expressing the Human Body, p. 88' },
-    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, low side kick', source: 'Tao of Jeet Kune Do, p. 71' },
-    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear hook', source: 'Pro Boxing Fundamentals' },
-    { type: 'Attack by Combination', call: 'Jab, cross, lead uppercut, rear cross', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, lead uppercut', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Combination', call: 'Jab, cross, rear uppercut, lead hook', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Combination', call: 'Jab, lead hook, cross, rear hook', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Combination', call: 'Jab, cross, jab, cross', source: 'Pro Boxing Fundamentals' },
-    { type: 'Attack by Combination', call: 'Jab, cross, lead hook to body, rear hook to head', source: 'Pro Boxing Advanced' },
-    { type: 'Attack by Combination', call: 'Jab, cross, rear hook, lead uppercut', source: 'Pro Boxing Advanced' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear uppercut (right hand forward)', source: 'The Art of Expressing the Human Body' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, low side kick (right hand forward)', source: 'Tao of Jeet Kune Do' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, rear hook (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead uppercut, rear cross (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead hook, lead uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, rear uppercut, lead hook (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, lead hook, cross, rear hook (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, jab, cross (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, lead hook to body, rear hook to head (right hand forward)', source: 'Boxing adapted for JKD' },
+    { type: 'Attack by Combination', call: 'Jab, cross, rear hook, lead uppercut (right hand forward)', source: 'Boxing adapted for JKD' },
     // ...90 more, leveled, authentic
   ],
 ];
