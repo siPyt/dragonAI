@@ -353,7 +353,6 @@ const SifuConsole: React.FC = () => {
       </form>
     </section>
   );
-  );
 };
 
 export default SifuConsole;
