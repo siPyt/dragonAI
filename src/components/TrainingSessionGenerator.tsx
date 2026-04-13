@@ -75,7 +75,7 @@ function getRandomDrill(range: Drill['range']) {
 
 
 import PromotionTracker from './PromotionTracker';
-import SifuPromotionCriteria from './SifuPromotionCriteria';
+// import SifuPromotionCriteria from './SifuPromotionCriteria';
 import PromotionChecklist from './PromotionChecklist';
 
 interface TrainingSessionGeneratorProps {
@@ -244,9 +244,7 @@ const TrainingSessionGenerator: React.FC<TrainingSessionGeneratorProps> = ({ equ
       )}
       {/* PromotionChecklist removed for minimal UI */}
       <button className="ledger-button" onClick={generateSession} disabled={!userInfo}>Generate Session</button>
-      <div style={{ margin: '1em 0' }}>
-        <SifuPromotionCriteria />
-      </div>
+      {/* SifuPromotionCriteria removed to avoid Info duplication on Training page */}
       {/* Debug output removed for production UI */}
       {session.length > 0 ? (
         <div className="session-drill-list">
