@@ -1,6 +1,8 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
+
 import TrainingSessionGenerator from '../components/TrainingSessionGenerator';
+import { useState } from 'react';
 
 const Tab2: React.FC = () => {
   const modules = [
@@ -25,6 +27,37 @@ const Tab2: React.FC = () => {
     'Recovery and breath control'
   ]; // Kept generic, no quotes
 
+  const equipmentOptions = [
+    'none',
+    'heavy bag',
+    'double-end bag',
+    'focus mitts',
+    'dumbbells',
+    'pull-up bar',
+    'jump rope',
+    'medicine ball',
+    'kettlebell',
+    'resistance bands',
+    'mat',
+    'timer',
+    'mirror',
+  ];
+  const [selectedEquipment, setSelectedEquipment] = useState<string[]>(['none']);
+
+  const handleEquipmentChange = (eq: string) => {
+    setSelectedEquipment((prev) => {
+      if (eq === 'none') {
+        return ['none'];
+      }
+      const filtered = prev.filter((e) => e !== 'none');
+      if (prev.includes(eq)) {
+        return filtered.filter((e) => e !== eq);
+      } else {
+        return [...filtered, eq];
+      }
+    });
+  };
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -43,7 +76,24 @@ const Tab2: React.FC = () => {
             ))}
           </section>
 
-          <TrainingSessionGenerator equipment={['none']} />
+          <section className="equipment-section" style={{ margin: '1em 0' }}>
+            <h3>Available Equipment</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              {equipmentOptions.map((eq) => (
+                <label key={eq} style={{ fontSize: 14, marginRight: 16 }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedEquipment.includes(eq)}
+                    onChange={() => handleEquipmentChange(eq)}
+                    disabled={eq === 'none' && selectedEquipment.length > 1}
+                  />
+                  {eq.charAt(0).toUpperCase() + eq.slice(1)}
+                </label>
+              ))}
+            </div>
+          </section>
+
+          <TrainingSessionGenerator equipment={selectedEquipment} />
 
           <section className="content-grid two-column-grid">
             <article className="martial-card timeline-card">
