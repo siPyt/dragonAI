@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './WeaponTrainer.css';
 
 // Authentic weapon/technique list (expand as needed)
 const weapons = [

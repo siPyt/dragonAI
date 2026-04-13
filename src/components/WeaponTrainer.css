@@ -1,0 +1,8 @@
+/* WeaponTrainer specific styles */
+.weapon-trainer select, .weapon-trainer select option {
+  color: #111 !important;
+  background: #fff;
+}
+.weapon-trainer select:disabled, .weapon-trainer select option:disabled {
+  color: #888 !important;
+}

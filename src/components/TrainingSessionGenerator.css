@@ -54,3 +54,13 @@
   color: #c00;
   font-weight: 500;
 }
+
+/* Ensure dropdowns and options are readable */
+select, select option {
+  color: #111 !important;
+  background: #fff;
+}
+select:disabled, select option:disabled {
+  color: #888 !important;
+}
+}
